@@ -10,6 +10,7 @@ import Foundation
 
 protocol delegateUpdateView {
     func updateHints(hints:Int)
+    func addCard(name: String)
 }
 
 
@@ -18,7 +19,7 @@ class Game{
     var delegate: delegateUpdateView?
     
     func setupGame(){
-        
+        delegate?.addCard(name: "deck")
     }
     
     

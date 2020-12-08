@@ -22,11 +22,10 @@ class GameViewController: UIViewController {
             
         //Create deck in the center of the screen
         deckOfCards = addCard(name: "deck")
-        //deckOfCards = createHanabiCardAtLocation(hand: 4, card: 1, location: layout.centerOfScreen)
     deckOfCards.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(deckTappedAction)))
         deckOfCards.isFaceUp  = false
     }
-    
+   
     var handLookup = ["deck":4]
     var cardLookup = ["deck":1]
     
