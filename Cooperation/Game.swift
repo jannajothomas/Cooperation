@@ -7,3 +7,19 @@
 //
 
 import Foundation
+
+protocol delegateUpdateView {
+    func updateHints(hints:Int)
+}
+
+
+
+class Game{
+    var delegate: delegateUpdateView?
+    
+    func setupGame(){
+        
+    }
+    
+    
+}
