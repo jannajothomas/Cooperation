@@ -19,7 +19,7 @@ class Game{
     var delegate: delegateUpdateView?
     
     func setupGame(){
-        delegate?.addCard(name: "deck")
+        delegate?.addCard(name: "deck" )
     }
     
     

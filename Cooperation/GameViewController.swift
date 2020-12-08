@@ -10,42 +10,23 @@ import UIKit
 
 class GameViewController: UIViewController {
     var game = Game()
-    var deckOfCards = Card()
-    //var layout = Layout()
+    //Array of views
+    var cardArray = Array(repeating: Array(repeating: Card(), count: 5), count: 5)
+    public var cardHeight = 80
+    public var cardWidth = 50
     
     override func viewDidLoad() {
-        //Load the view
         super.viewDidLoad()
         
         game.delegate = self
         game.setupGame()
 
-            
-        //Create deck in the center of the screen
-        //deckOfCards = addCard(name: "deck")
-    deckOfCards.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(deckTappedAction)))
-        deckOfCards.isFaceUp  = false
+        //deckOfCards.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(deckTappedAction)))
+        //deckOfCards.isFaceUp  = false
     }
-   
-    var handLookup = ["deck":4]
-    var cardLookup = ["deck":1]
+
     
-    private func addCard(name: String)->Card{
-         return addCard(hand: handLookup[name]!, card: cardLookup[name]!)
-    }
-    
-    private func addCard(hand: Int, card: Int)->Card{
-        let newCard = drawCard(hand: hand, card: card)
-        //newCard.frame.size = layout.Size(Details: screenDetails)
-        //newCard.center = location
-        newCard.handTag = hand
-        newCard.cardTag = card
-        newCard.isFaceUp = false
-        newCard.backgroundColor = UIColor.clear
-        return newCard
-    }
-    
-    
+    /*
     private func createHanabiCardAtLocation(hand: Int, card: Int, location: CGPoint)->Card{
         let  newCard = drawCard(hand: hand, card: card)
         //newCard.frame.size = layout.Size(Details: screenDetails)
@@ -57,7 +38,7 @@ class GameViewController: UIViewController {
         view.addSubview(newCard)
         //print(view)
         return newCard
-    }
+    }*/
 
     @objc func deckTappedAction(){
         /*if(dealingComplete){
@@ -567,8 +548,26 @@ extension GameViewController: delegateUpdateView{
         print("got message to update hints")
     }
     
+ 
     func addCard(name: String) {
-        print("got message to add card " + name)
+        let handLookup = ["deck":4]
+        let cardLookup = ["deck":1]
+        let hand = handLookup[name]
+        let card = cardLookup[name]
+        cardArray[hand!][card!] = drawCard(hand: hand!, card: card!)
+        cardArray[hand!][card!].frame.size = CGSize(width: cardWidth,height: cardHeight)
+        cardArray[hand!][card!].center = CGPoint(x:100, y:100)
+        //let rect = CGRect(x: 10, y: 10, width: 100, height: 100)
+        //let myView = UIView(frame: rect)
+        
+        //cardArray[hand!][card!].frame =  CGFrame(
+        
+         //newCard.frame.size = layout.Size(Details: screenDetails)
+         //newCard.center = location.
+        cardArray[hand!][card!].backgroundColor = UIColor.clear
+         //newCard.isFaceUp = false
+        view.addSubview(cardArray[hand!][card!])
+        //cardArray[hand!][card!]
     }
     
     
