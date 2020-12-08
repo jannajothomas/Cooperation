@@ -11,17 +11,18 @@ import UIKit
 class GameViewController: UIViewController {
     var game = Game()
     var deckOfCards = Card()
-    var layout = Layout()
+    //var layout = Layout()
     
     override func viewDidLoad() {
         //Load the view
         super.viewDidLoad()
-        //Setup game
+        
+        game.delegate = self
         game.setupGame()
-        game.delegate = self as? delegateUpdateView
+
             
         //Create deck in the center of the screen
-        deckOfCards = addCard(name: "deck")
+        //deckOfCards = addCard(name: "deck")
     deckOfCards.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(deckTappedAction)))
         deckOfCards.isFaceUp  = false
     }
@@ -560,3 +561,15 @@ class GameViewController: UIViewController {
  }
 
  */
+
+extension GameViewController: delegateUpdateView{
+    func updateHints(hints: Int) {
+        print("got message to update hints")
+    }
+    
+    func addCard(name: String) {
+        print("got message to add card " + name)
+    }
+    
+    
+}
