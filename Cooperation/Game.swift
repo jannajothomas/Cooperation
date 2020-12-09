@@ -11,16 +11,30 @@ import Foundation
 protocol delegateUpdateView {
     func updateHints(hints:Int)
     func addCard(name: String)
+    
+    func draw()
+    func discard()
+    func play()
+    func hint()
+    
 }
 
-
-
 class Game{
+    
+    var deck = Deck()
+    var player = Player()
+    var hints = Hint()
+    var playerTurn = true
+    public var dealingComplete = false
+    
     var delegate: delegateUpdateView?
     
     func setupGame(){
         delegate?.addCard(name: "deck" )
+        
     }
     
     
 }
+
+

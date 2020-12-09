@@ -1,5 +1,5 @@
 //
-//  Card.swift
+//  Hand.swift
 //  Cooperation
 //
 //  Created by Susan Jensen on 12/9/20.
@@ -7,7 +7,3 @@
 //
 
 import Foundation
-
-class Card{
-    
-}

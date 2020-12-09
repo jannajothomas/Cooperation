@@ -6,14 +6,16 @@
 //  Copyright © 2020 Personal. All rights reserved.
 //
 
+
+//This is really concerned with making info from the model visible.
 import UIKit
 
 class GameViewController: UIViewController {
     var game = Game()
     //Array of views
-    var cardArray = Array(repeating: Array(repeating: Card(), count: 5), count: 5)
-    public var cardHeight = 80
-    public var cardWidth = 50
+    var cardArray = Array(repeating: Array(repeating: CardView(), count: 5), count: 5)
+    public var cardHeight = 160
+    public var cardWidth = 100
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,20 +43,19 @@ class GameViewController: UIViewController {
     }*/
 
     @objc func deckTappedAction(){
-        /*if(dealingComplete){
-            //Draw a new card if it is the player's turn
-            print("put code here to draw a new card")
+        print("Deck tapped")
+        if(game.dealingComplete == true){
+            //TODO: Notify the game that a card should be drawn
         }else{
-            //Do dealing animation sequence
-            PlayerCardView[0][0]  = createHanabiCardAtLocation(hand: 0, card: 0, location: layout.Location(Details: screenDetails, item: CardIdentity(hand: -1, card: 1, cardIndex: 1)))
-            PlayerCardView[0][0].isFaceUp = false
-            dealCards(hand: 0, card: 0)
-        }*/
+             //TODO: Notify the game that the game should start
+        }
+        //delegate?.addCard(name: "deck" )
+        print("deck tapped")
     }
     
     //This is called when a new card is created during the card dealing process
-    func drawCard(hand: Int, card: Int)->Card{
-        let newCard = Card()
+    func drawCard(hand: Int, card: Int)->CardView{
+        let newCard = CardView()
         if hand == 0{
             //newCard.num = game.stacksOfCards.playerHands[hand][card].num.rawValue
             //newCard.cardBackgroundColor = game.getUIColor(card: game.stacksOfCards.playerHands[hand][card])
@@ -544,7 +545,24 @@ class GameViewController: UIViewController {
  */
 
 extension GameViewController: delegateUpdateView{
+    func draw() {
+        print("draw")
+    }
+    
+    func discard() {
+        print("discard")
+    }
+    
+    func play() {
+        print("play")
+    }
+    
+    func hint() {
+        print("hint")
+    }
+    
     func updateHints(hints: Int) {
+        //TODO:
         print("got message to update hints")
     }
     
@@ -554,21 +572,24 @@ extension GameViewController: delegateUpdateView{
         let cardLookup = ["deck":1]
         let hand = handLookup[name]
         let card = cardLookup[name]
+        
+        //TODO:
         cardArray[hand!][card!] = drawCard(hand: hand!, card: card!)
-        cardArray[hand!][card!].frame.size = CGSize(width: cardWidth,height: cardHeight)
-        cardArray[hand!][card!].center = CGPoint(x:100, y:100)
-        //let rect = CGRect(x: 10, y: 10, width: 100, height: 100)
-        //let myView = UIView(frame: rect)
+        cardArray[hand!][card!].frame = CGRect(x: 100, y: 100, width: cardWidth, height:cardHeight)
         
-        //cardArray[hand!][card!].frame =  CGFrame(
         
-         //newCard.frame.size = layout.Size(Details: screenDetails)
-         //newCard.center = location.
         cardArray[hand!][card!].backgroundColor = UIColor.clear
-         //newCard.isFaceUp = false
+        //TODO: Do I need this?
+        //newCard.isFaceUp = false
+        
+        switch(name){
+            case "deck":
+                cardArray[hand!][card!].addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(deckTappedAction)))
+                cardArray[hand!][card!].isFaceUp = false
+            default:
+                print("error, name is not found in addCard")
+        }
+        
         view.addSubview(cardArray[hand!][card!])
-        //cardArray[hand!][card!]
     }
-    
-    
 }

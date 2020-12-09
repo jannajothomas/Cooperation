@@ -15,9 +15,14 @@
 		D5E5CAF5257F15C0000D0B72 /* CooperationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E5CAF4257F15C0000D0B72 /* CooperationTests.swift */; };
 		D5E5CB00257F15C0000D0B72 /* CooperationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E5CAFF257F15C0000D0B72 /* CooperationUITests.swift */; };
 		D5E5CB0E257F187A000D0B72 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E5CB0D257F187A000D0B72 /* Game.swift */; };
-		D5E5CB10257FA6C0000D0B72 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E5CB0F257FA6C0000D0B72 /* Card.swift */; };
+		D5E5CB10257FA6C0000D0B72 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E5CB0F257FA6C0000D0B72 /* CardView.swift */; };
 		D5E5CB12257FA886000D0B72 /* Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E5CB11257FA886000D0B72 /* Layout.swift */; };
 		D5E5CB14257FD699000D0B72 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5E5CB13257FD699000D0B72 /* Main.storyboard */; };
+		D5E5CB162581205C000D0B72 /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E5CB152581205C000D0B72 /* Deck.swift */; };
+		D5E5CB182581208F000D0B72 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E5CB172581208F000D0B72 /* Card.swift */; };
+		D5E5CB1A25812099000D0B72 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E5CB1925812099000D0B72 /* Player.swift */; };
+		D5E5CB1C258120A5000D0B72 /* Hand.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E5CB1B258120A5000D0B72 /* Hand.swift */; };
+		D5E5CB1E2581210C000D0B72 /* Hint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E5CB1D2581210C000D0B72 /* Hint.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,9 +57,14 @@
 		D5E5CAFF257F15C0000D0B72 /* CooperationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CooperationUITests.swift; sourceTree = "<group>"; };
 		D5E5CB01257F15C0000D0B72 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D5E5CB0D257F187A000D0B72 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
-		D5E5CB0F257FA6C0000D0B72 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		D5E5CB0F257FA6C0000D0B72 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		D5E5CB11257FA886000D0B72 /* Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Layout.swift; sourceTree = "<group>"; };
 		D5E5CB13257FD699000D0B72 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		D5E5CB152581205C000D0B72 /* Deck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
+		D5E5CB172581208F000D0B72 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		D5E5CB1925812099000D0B72 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		D5E5CB1B258120A5000D0B72 /* Hand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hand.swift; sourceTree = "<group>"; };
+		D5E5CB1D2581210C000D0B72 /* Hint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hint.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,7 +121,12 @@
 				D5E5CADA257F15BE000D0B72 /* AppDelegate.swift */,
 				D5E5CADC257F15BE000D0B72 /* SceneDelegate.swift */,
 				D5E5CB0D257F187A000D0B72 /* Game.swift */,
-				D5E5CB0F257FA6C0000D0B72 /* Card.swift */,
+				D5E5CB152581205C000D0B72 /* Deck.swift */,
+				D5E5CB172581208F000D0B72 /* Card.swift */,
+				D5E5CB1925812099000D0B72 /* Player.swift */,
+				D5E5CB1D2581210C000D0B72 /* Hint.swift */,
+				D5E5CB1B258120A5000D0B72 /* Hand.swift */,
+				D5E5CB0F257FA6C0000D0B72 /* CardView.swift */,
 				D5E5CAE6257F15C0000D0B72 /* Assets.xcassets */,
 				D5E5CAEB257F15C0000D0B72 /* Info.plist */,
 				D5E5CAE3257F15BE000D0B72 /* Cooperation.xcdatamodeld */,
@@ -267,12 +282,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5E5CB1E2581210C000D0B72 /* Hint.swift in Sources */,
 				D5E5CADF257F15BE000D0B72 /* GameViewController.swift in Sources */,
-				D5E5CB10257FA6C0000D0B72 /* Card.swift in Sources */,
+				D5E5CB182581208F000D0B72 /* Card.swift in Sources */,
+				D5E5CB10257FA6C0000D0B72 /* CardView.swift in Sources */,
+				D5E5CB1C258120A5000D0B72 /* Hand.swift in Sources */,
 				D5E5CADB257F15BE000D0B72 /* AppDelegate.swift in Sources */,
 				D5E5CB0E257F187A000D0B72 /* Game.swift in Sources */,
+				D5E5CB162581205C000D0B72 /* Deck.swift in Sources */,
 				D5E5CB12257FA886000D0B72 /* Layout.swift in Sources */,
 				D5E5CADD257F15BE000D0B72 /* SceneDelegate.swift in Sources */,
+				D5E5CB1A25812099000D0B72 /* Player.swift in Sources */,
 				D5E5CAE5257F15BE000D0B72 /* Cooperation.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
