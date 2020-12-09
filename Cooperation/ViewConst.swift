@@ -1,5 +1,5 @@
 //
-//  Card.swift
+//  ViewConst.swift
 //  Cooperation
 //
 //  Created by Susan Jensen on 12/9/20.
@@ -8,6 +8,7 @@
 
 import Foundation
 
-class Card{
-    
+struct ViewConst{
+    static let cardHeight = 160
+    static let cardWidth = 100
 }

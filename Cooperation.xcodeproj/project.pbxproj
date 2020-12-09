@@ -23,6 +23,7 @@
 		D5E5CB1A25812099000D0B72 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E5CB1925812099000D0B72 /* Player.swift */; };
 		D5E5CB1C258120A5000D0B72 /* Hand.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E5CB1B258120A5000D0B72 /* Hand.swift */; };
 		D5E5CB1E2581210C000D0B72 /* Hint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E5CB1D2581210C000D0B72 /* Hint.swift */; };
+		D5E5CB20258121FC000D0B72 /* ViewConst.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E5CB1F258121FC000D0B72 /* ViewConst.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		D5E5CB1925812099000D0B72 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		D5E5CB1B258120A5000D0B72 /* Hand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hand.swift; sourceTree = "<group>"; };
 		D5E5CB1D2581210C000D0B72 /* Hint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hint.swift; sourceTree = "<group>"; };
+		D5E5CB1F258121FC000D0B72 /* ViewConst.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewConst.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,17 +117,13 @@
 		D5E5CAD9257F15BE000D0B72 /* Cooperation */ = {
 			isa = PBXGroup;
 			children = (
+				D5E5CB212581222B000D0B72 /* Model */,
 				D5E5CADE257F15BE000D0B72 /* GameViewController.swift */,
+				D5E5CB1F258121FC000D0B72 /* ViewConst.swift */,
 				D5E5CB13257FD699000D0B72 /* Main.storyboard */,
 				D5E5CB11257FA886000D0B72 /* Layout.swift */,
 				D5E5CADA257F15BE000D0B72 /* AppDelegate.swift */,
 				D5E5CADC257F15BE000D0B72 /* SceneDelegate.swift */,
-				D5E5CB0D257F187A000D0B72 /* Game.swift */,
-				D5E5CB152581205C000D0B72 /* Deck.swift */,
-				D5E5CB172581208F000D0B72 /* Card.swift */,
-				D5E5CB1925812099000D0B72 /* Player.swift */,
-				D5E5CB1D2581210C000D0B72 /* Hint.swift */,
-				D5E5CB1B258120A5000D0B72 /* Hand.swift */,
 				D5E5CB0F257FA6C0000D0B72 /* CardView.swift */,
 				D5E5CAE6257F15C0000D0B72 /* Assets.xcassets */,
 				D5E5CAEB257F15C0000D0B72 /* Info.plist */,
@@ -150,6 +148,19 @@
 				D5E5CB01257F15C0000D0B72 /* Info.plist */,
 			);
 			path = CooperationUITests;
+			sourceTree = "<group>";
+		};
+		D5E5CB212581222B000D0B72 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D5E5CB1D2581210C000D0B72 /* Hint.swift */,
+				D5E5CB1925812099000D0B72 /* Player.swift */,
+				D5E5CB1B258120A5000D0B72 /* Hand.swift */,
+				D5E5CB172581208F000D0B72 /* Card.swift */,
+				D5E5CB152581205C000D0B72 /* Deck.swift */,
+				D5E5CB0D257F187A000D0B72 /* Game.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -290,6 +301,7 @@
 				D5E5CADB257F15BE000D0B72 /* AppDelegate.swift in Sources */,
 				D5E5CB0E257F187A000D0B72 /* Game.swift in Sources */,
 				D5E5CB162581205C000D0B72 /* Deck.swift in Sources */,
+				D5E5CB20258121FC000D0B72 /* ViewConst.swift in Sources */,
 				D5E5CB12257FA886000D0B72 /* Layout.swift in Sources */,
 				D5E5CADD257F15BE000D0B72 /* SceneDelegate.swift in Sources */,
 				D5E5CB1A25812099000D0B72 /* Player.swift in Sources */,

@@ -14,20 +14,14 @@ class GameViewController: UIViewController {
     var game = Game()
     //Array of views
     var cardArray = Array(repeating: Array(repeating: CardView(), count: 5), count: 5)
-    public var cardHeight = 160
-    public var cardWidth = 100
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         game.delegate = self
-        game.setupGame()
-
-        //deckOfCards.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(deckTappedAction)))
-        //deckOfCards.isFaceUp  = false
+        addCard(name: "deck")
     }
 
-    
     /*
     private func createHanabiCardAtLocation(hand: Int, card: Int, location: CGPoint)->Card{
         let  newCard = drawCard(hand: hand, card: card)
@@ -46,11 +40,11 @@ class GameViewController: UIViewController {
         print("Deck tapped")
         if(game.dealingComplete == true){
             //TODO: Notify the game that a card should be drawn
+            print("deck tapped and dealing is complete")
         }else{
-             //TODO: Notify the game that the game should start
+            game.setupGame()
+            //TODO: Animate the dealing of the cards
         }
-        //delegate?.addCard(name: "deck" )
-        print("deck tapped")
     }
     
     //This is called when a new card is created during the card dealing process
@@ -575,7 +569,7 @@ extension GameViewController: delegateUpdateView{
         
         //TODO:
         cardArray[hand!][card!] = drawCard(hand: hand!, card: card!)
-        cardArray[hand!][card!].frame = CGRect(x: 100, y: 100, width: cardWidth, height:cardHeight)
+        cardArray[hand!][card!].frame = CGRect(x: 100, y: 100, width: ViewConst.cardWidth , height:ViewConst.cardHeight)
         
         
         cardArray[hand!][card!].backgroundColor = UIColor.clear

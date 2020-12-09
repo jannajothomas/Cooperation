@@ -22,16 +22,20 @@ protocol delegateUpdateView {
 class Game{
     
     var deck = Deck()
-    var player = Player()
+    var numPlayers = 2
+    var players = [Player()]
     var hints = Hint()
     var playerTurn = true
-    public var dealingComplete = false
+    var dealingComplete = false
     
     var delegate: delegateUpdateView?
     
     func setupGame(){
-        delegate?.addCard(name: "deck" )
+        print(deck.drawCard() as Any)
         
+        
+        //delegate?.addCard(name: "deck" )
+        dealingComplete = true
     }
     
     
