@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Card: CustomStringConvertible{
+struct Card: CustomStringConvertible,Equatable{
     var description: String {return "\(num)\(col)"}
  
     var num: Num

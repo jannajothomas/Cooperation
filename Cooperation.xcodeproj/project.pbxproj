@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D541741F2588D9DF004E22AD /* PlayerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D541741E2588D9DF004E22AD /* PlayerTest.swift */; };
+		D54174212588D9F7004E22AD /* GameTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54174202588D9F7004E22AD /* GameTest.swift */; };
+		D541742325897343004E22AD /* DeckTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D541742225897343004E22AD /* DeckTest.swift */; };
 		D5E5CADB257F15BE000D0B72 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E5CADA257F15BE000D0B72 /* AppDelegate.swift */; };
 		D5E5CADD257F15BE000D0B72 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E5CADC257F15BE000D0B72 /* SceneDelegate.swift */; };
 		D5E5CADF257F15BE000D0B72 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E5CADE257F15BE000D0B72 /* GameViewController.swift */; };
@@ -24,6 +27,7 @@
 		D5E5CB1C258120A5000D0B72 /* Hand.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E5CB1B258120A5000D0B72 /* Hand.swift */; };
 		D5E5CB1E2581210C000D0B72 /* Hint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E5CB1D2581210C000D0B72 /* Hint.swift */; };
 		D5E5CB20258121FC000D0B72 /* ViewConst.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E5CB1F258121FC000D0B72 /* ViewConst.swift */; };
+		D5E5CB2325826D8E000D0B72 /* HandTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E5CB2225826D8E000D0B72 /* HandTest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +48,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D541741E2588D9DF004E22AD /* PlayerTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerTest.swift; sourceTree = "<group>"; };
+		D54174202588D9F7004E22AD /* GameTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameTest.swift; sourceTree = "<group>"; };
+		D541742225897343004E22AD /* DeckTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckTest.swift; sourceTree = "<group>"; };
 		D5E5CAD7257F15BE000D0B72 /* Cooperation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cooperation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5E5CADA257F15BE000D0B72 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D5E5CADC257F15BE000D0B72 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -67,6 +74,7 @@
 		D5E5CB1B258120A5000D0B72 /* Hand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hand.swift; sourceTree = "<group>"; };
 		D5E5CB1D2581210C000D0B72 /* Hint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hint.swift; sourceTree = "<group>"; };
 		D5E5CB1F258121FC000D0B72 /* ViewConst.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewConst.swift; sourceTree = "<group>"; };
+		D5E5CB2225826D8E000D0B72 /* HandTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,7 +144,11 @@
 			isa = PBXGroup;
 			children = (
 				D5E5CAF4257F15C0000D0B72 /* CooperationTests.swift */,
+				D5E5CB2225826D8E000D0B72 /* HandTest.swift */,
+				D541741E2588D9DF004E22AD /* PlayerTest.swift */,
+				D54174202588D9F7004E22AD /* GameTest.swift */,
 				D5E5CAF6257F15C0000D0B72 /* Info.plist */,
+				D541742225897343004E22AD /* DeckTest.swift */,
 			);
 			path = CooperationTests;
 			sourceTree = "<group>";
@@ -153,11 +165,11 @@
 		D5E5CB212581222B000D0B72 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				D5E5CB1D2581210C000D0B72 /* Hint.swift */,
-				D5E5CB1925812099000D0B72 /* Player.swift */,
 				D5E5CB1B258120A5000D0B72 /* Hand.swift */,
+				D5E5CB1925812099000D0B72 /* Player.swift */,
 				D5E5CB172581208F000D0B72 /* Card.swift */,
 				D5E5CB152581205C000D0B72 /* Deck.swift */,
+				D5E5CB1D2581210C000D0B72 /* Hint.swift */,
 				D5E5CB0D257F187A000D0B72 /* Game.swift */,
 			);
 			path = Model;
@@ -313,7 +325,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5E5CB2325826D8E000D0B72 /* HandTest.swift in Sources */,
+				D541741F2588D9DF004E22AD /* PlayerTest.swift in Sources */,
+				D541742325897343004E22AD /* DeckTest.swift in Sources */,
 				D5E5CAF5257F15C0000D0B72 /* CooperationTests.swift in Sources */,
+				D54174212588D9F7004E22AD /* GameTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

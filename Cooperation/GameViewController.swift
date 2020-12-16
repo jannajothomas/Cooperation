@@ -11,7 +11,8 @@
 import UIKit
 
 class GameViewController: UIViewController {
-    var game = Game()
+    var game = Game(playerNames: ["player1","player2"])
+    //var game = Game()
     //Array of views
     var cardArray = Array(repeating: Array(repeating: CardView(), count: 5), count: 5)
 
