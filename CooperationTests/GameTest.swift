@@ -31,6 +31,10 @@ class GameTest: XCTestCase {
 
     func testDealCards(){
         sut.dealCards()
-        XCTAssertEqual(sut.players[0].handSize,5, "Second player name is incorrect")
+        var handSize = sut.players[0].getHandSize()
+        XCTAssertEqual(handSize,5,"Player one hand size is not correct")
+        handSize = sut.players[1].getHandSize()
+        XCTAssertEqual(handSize,5,"Player two hand size is not correct")
+        XCTAssertEqual(sut.deck.cards.count,40,"Deck size is incorrect after dealing")
     }
 }

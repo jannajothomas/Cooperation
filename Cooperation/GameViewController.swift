@@ -39,13 +39,13 @@ class GameViewController: UIViewController {
 
     @objc func deckTappedAction(){
         print("Deck tapped")
-        if(game.dealingComplete == true){
+        //if(game.dealingComplete == true){
             //TODO: Notify the game that a card should be drawn
-            print("deck tapped and dealing is complete")
-        }else{
-            game.setupGame()
+        //    print("deck tapped and dealing is complete")
+        //}else{
+        //    game.setupGame()
             //TODO: Animate the dealing of the cards
-        }
+       // }
     }
     
     //This is called when a new card is created during the card dealing process

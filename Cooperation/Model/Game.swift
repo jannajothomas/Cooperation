@@ -28,8 +28,11 @@ class Game{
     var numPlayers = Int()
     var players = [Player]()
     
-//----------Deck Settings--------------
+//----------Card Arrays--------------
     var deck = Deck()
+    var stack = [[Card]]()
+    var discard = [[Card]]()
+    
     
 //----------Initialization-------------
     init(playerNames: [String]){
@@ -39,10 +42,40 @@ class Game{
         }
     }
     
-    func dealCards(){
-        
+    func discardCard(card: Card){
+        let index = card.col.hashValue
+        discard[index].append(card)
     }
     
+    func addCardToStack(card: Card){
+        let index = card.col.hashValue
+        stack[index].append(card)
+    }
+    
+    func playCard(card: Card, index: Int){
+        let nextNum = (stack[index].last?.num.hashValue ?? 0) + 1
+        let nextCard = Card(num: Card.Num(rawValue: nextNum)!, col: Card.Col(rawValue: index)!)
+        
+        
+        
+        
+        
+        
+        
+        if(nextCard == card){
+            addCardToStack(card: card)
+        }else{
+            discardCard(card: card)
+        }
+    }
+
+    func dealCards(){
+        for p in players{
+            for _ in 0...4{
+                _ = p.addCardToHand(card: deck.drawCard()!)
+            }
+        }
+    }
 }
 
 
