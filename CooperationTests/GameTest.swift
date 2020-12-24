@@ -37,4 +37,50 @@ class GameTest: XCTestCase {
         XCTAssertEqual(handSize,5,"Player two hand size is not correct")
         XCTAssertEqual(sut.deck.cards.count,40,"Deck size is incorrect after dealing")
     }
+    
+    func testChooseFirstPlayer(){
+        var foundTrue = false
+        var foundFalse = false
+        for _ in 0...50{
+            sut.chooseFirstPlayer()
+            if(sut.computerTurn){
+                foundTrue = true
+            }
+            if(sut.computerTurn == false){
+                foundFalse = true
+            }
+            if(foundTrue && foundFalse){
+                break
+            }
+        }
+        XCTAssertEqual(foundTrue,true,"True was never found")
+        XCTAssertEqual(foundFalse,true,"False was never found")
+    }
+    
+    func testPlayCardsInCorrectLocation(){
+        sut.dealCards()
+        var newCard = Card(num: Card.Num.one, col: Card.Col.orange)
+        sut.playCard(player: 1, card: newCard, index: 3)
+        
+        newCard = Card(num: Card.Num.two, col: Card.Col.orange)
+        sut.playCard(player: 1, card: newCard, index: 3)
+        XCTAssertEqual(newCard,sut.stack[3].last, "Card was not played correctly")
+    }
+    
+    func testPlayCardWrongNumber(){
+        sut.dealCards()
+        let newCard = Card(num: Card.Num.two, col: Card.Col.orange)
+        sut.playCard(player: 1, card: newCard, index: 3)
+        XCTAssertEqual(newCard, sut.discard[3].last, "Card was not discarded")
+    }
+    
+    func testPlayCardWrongColor(){
+        sut.dealCards()
+        let newCard = Card(num: Card.Num.two, col: Card.Col.orange)
+        sut.playCard(player: 1, card: newCard, index: 2)
+        XCTAssertEqual(newCard, sut.discard[3].last, "Card was not discarded")
+    }
+
+
+    
 }

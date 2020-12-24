@@ -540,6 +540,14 @@ class GameViewController: UIViewController {
  */
 
 extension GameViewController: delegateUpdateView{
+    func moveCard(card: Card, stack: String, location: Int) {
+        print("here")
+    }
+    
+    func drawCard(hand: Int, card: Int) {
+        print("and here")
+    }
+    
     func draw() {
         print("draw")
     }

@@ -6,15 +6,15 @@
 //  Copyright © 2020 Personal. All rights reserved.
 //
 
+//Computer is player 0
+//Human is player 1
+
 import Foundation
 
 protocol delegateUpdateView {
     func updateHints(hints:Int)
-    func addCard(name: String)
-    func draw()
-    func discard()
-    func play()
-    func hint()
+    func moveCard(card:Card, stack:String, location:Int)
+    func drawCard(hand:Int, card:Int)
 }
 
 class Game{
@@ -23,6 +23,7 @@ class Game{
     
 //----------Game settings--------------
     var handSize = 5
+    var computerTurn = Bool()       
     
 //----------Player Settings
     var numPlayers = Int()
@@ -30,9 +31,8 @@ class Game{
     
 //----------Card Arrays--------------
     var deck = Deck()
-    var stack = [[Card]]()
-    var discard = [[Card]]()
-    
+    var stack = [[Card](),[Card](),[Card](),[Card](),[Card]()]
+    var discard = [[Card](),[Card](),[Card](),[Card](),[Card]()]
     
 //----------Initialization-------------
     init(playerNames: [String]){
@@ -42,26 +42,35 @@ class Game{
         }
     }
     
+    func chooseFirstPlayer(){
+        //Determine first player
+        if(Int.random(in: 0...1) == 1){
+            computerTurn = false
+        }else{
+            computerTurn = true
+        }
+    }
+    
+    func startGame(){
+        dealCards()
+        if(computerTurn == true){
+            //Get computer move
+        }
+    }
+    
     func discardCard(card: Card){
-        let index = card.col.hashValue
+        let index = card.col.rawValue
         discard[index].append(card)
     }
     
     func addCardToStack(card: Card){
-        let index = card.col.hashValue
+        let index = card.col.rawValue
         stack[index].append(card)
     }
     
-    func playCard(card: Card, index: Int){
-        let nextNum = (stack[index].last?.num.hashValue ?? 0) + 1
+    func playCard(player: Int, card: Card, index: Int){
+        let nextNum = (stack[index].last?.num.rawValue ?? 0)  + 1
         let nextCard = Card(num: Card.Num(rawValue: nextNum)!, col: Card.Col(rawValue: index)!)
-        
-        
-        
-        
-        
-        
-        
         if(nextCard == card){
             addCardToStack(card: card)
         }else{

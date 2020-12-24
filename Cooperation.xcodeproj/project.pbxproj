@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		D518601A258A27E50067D0DA /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5186019258A27E50067D0DA /* Stack.swift */; };
+		D518606025943BB40067D0DA /* ComputerTurn.swift in Sources */ = {isa = PBXBuildFile; fileRef = D518605F25943BB40067D0DA /* ComputerTurn.swift */; };
+		D519E6A325943DEF002BF96D /* PossibleComputerCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = D519E6A225943DEF002BF96D /* PossibleComputerCards.swift */; };
 		D541741F2588D9DF004E22AD /* PlayerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D541741E2588D9DF004E22AD /* PlayerTest.swift */; };
 		D54174212588D9F7004E22AD /* GameTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54174202588D9F7004E22AD /* GameTest.swift */; };
 		D541742325897343004E22AD /* DeckTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D541742225897343004E22AD /* DeckTest.swift */; };
@@ -50,6 +52,8 @@
 
 /* Begin PBXFileReference section */
 		D5186019258A27E50067D0DA /* Stack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
+		D518605F25943BB40067D0DA /* ComputerTurn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComputerTurn.swift; sourceTree = "<group>"; };
+		D519E6A225943DEF002BF96D /* PossibleComputerCards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PossibleComputerCards.swift; sourceTree = "<group>"; };
 		D541741E2588D9DF004E22AD /* PlayerTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerTest.swift; sourceTree = "<group>"; };
 		D54174202588D9F7004E22AD /* GameTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameTest.swift; sourceTree = "<group>"; };
 		D541742225897343004E22AD /* DeckTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckTest.swift; sourceTree = "<group>"; };
@@ -173,6 +177,8 @@
 				D5E5CB152581205C000D0B72 /* Deck.swift */,
 				D5E5CB1D2581210C000D0B72 /* Hint.swift */,
 				D5E5CB0D257F187A000D0B72 /* Game.swift */,
+				D519E6A225943DEF002BF96D /* PossibleComputerCards.swift */,
+				D518605F25943BB40067D0DA /* ComputerTurn.swift */,
 				D5186019258A27E50067D0DA /* Stack.swift */,
 			);
 			path = Model;
@@ -311,6 +317,7 @@
 				D5E5CB1E2581210C000D0B72 /* Hint.swift in Sources */,
 				D5E5CADF257F15BE000D0B72 /* GameViewController.swift in Sources */,
 				D518601A258A27E50067D0DA /* Stack.swift in Sources */,
+				D519E6A325943DEF002BF96D /* PossibleComputerCards.swift in Sources */,
 				D5E5CB182581208F000D0B72 /* Card.swift in Sources */,
 				D5E5CB10257FA6C0000D0B72 /* CardView.swift in Sources */,
 				D5E5CB1C258120A5000D0B72 /* Hand.swift in Sources */,
@@ -322,6 +329,7 @@
 				D5E5CADD257F15BE000D0B72 /* SceneDelegate.swift in Sources */,
 				D5E5CB1A25812099000D0B72 /* Player.swift in Sources */,
 				D5E5CAE5257F15BE000D0B72 /* Cooperation.xcdatamodeld in Sources */,
+				D518606025943BB40067D0DA /* ComputerTurn.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

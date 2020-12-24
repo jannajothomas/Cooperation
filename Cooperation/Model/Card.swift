@@ -7,10 +7,9 @@
 //
 
 import Foundation
-import SpriteKit
 
 struct Card: CustomStringConvertible,Equatable{
-    var description: String {return "\(num)\(col)"}
+    var description: String {return "\(num) \(col)"}
  
     var num: Num
     var col: Col
