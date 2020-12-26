@@ -9,8 +9,11 @@
 import Foundation
 
 struct Card: CustomStringConvertible,Equatable{
-    var description: String {return "\(num) \(col)"}
- 
+    var description: String {
+        var output = "color is \(col.rawValue),"
+        output += " number is \(num.rawValue)"
+        return output
+    }
     var num: Num
     var col: Col
     
@@ -22,25 +25,15 @@ struct Card: CustomStringConvertible,Equatable{
     init(num: Card.Num, col: Card.Col){
         self.num = num
         self.col = col
+   }
+    
+    enum  Col: Int{
+        case none = 0, red, blue, magenta, orange, purple
+        static var all = [Col.red, Col.blue, Col.magenta, Col.orange, Col.purple]
     }
     
     enum Num: Int{
-        case none = 0
-        case one
-        case two
-        case three
-        case four
-        case five
+        case none = 0,one,two,three,four,five
         static var all = [Num.one,Num.two,Num.three,Num.four,Num.five]
-    }
-
-    enum  Col: Int{
-        case none = 0
-        case red
-        case blue
-        case magenta
-        case orange
-        case purple
-        static var all = [Col.red, Col.blue, Col.magenta, Col.orange, Col.purple]
     }
 }

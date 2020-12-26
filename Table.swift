@@ -24,12 +24,12 @@ import UIKit
 import GameplayKit
 
 class Table: NSObject, GKGameModel {
+    
     var players: [GKGameModelPlayer]?
     var currentPlayer: Player
     var activePlayer: GKGameModelPlayer?
     
     var numPlayers: Int! /* A */
-    
     var hands = [[Card]]() /* 1 */
     var stacks = [[Card]]() /* 2 */
     var discardPiles = [[Card]]() /* 3 */
@@ -46,21 +46,21 @@ class Table: NSObject, GKGameModel {
     func setGameModel(_ gameModel: GKGameModel) {
         if let table = gameModel as? Table{
             //???
-            currentPlayer = table.currentPlayer
+           // currentPlayer = table.currentPlayer
         }
     }
     
 
      func gameModelUpdates(for player: GKGameModelPlayer) -> [GKGameModelUpdate]? {
          //We optionally downcast our GKGameModelPlayer parameter into a Player object.
-         if let playerObject = player as? Player {
+         //if let playerObject = player as? Player {
              // If the player or their opponent has won, return nil to signal no moves are available.
              //if isWin(for: playerObject) || isWin(for: playerObject.opponent) {
               //   return nil
              //}
 
              // Otherwise, create a new array that will hold Move objects.
-             var moves = [Move]()
+          //   var moves = [Move]()
 
              // Loop through every column in the board, asking whether the player can move in that column.
              //for column in 0 ..< Board.width {
@@ -71,17 +71,17 @@ class Table: NSObject, GKGameModel {
             // }
 
              // Finally, return the array to tell the AI all the possible moves it can make.
-             return moves
-         }
+          //   return moves
+       //  }
 
          return nil
      }
      
     func apply(_ gameModelUpdate: GKGameModelUpdate) {
-        if let move = gameModelUpdate as? Move {
+       // if let move = gameModelUpdate as? Move {
             //add(chip: currentPlayer.chip, in: move.column)
-            currentPlayer = currentPlayer.opponent
-        }
+            //currentPlayer = currentPlayer.opponent
+       // }
     }
     
     func copy(with zone: NSZone? = nil) -> Any {
