@@ -80,7 +80,4 @@ class GameTest: XCTestCase {
         sut.playCard(player: 1, card: newCard, index: 2)
         XCTAssertEqual(newCard, sut.discard[3].last, "Card was not discarded")
     }
-
-
-    
 }

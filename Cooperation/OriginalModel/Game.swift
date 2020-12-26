@@ -38,7 +38,7 @@ class Game{
     init(playerNames: [String]){
         numPlayers = playerNames.count
             for count in 0...numPlayers-1{
-                players.append(Player(name: playerNames[count], handSize: handSize))
+                players.append(Player(name: playerNames[count], handSize: handSize,  playerId: count))
         }
     }
     

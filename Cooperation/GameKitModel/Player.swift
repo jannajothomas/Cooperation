@@ -6,16 +6,22 @@
 //  Copyright © 2020 Personal. All rights reserved.
 //
 
-import Foundation
 
-class Player{
+
+import Foundation
+import GameplayKit
+
+class Player: NSObject,  GKGameModelPlayer{
     var name: String
     var size: Int
+    var playerId: Int
+    
     lazy private var hand = Hand(size: size)
     
-    init(name:String, handSize: Int){
+    init(name:String, handSize: Int, playerId:Int){
         self.name = name
         self.size = handSize
+        self.playerId = playerId
     }
     
     func getHandSize()->Int{
