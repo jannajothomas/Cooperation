@@ -60,6 +60,11 @@ class Game{
     
     func discardCard(card: Card){
         let index = card.col.rawValue
+        //let index = card.Col
+        //let index = card
+        //let index = card.Card.col
+        //let index = card.col
+        //let index = card.col.rawValue
         discard[index].append(card)
     }
     

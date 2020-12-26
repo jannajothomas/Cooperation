@@ -177,6 +177,7 @@
 			isa = PBXGroup;
 			children = (
 				D5EF70D725952F0400BC6A47 /* Table.swift */,
+				D5E5CB172581208F000D0B72 /* Card.swift */,
 				D5E5CB1925812099000D0B72 /* Player.swift */,
 				D5EF70D9259580E900BC6A47 /* Move.swift */,
 			);
@@ -187,7 +188,6 @@
 			isa = PBXGroup;
 			children = (
 				D5E5CB1B258120A5000D0B72 /* Hand.swift */,
-				D5E5CB172581208F000D0B72 /* Card.swift */,
 				D5E5CB1D2581210C000D0B72 /* Hint.swift */,
 				D5E5CB0D257F187A000D0B72 /* Game.swift */,
 				D519E6A225943DEF002BF96D /* PossibleComputerCards.swift */,
