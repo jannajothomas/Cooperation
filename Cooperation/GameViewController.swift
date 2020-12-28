@@ -9,20 +9,35 @@
 
 //This is really concerned with making info from the model visible.
 import UIKit
+import GameplayKit
 
 class GameViewController: UIViewController {
     var game = Game(playerNames: ["player1","player2"])
     //var game = Game()
     //Array of views
     var cardArray = Array(repeating: Array(repeating: CardView(), count: 5), count: 5)
+    var strategist: GKMinmaxStrategist!
+    var table: Table!
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
         game.delegate = self
         addCard(name: "deck")
+        strategist = GKMinmaxStrategist()
+        strategist.maxLookAheadDepth = 4
+        strategist.randomSource = GKARC4RandomSource()
     }
 
+    func resetTable(){
+        table = Table()
+        strategist.gameModel = table
+        updateUI()
+    }
+    
+    func updateUI(){
+        title = "/(board.currentPlayer.name)'s Turn"
+    }
     /*
     private func createHanabiCardAtLocation(hand: Int, card: Int, location: CGPoint)->Card{
         let  newCard = drawCard(hand: hand, card: card)

@@ -13,15 +13,26 @@ import GameplayKit
 
 class Player: NSObject,  GKGameModelPlayer{
     var name: String
-    var size: Int
+    var handSize: Int
     var playerId: Int
     
-    lazy private var hand = Hand(size: size)
+    static var allPlayers = [Player(name: "Human", handSize: 5, playerId: 0),Player(name: "Computer", handSize: 5, playerId: 1)]
+    
+    lazy private var hand = Hand(size: handSize)
     
     init(name:String, handSize: Int, playerId:Int){
         self.name = name
-        self.size = handSize
+        self.handSize = handSize
         self.playerId = playerId
+        super.init()
+    }
+    
+    var opponent: Player {
+        if playerId == 0 {
+            return Player.allPlayers[1]
+        } else {
+            return Player.allPlayers[0]
+        }
     }
     
     func getHandSize()->Int{
