@@ -39,8 +39,10 @@ class CardView: UIView {
     @IBInspectable var hasNumberHint: Bool = false
         { didSet { setNeedsDisplay(); setNeedsLayout() } }
     
-    //Where card is located
+    /* card can be in one of four locations.  If the card is located in a hand, then the hand and card information is valid.  It starts as -1, and will be reset to -1 after it moves out of the hand. This is primaily used to facilitate the animation.   */
     public var location = "deck"
+    public var hand = -1
+    public var card = -1
     
     public var cardBackgroundColor: UIColor = UIColor.white { didSet { setNeedsDisplay(); setNeedsLayout() } }
     public var cardOutlineColor: UIColor = UIColor.black { didSet { setNeedsDisplay(); setNeedsLayout() } }

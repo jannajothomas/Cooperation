@@ -23,13 +23,16 @@ class GameViewController: UIViewController {
     var strategist: GKMinmaxStrategist!
     var table: Table!
     var layout = Layout()   //this should be a struct not a class
-    var screenDetails = ScreenDetails(windowWidth: 0, windowHeight: 0, topPadding: 0, rightPadding: 0, leftPadding: 0, bottomPadding: 0)
     var lastHand = 1    //Dont know what this is
-
+    var screenDetails = ScreenDetails(windowWidth: 0, windowHeight: 0, topPadding: 0, rightPadding: 0, leftPadding: 0, bottomPadding: 0)
+    
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        screenDetails.windowWidth = self.view.frame.size.width
+        screenDetails.windowHeight =  self.view.frame.size.height
+        
         //game.delegate = self
         addCard(name: "deck")
         strategist = GKMinmaxStrategist()
@@ -37,6 +40,9 @@ class GameViewController: UIViewController {
         strategist.randomSource = GKARC4RandomSource()
         resetTable()
         view.backgroundColor = UIColor.red
+        
+        //print("screen dtails in view did load", screenDetails)
+        //screenDetails.bottomPadding = self.view.frame.size.bottomPadding
     }
 
     func resetTable(){
@@ -130,7 +136,6 @@ class GameViewController: UIViewController {
      private func dealCards(hand: Int, card: Int){
          addCard(hand: hand, card: card)
          UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut, animations:{
-            print(self.layout.Location(Details: self.screenDetails, item: CardIdentity(hand: hand, card: card, cardIndex: card)))
             self.playerHands[hand][card].center = self.layout.Location(Details: self.screenDetails, item: CardIdentity(hand: hand, card: card, cardIndex: card))}  , completion: { _ in
                     //see if is the last card in the hand
                     if(card == 4){
@@ -148,6 +153,12 @@ class GameViewController: UIViewController {
             }
         )
      }
+    
+    override func viewDidLayoutSubviews() {
+            //updateScreenDetails()
+            //layoutCardCentersAndSize()
+            
+        }
 
      /*
      private func turnOverCards(){
@@ -166,11 +177,7 @@ class GameViewController: UIViewController {
      }
      
      //MARK: Refresh Layout
-     override func viewDidLayoutSubviews() {
-         updateScreenDetails()
-         layoutCardCentersAndSize()
-         
-     }
+    
      //MARK: Recognizer Actions
      @objc func hintCardAction(_ recognizer:UITapGestureRecognizer){
          if let chosenCardView = recognizer.view as? LabeledCardArea{
@@ -303,25 +310,17 @@ class GameViewController: UIViewController {
      
 
      */
+    
+    
+    
 }
 
-/*
+
 
  //MARK: ScreenLayout
 
-     func updateScreenDetails(){
-         if #available(iOS 11.0, *) {
-             let window = UIApplication.shared.keyWindow
-             screenDetails = ScreenDetails(
-                 windowWidth: view.frame.maxX - ((window?.safeAreaInsets.right)!) - ((window?.safeAreaInsets.left)!),
-                 windowHeight: view.frame.maxY - (window?.safeAreaInsets.top)! - (tabBarController?.tabBar.frame.height)! - (window?.safeAreaInsets.bottom)!,
-                 topPadding: (window?.safeAreaInsets.top)!,
-                 rightPadding: ((window?.safeAreaInsets.right)!),
-                 leftPadding: ((window?.safeAreaInsets.left)!),
-                 bottomPadding: (tabBarController?.tabBar.frame.height)!)
-         }
-     }
-     
+
+     /*
     // func setupScreen(){
   
     // }
@@ -391,8 +390,6 @@ class GameViewController: UIViewController {
              turnImage.center = layout.centerOfScreen
           }else{DeckView.center = layout.centerOfScreen}
       }
-
-     var screenDetails = ScreenDetails(windowWidth: 0, windowHeight: 0, topPadding: 0, rightPadding: 0, leftPadding: 0, bottomPadding: 0)
 
      
      //MARK: WORKING HERE
@@ -580,7 +577,7 @@ extension GameViewController: delegateUpdateView{
                 deck.backgroundColor = UIColor.clear
                 deck.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(deckTappedAction)))
                 deck.isFaceUp = false
-                deck.frame =  CGRect(x: 100, y: 100, width: ViewConst.cardWidth, height: ViewConst.cardHeight)
+                deck.frame = layout.Frame(Details: screenDetails, item: CardIdentity(hand: 4, card: 1, cardIndex: 1))
                 view.addSubview(deck)
             default:
                 print("error, name is not found in addCard")
@@ -591,9 +588,7 @@ extension GameViewController: delegateUpdateView{
         playerHands[hand][card].backgroundColor = UIColor.clear
         playerHands[hand][card].addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(cardTappedAction)))
         playerHands[hand][card].isFaceUp = false
-        //playerHands[hand][card].cardTag =  card
-        //playerHands[hand][card].handTag = hand
-        playerHands[hand][card].frame =  CGRect(x: 100, y: 200, width: ViewConst.cardWidth, height: ViewConst.cardHeight)
+        playerHands[hand][card].frame   = layout.Frame(Details: screenDetails, item: CardIdentity(hand: 4, card: 1, cardIndex: 1))
         view.addSubview(playerHands[hand][card])
     }
 }

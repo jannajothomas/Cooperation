@@ -31,6 +31,7 @@
 import Foundation
 import UIKit
 
+//This is actually its frame and should probably be deleted
 struct CardLocation: CustomStringConvertible{
     var description: String {return "size \(size) center \(center)"}
     let size: CGSize
@@ -81,6 +82,18 @@ class Layout{
            return cardCenters[item.hand][item.card]
         }
         
+    }
+    
+    func Frame(Details: ScreenDetails, item: CardIdentity)->CGRect{
+        let loc = Location(Details: Details, item: item)
+        let size = Size(Details: Details)
+        print("screen  dteails", Details)
+        print("size", size)
+        print("loc", loc)
+        //let thisLocation = Location(Details: ScreenDetails, item)
+        //let xcoord =
+        let rect = CGRect(x:100,  y: 100, width:size.width, height: size.height)
+        return  rect
     }
     
     func Size(Details: ScreenDetails)->CGSize{
