@@ -44,7 +44,7 @@ class Table: NSObject{
     var currentPlayer: Player
 
     
-    var numPlayers: Int! /* A */
+    var numPlayers = 2 /* A */
     var hands = [[Card]]() /* 1 */
     var stacks = [[Card]]() /* 2 */
     var discardPiles = [[Card]]() /* 3 */
@@ -54,19 +54,13 @@ class Table: NSObject{
     override init() {
         currentPlayer = Player.allPlayers[0]
         super.init()
-        
         hands = buildCardPiles(numberOfPiles: numPlayers, cardInEachPile: 5)
         stacks = buildCardPiles(numberOfPiles: 5, cardInEachPile: 5)
         discardPiles = buildCardPiles(numberOfPiles: 5, cardInEachPile: 10)
     }
     
     func buildCardPiles(numberOfPiles:Int, cardInEachPile:Int)->[[Card]]{
-        var newArray = [[Card]]()
-        for counta in 0...numberOfPiles - 1{
-            for _ in 0...cardInEachPile - 1{
-                newArray[counta].append(Card())
-            }
-        }
+        let newArray = Array(repeating: Array(repeating: Card(), count: numberOfPiles - 1), count: cardInEachPile - 1)
         return newArray
     }
     

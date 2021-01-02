@@ -9,20 +9,45 @@
 import UIKit
 
 class CardView: UIView {
-
-    public var num = Int(){ didSet { setNeedsDisplay(); setNeedsLayout() } }
-    public var handTag = Int()
-    public var cardTag = Int()
+    /*Color of a the number on a visible card*/
+    public var col: UIColor = UIColor.white
+           { didSet { setNeedsDisplay(); setNeedsLayout() } }
+    
+    /*Outline of a card that changes color when a hint is given*/
+    @IBInspectable var hasColorHint: Bool = false {
+        didSet{
+            if(hasColorHint){
+                 cardOutlineColor = col
+             }else{
+                 cardOutlineColor = UIColor.black
+             }
+            setNeedsDisplay(); setNeedsLayout()
+        }
+    }
+    
+    /*Number displayed on a face up card*/
+    public var num = Int()
+        { didSet { setNeedsDisplay(); setNeedsLayout() } }
+   
+    @IBInspectable var isFaceUp: Bool = false
+        { didSet { setNeedsDisplay(); setNeedsLayout() } }
+    
+    @IBInspectable var isSelected: Bool = false
+        { didSet { setNeedsDisplay(); setNeedsLayout() } }
+    
+    /*Adds small visible number to card*/
+    @IBInspectable var hasNumberHint: Bool = false
+        { didSet { setNeedsDisplay(); setNeedsLayout() } }
+    
+    //Where card is located
+    public var location = "deck"
+    
     public var cardBackgroundColor: UIColor = UIColor.white { didSet { setNeedsDisplay(); setNeedsLayout() } }
-    public var cardSelected = false { didSet { setNeedsDisplay(); setNeedsLayout() } }
     public var cardOutlineColor: UIColor = UIColor.black { didSet { setNeedsDisplay(); setNeedsLayout() } }
-    public var hintPresent: Bool = false { didSet { setNeedsDisplay(); setNeedsLayout() } }
+    
 
-    var textColor: UIColor = UIColor.white { didSet { setNeedsDisplay(); setNeedsLayout() } }
-    @IBInspectable var isFaceUp: Bool = true  { didSet { setNeedsDisplay(); setNeedsLayout() } }
     var centerNumberSize: CGFloat = SizeRatio.faceCardImageSizeToBoundsSize { didSet { setNeedsDisplay() } }
     var lineWidth = 1
-
     
     private func centeredAttributedString(_ string: String, fontSize: CGFloat) -> NSAttributedString {
         var font = UIFont.init(name: "Marker Felt", size: fontSize)
@@ -47,7 +72,7 @@ class CardView: UIView {
     private func configureConerLabel(_ label: UILabel) {
         if(num != 0){
             label.attributedText = cornerString
-            label.textColor = textColor
+            label.textColor = col
             label.frame.size = CGSize.zero
             label.sizeToFit()
             label.isHidden = !isFaceUp
@@ -58,7 +83,7 @@ class CardView: UIView {
     private func configureCenterLabel(_ label: UILabel) {
         if(num != 0){
             label.attributedText = centerString
-            label.textColor = textColor
+            label.textColor = col
                    label.frame.size = CGSize.zero
                    label.sizeToFit()
                    label.isHidden = !isFaceUp
@@ -66,7 +91,7 @@ class CardView: UIView {
     }
     
     private func configureCardHint(_ label: UILabel) {
-        if(hintPresent){
+        if(hasNumberHint){
             label.attributedText = cornerString
         }else{
             label.text = ""
@@ -130,7 +155,7 @@ class CardView: UIView {
         roundRect.fill()
         
         cardOutlineColor.setStroke()
-        if(cardSelected){
+        if(isSelected){
             roundRect.lineWidth = CGFloat(10)
             //roundRect.
         }else{

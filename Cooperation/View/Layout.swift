@@ -60,7 +60,7 @@ struct  ScreenDetails{
     var bottomPadding: CGFloat
 }
 
-class  Layout{
+class Layout{
     var cardCenters = Array(repeating: Array(repeating: CGPoint(),count: 5), count: 11)
     var cardHeight = CGFloat()
     var cardWidth = CGFloat()

@@ -10,6 +10,7 @@
 		D518601A258A27E50067D0DA /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5186019258A27E50067D0DA /* Stack.swift */; };
 		D518606025943BB40067D0DA /* ComputerTurn.swift in Sources */ = {isa = PBXBuildFile; fileRef = D518605F25943BB40067D0DA /* ComputerTurn.swift */; };
 		D519E6A325943DEF002BF96D /* PossibleComputerCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = D519E6A225943DEF002BF96D /* PossibleComputerCards.swift */; };
+		D51E395E259D6E05001F0FBA /* CardViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D51E395D259D6E05001F0FBA /* CardViewTest.swift */; };
 		D541741F2588D9DF004E22AD /* PlayerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D541741E2588D9DF004E22AD /* PlayerTest.swift */; };
 		D54174212588D9F7004E22AD /* GameTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54174202588D9F7004E22AD /* GameTest.swift */; };
 		D541742325897343004E22AD /* DeckTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D541742225897343004E22AD /* DeckTest.swift */; };
@@ -56,6 +57,7 @@
 		D5186019258A27E50067D0DA /* Stack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
 		D518605F25943BB40067D0DA /* ComputerTurn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComputerTurn.swift; sourceTree = "<group>"; };
 		D519E6A225943DEF002BF96D /* PossibleComputerCards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PossibleComputerCards.swift; sourceTree = "<group>"; };
+		D51E395D259D6E05001F0FBA /* CardViewTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewTest.swift; sourceTree = "<group>"; };
 		D541741E2588D9DF004E22AD /* PlayerTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerTest.swift; sourceTree = "<group>"; };
 		D54174202588D9F7004E22AD /* GameTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameTest.swift; sourceTree = "<group>"; };
 		D541742225897343004E22AD /* DeckTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckTest.swift; sourceTree = "<group>"; };
@@ -135,15 +137,13 @@
 		D5E5CAD9257F15BE000D0B72 /* Cooperation */ = {
 			isa = PBXGroup;
 			children = (
+				D5F2C67425A0A4CA0050F19A /* View */,
 				D5EF70DB259771A600BC6A47 /* OriginalModel */,
 				D5E5CB212581222B000D0B72 /* GameKitModel */,
-				D5E5CADE257F15BE000D0B72 /* GameViewController.swift */,
 				D5E5CB1F258121FC000D0B72 /* ViewConst.swift */,
 				D5E5CB13257FD699000D0B72 /* Main.storyboard */,
-				D5E5CB11257FA886000D0B72 /* Layout.swift */,
 				D5E5CADA257F15BE000D0B72 /* AppDelegate.swift */,
 				D5E5CADC257F15BE000D0B72 /* SceneDelegate.swift */,
-				D5E5CB0F257FA6C0000D0B72 /* CardView.swift */,
 				D5E5CAE6257F15C0000D0B72 /* Assets.xcassets */,
 				D5E5CAEB257F15C0000D0B72 /* Info.plist */,
 				D5E5CAE3257F15BE000D0B72 /* Cooperation.xcdatamodeld */,
@@ -160,6 +160,7 @@
 				D54174202588D9F7004E22AD /* GameTest.swift */,
 				D5E5CAF6257F15C0000D0B72 /* Info.plist */,
 				D541742225897343004E22AD /* DeckTest.swift */,
+				D51E395D259D6E05001F0FBA /* CardViewTest.swift */,
 			);
 			path = CooperationTests;
 			sourceTree = "<group>";
@@ -196,6 +197,16 @@
 				D5E5CB152581205C000D0B72 /* Deck.swift */,
 			);
 			path = OriginalModel;
+			sourceTree = "<group>";
+		};
+		D5F2C67425A0A4CA0050F19A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D5E5CADE257F15BE000D0B72 /* GameViewController.swift */,
+				D5E5CB0F257FA6C0000D0B72 /* CardView.swift */,
+				D5E5CB11257FA886000D0B72 /* Layout.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -357,6 +368,7 @@
 				D541741F2588D9DF004E22AD /* PlayerTest.swift in Sources */,
 				D541742325897343004E22AD /* DeckTest.swift in Sources */,
 				D5E5CAF5257F15C0000D0B72 /* CooperationTests.swift in Sources */,
+				D51E395E259D6E05001F0FBA /* CardViewTest.swift in Sources */,
 				D54174212588D9F7004E22AD /* GameTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

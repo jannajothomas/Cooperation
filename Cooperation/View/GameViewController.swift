@@ -12,21 +12,31 @@ import UIKit
 import GameplayKit
 
 class GameViewController: UIViewController {
-    var game = Game(playerNames: ["player1","player2"])
-    //var game = Game()
-    //Array of views
-    var cardArray = Array(repeating: Array(repeating: CardView(), count: 5), count: 5)
+    //var game = Game(playerNames: ["player1","player2"])
+    var dealingComplete = false
+    
+    var playerHands = Array(repeating: Array(repeating: CardView(), count: 5),count: 2)
+    var stacks = Array(repeating: Array(repeating: CardView(), count: 5), count: 5)
+    var discardPiles = Array(repeating: Array(repeating: CardView(), count: 10), count: 5)
+    var deck = CardView()
+    //var cardArray = Array(repeating: Array(repeating: CardView(), count: 5), count: 5)
     var strategist: GKMinmaxStrategist!
     var table: Table!
+    var layout = Layout()   //this should be a struct not a class
+    var screenDetails = ScreenDetails(windowWidth: 0, windowHeight: 0, topPadding: 0, rightPadding: 0, leftPadding: 0, bottomPadding: 0)
+    var lastHand = 1    //Dont know what this is
 
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
-        game.delegate = self
+        //game.delegate = self
         addCard(name: "deck")
         strategist = GKMinmaxStrategist()
         strategist.maxLookAheadDepth = 4
         strategist.randomSource = GKARC4RandomSource()
+        resetTable()
+        view.backgroundColor = UIColor.red
     }
 
     func resetTable(){
@@ -38,33 +48,26 @@ class GameViewController: UIViewController {
     func updateUI(){
         title = "/(board.currentPlayer.name)'s Turn"
     }
-    /*
-    private func createHanabiCardAtLocation(hand: Int, card: Int, location: CGPoint)->Card{
-        let  newCard = drawCard(hand: hand, card: card)
-        //newCard.frame.size = layout.Size(Details: screenDetails)
-        newCard.center = location
-        newCard.handTag = hand
-        newCard.cardTag = card
-        newCard.isFaceUp = false
-        newCard.backgroundColor = UIColor.clear
-        view.addSubview(newCard)
-        //print(view)
-        return newCard
-    }*/
 
     @objc func deckTappedAction(){
-        print("Deck tapped")
-        //if(game.dealingComplete == true){
+        //print("Deck tapped")
+        if(dealingComplete == true){
             //TODO: Notify the game that a card should be drawn
-        //    print("deck tapped and dealing is complete")
-        //}else{
-        //    game.setupGame()
+            print("deck tapped and dealing is complete")
+        }else{
+            dealCards(hand: 0, card: 0)
+            print("the card dealing animation should happen now")
+            dealingComplete = true
             //TODO: Animate the dealing of the cards
-       // }
+        }
+    }
+    
+    @objc func cardTappedAction(){
+        
     }
     
     //This is called when a new card is created during the card dealing process
-    func drawCard(hand: Int, card: Int)->CardView{
+    func drawCardView(hand: Int, card: Int)->CardView{
         let newCard = CardView()
         if hand == 0{
             //newCard.num = game.stacksOfCards.playerHands[hand][card].num.rawValue
@@ -86,7 +89,7 @@ class GameViewController: UIViewController {
     
     
     
-}
+
 
 /*
      var layout = Layout()
@@ -121,33 +124,32 @@ class GameViewController: UIViewController {
      }
 
 
-     
+     */
+
      //Recursive function that animates the dealing of the cards
      private func dealCards(hand: Int, card: Int){
-         var localCard = card;
-         var localHand = hand;
+         addCard(hand: hand, card: card)
          UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut, animations:{
-             
-         self.PlayerCardView[hand][card].center = self.layout.Location(Details: self.screenDetails, item: CardIdentity(hand: localHand, card: localCard, cardIndex: localCard))} , completion: { _ in
-             if(card == 4){
-                 if localHand < self.lastHand{
-                     localHand =  localHand + 1
-                     localCard = 0
-                 }else{
-                     //Dealing is done.  Move deck its perm location
-                     UIView.animate(withDuration: 0.3, delay: 0, options: .curveLinear, animations: {self.DeckView.center = self.layout.Location(Details: self.screenDetails, item: CardIdentity(hand: 4, card: 1, cardIndex: 1))},
-                     completion: { _ in self.dealingComplete  = true})
-                     return;
-                 }
-             }else{
-                 localCard = localCard + 1
-             }
-             self.PlayerCardView[localHand][localCard]  = self.createHanabiCardAtLocation(hand: localHand, card: localCard, location: self.layout.Location(Details: self.screenDetails, item: CardIdentity(hand: -1, card: 0, cardIndex: 0)))
-             self.PlayerCardView[localHand][localCard].isFaceUp = false
-             self.dealCards(hand: localHand, card: localCard)
-         })
+            print(self.layout.Location(Details: self.screenDetails, item: CardIdentity(hand: hand, card: card, cardIndex: card)))
+            self.playerHands[hand][card].center = self.layout.Location(Details: self.screenDetails, item: CardIdentity(hand: hand, card: card, cardIndex: card))}  , completion: { _ in
+                    //see if is the last card in the hand
+                    if(card == 4){
+                        if hand == self.lastHand{
+                            //Dealing is done.  Move deck its perm location
+                            UIView.animate(withDuration: 0.3, delay: 0, options: .curveLinear, animations: {self.deck.center = self.layout.Location(Details: self.screenDetails, item: CardIdentity(hand: 4, card: 1, cardIndex: 1))},
+                            completion: { _ in self.dealingComplete  = true})
+                            return;
+                        }else{
+                             self.dealCards(hand: hand + 1, card: 0)
+                        }
+                    }else{
+                        self.dealCards(hand: hand, card: card + 1)
+                    }
+            }
+        )
      }
-     
+
+     /*
      private func turnOverCards(){
          for card in 0...4{
              UIView.transition(
@@ -300,22 +302,10 @@ class GameViewController: UIViewController {
      }
      
 
-     
- private func createHanabiCardAtLocation(hand: Int, card: Int, location: CGPoint)->HanabiCards{
-     let  newCard = drawCard(hand: hand, card: card)
-     newCard.frame.size = layout.Size(Details: screenDetails)
-     newCard.center = location
-     newCard.handTag = hand
-     newCard.cardTag = card
-     newCard.isFaceUp = false
-     newCard.backgroundColor = UIColor.clear
-     view.addSubview(newCard)
-     print(view)
-     return newCard
- }
+     */
+}
 
-
-
+/*
 
  //MARK: ScreenLayout
 
@@ -584,30 +574,26 @@ extension GameViewController: delegateUpdateView{
         print("got message to update hints")
     }
     
- 
     func addCard(name: String) {
-        let handLookup = ["deck":4]
-        let cardLookup = ["deck":1]
-        let hand = handLookup[name]
-        let card = cardLookup[name]
-        
-        //TODO:
-        cardArray[hand!][card!] = drawCard(hand: hand!, card: card!)
-        cardArray[hand!][card!].frame = CGRect(x: 100, y: 100, width: ViewConst.cardWidth , height:ViewConst.cardHeight)
-        
-        
-        cardArray[hand!][card!].backgroundColor = UIColor.clear
-        //TODO: Do I need this?
-        //newCard.isFaceUp = false
-        
         switch(name){
             case "deck":
-                cardArray[hand!][card!].addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(deckTappedAction)))
-                cardArray[hand!][card!].isFaceUp = false
+                deck.backgroundColor = UIColor.clear
+                deck.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(deckTappedAction)))
+                deck.isFaceUp = false
+                deck.frame =  CGRect(x: 100, y: 100, width: ViewConst.cardWidth, height: ViewConst.cardHeight)
+                view.addSubview(deck)
             default:
                 print("error, name is not found in addCard")
         }
-        
-        view.addSubview(cardArray[hand!][card!])
+    }
+    
+    func addCard(hand:Int, card: Int){
+        playerHands[hand][card].backgroundColor = UIColor.clear
+        playerHands[hand][card].addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(cardTappedAction)))
+        playerHands[hand][card].isFaceUp = false
+        //playerHands[hand][card].cardTag =  card
+        //playerHands[hand][card].handTag = hand
+        playerHands[hand][card].frame =  CGRect(x: 100, y: 200, width: ViewConst.cardWidth, height: ViewConst.cardHeight)
+        view.addSubview(playerHands[hand][card])
     }
 }

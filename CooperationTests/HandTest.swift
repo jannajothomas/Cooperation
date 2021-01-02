@@ -32,17 +32,17 @@ class HandTest: XCTestCase {
         }
         
     func testAddCardToHand() {
-        let success = sut.addCardToHand(cardToAdd: Card(num: Card.Num.zero, col: Card.Col.black))
+        let success = sut.addCardToHand(cardToAdd: Card(num: Card.Num.none, col: Card.Col.none))
         XCTAssertEqual(true, success, "Could not add card")
         XCTAssertEqual(sut.cards.count, 1, "Count after card added is incorrect")
-        XCTAssertEqual(sut.cards[0].num, Card.Num.zero,"Card number is incorrect")
-        XCTAssertEqual(sut.cards[0].col, Card.Col.black, "Card color is incorrect")
+        XCTAssertEqual(sut.cards[0].num, Card.Num.none,"Card number is incorrect")
+        XCTAssertEqual(sut.cards[0].col, Card.Col.none, "Card color is incorrect")
     }
     
     func testRemoveOnlyCardFromHand(){
-        let success = sut.addCardToHand(cardToAdd: Card(num: Card.Num.zero, col: Card.Col.black))
+        let success = sut.addCardToHand(cardToAdd: Card(num: Card.Num.none, col: Card.Col.none))
         XCTAssertEqual(success, true, "Could not add card to hand")
-        XCTAssertEqual(sut.removeCardFromHand(cardToRemove: Card(num: Card.Num.zero, col: Card.Col.black)), true, "Could not remove card from array")
+        XCTAssertEqual(sut.removeCardFromHand(cardToRemove: Card(num: Card.Num.none, col: Card.Col.none)), true, "Could not remove card from array")
     }
     
     func testAddTwoCardsAndRemoveTwo(){

@@ -11,6 +11,7 @@ import XCTest
 
 class DeckTest: XCTestCase {
     var sut: Deck!
+    
     override func setUp() {
         super.setUp()
         sut = Deck()

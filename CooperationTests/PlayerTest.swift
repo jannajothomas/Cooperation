@@ -21,26 +21,26 @@ class PlayerTest: XCTestCase {
     }
 
     func testCreateAPlayer(){
-        let player =  Player(name: "TestName", handSize: 5)
+        let player =  Player(name: "TestName", handSize: 5, playerId: 0)
         XCTAssertEqual(player.name, "TestName", "Player name is not correct")
         XCTAssertEqual(player.getHandSize(),0,"Player hand size is not correct")
     }
     
     func testAddACardToAPlayersHand(){
-        let player = Player(name: "TestName", handSize: 5)
+        let player = Player(name: "TestName", handSize: 5, playerId: 0)
         let success = player.addCardToHand(card: Card(num: Card.Num.four, col: Card.Col.magenta))
         XCTAssertEqual(success,true,"Adding was not successful")
         XCTAssertEqual(player.getHandSize(),1,"Wrong number of cards in hand")
     }
 
     func testChangePlayersName(){
-        let player = Player(name: "TestName", handSize: 3)
+        let player = Player(name: "TestName", handSize: 3, playerId: 0)
         player.name = "NewName"
         XCTAssertEqual(player.name,"NewName", "Players name is not correct")
     }
     
     func testPrintPlayerHand(){
-        let player = Player(name: "TestName", handSize: 3)
+        let player = Player(name: "TestName", handSize: 3, playerId: 0)
         let card1 = Card(num: Card.Num.one, col: Card.Col.red)
         let card2 = Card(num: Card.Num.two, col: Card.Col.blue)
         let card3 = Card(num: Card.Num.three, col: Card.Col.magenta)
