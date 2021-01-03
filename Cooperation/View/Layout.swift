@@ -46,10 +46,11 @@ struct CardIdentity:  CustomStringConvertible{
     let cardIndex: Int
 }
 
-let  viewLocationIndex =  ["ColorHint" : CardIdentity(hand: 4, card: 0, cardIndex: 0),
-                           "NumberHint"  : CardIdentity(hand: 4, card: 3, cardIndex: 3),
-                           "Deck" : CardIdentity(hand: 4, card: 1, cardIndex: 1),
-                           "Discard" : CardIdentity(hand: 4, card: 2, cardIndex: 2)
+let  viewLocationIndex =  ["colorHint" : CardIdentity(hand: 4, card: 0, cardIndex: 0),
+                           "numberHint"  : CardIdentity(hand: 4, card: 3, cardIndex: 3),
+                           "deck" : CardIdentity(hand: 4, card: 1, cardIndex: 1),
+                           "discard" : CardIdentity(hand: 4, card: 2, cardIndex: 2),
+                           "center" : CardIdentity(hand: 4, card: 1, cardIndex: 1)
 ]
 
 struct  ScreenDetails{
@@ -87,14 +88,15 @@ class Layout{
     func Frame(Details: ScreenDetails, item: CardIdentity)->CGRect{
         let loc = Location(Details: Details, item: item)
         let size = Size(Details: Details)
-        print("screen  dteails", Details)
-        print("size", size)
-        print("loc", loc)
-        //let thisLocation = Location(Details: ScreenDetails, item)
-        //let xcoord =
-        let rect = CGRect(x:100,  y: 100, width:size.width, height: size.height)
+        
+        let rect = CGRect(x:loc.x,  y: loc.y, width:size.width, height: size.height)
         return  rect
     }
+    
+    func Frame(Details: ScreenDetails, name: String)->CGRect{
+        return Frame(Details: Details, item: viewLocationIndex[name]!)
+    }
+    
     
     func Size(Details: ScreenDetails)->CGSize{
         setupLocations(screenDetails: Details)
