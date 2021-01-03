@@ -34,7 +34,15 @@ class GameViewController: UIViewController {
         screenDetails.windowHeight =  self.view.frame.size.height
         
         //game.delegate = self
+        
+        for hand in 0...1{
+            for card in 0...4{
+                playerHands[hand][card] = addCard(hand: hand, card: card)
+                view.addSubview(playerHands[hand][card])
+            }
+        }
         addCard(name: "deck")
+        
         strategist = GKMinmaxStrategist()
         strategist.maxLookAheadDepth = 4
         strategist.randomSource = GKARC4RandomSource()
@@ -134,7 +142,6 @@ class GameViewController: UIViewController {
 
      //Recursive function that animates the dealing of the cards
      private func dealCards(hand: Int, card: Int){
-         addCard(hand: hand, card: card)
          UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut, animations:{
             self.playerHands[hand][card].center = self.layout.Location(Details: self.screenDetails, item: CardIdentity(hand: hand, card: card, cardIndex: card))}  , completion: { _ in
                     //see if is the last card in the hand
@@ -584,11 +591,12 @@ extension GameViewController: delegateUpdateView{
         }
     }
     
-    func addCard(hand:Int, card: Int){
-        playerHands[hand][card].backgroundColor = UIColor.clear
-        playerHands[hand][card].addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(cardTappedAction)))
-        playerHands[hand][card].isFaceUp = false
-        playerHands[hand][card].frame   = layout.Frame(Details: screenDetails, item: CardIdentity(hand: 4, card: 1, cardIndex: 1))
-        view.addSubview(playerHands[hand][card])
+    func addCard(hand:Int, card: Int)->CardView{
+        let newCard = CardView()
+        newCard.backgroundColor = UIColor.clear
+        newCard.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(cardTappedAction)))
+        newCard.isFaceUp = false
+        newCard.frame = layout.Frame(Details: screenDetails, item: CardIdentity(hand: 4, card: 1, cardIndex: 1))
+        return newCard
     }
 }
