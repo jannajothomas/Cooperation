@@ -260,5 +260,436 @@
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "79CDD306-377C-413D-ABA6-3CE96AF14AF6"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Cooperation/View/GameViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "144"
+            endingLineNumber = "144"
+            landmarkName = "dealCards(hand:card:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F9651EE8-94CE-40BB-B454-3ABF4B1064C8"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Cooperation/View/GameViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "148"
+            endingLineNumber = "148"
+            landmarkName = "dealCards(hand:card:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8D85B357-AB35-4A5E-B434-271E2BE68333"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Cooperation/View/GameViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "145"
+            endingLineNumber = "145"
+            landmarkName = "dealCards(hand:card:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "8D85B357-AB35-4A5E-B434-271E2BE68333 - 3e12eca4240f2ce8"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Cooperation.GameViewController.(dealCards in _42ED1A026F3A083E653A66594097DF6B)(hand: Swift.Int, card: Swift.Int) -&gt; ()"
+                  moduleName = "Cooperation"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/susanjensen/Documents/Cooperation/Cooperation/View/GameViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "138"
+                  endingLineNumber = "138"
+                  offsetFromSymbolStart = "75">
+               </Location>
+               <Location
+                  uuid = "8D85B357-AB35-4A5E-B434-271E2BE68333 - 7bcb3b4f4e3d71f0"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in Cooperation.GameViewController.(dealCards in _42ED1A026F3A083E653A66594097DF6B)(hand: Swift.Int, card: Swift.Int) -&gt; ()"
+                  moduleName = "Cooperation"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/susanjensen/Documents/Cooperation/Cooperation/View/GameViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "139"
+                  endingLineNumber = "139"
+                  offsetFromSymbolStart = "49">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4FF94EC8-BB91-436A-B281-FD20ACC8D803"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Cooperation/View/GameViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "146"
+            endingLineNumber = "146"
+            landmarkName = "dealCards(hand:card:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "4FF94EC8-BB91-436A-B281-FD20ACC8D803 - 3e12eca4240f2ce8"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Cooperation.GameViewController.(dealCards in _42ED1A026F3A083E653A66594097DF6B)(hand: Swift.Int, card: Swift.Int) -&gt; ()"
+                  moduleName = "Cooperation"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/susanjensen/Documents/Cooperation/Cooperation/View/GameViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "139"
+                  endingLineNumber = "139"
+                  offsetFromSymbolStart = "373">
+               </Location>
+               <Location
+                  uuid = "4FF94EC8-BB91-436A-B281-FD20ACC8D803 - 7bcb3b4f4e3d71f0"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in Cooperation.GameViewController.(dealCards in _42ED1A026F3A083E653A66594097DF6B)(hand: Swift.Int, card: Swift.Int) -&gt; ()"
+                  moduleName = "Cooperation"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/susanjensen/Documents/Cooperation/Cooperation/View/GameViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "139"
+                  endingLineNumber = "139"
+                  offsetFromSymbolStart = "49">
+               </Location>
+               <Location
+                  uuid = "4FF94EC8-BB91-436A-B281-FD20ACC8D803 - 112d0a8306a91386"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Swift.Bool) -&gt; () in Cooperation.GameViewController.(dealCards in _42ED1A026F3A083E653A66594097DF6B)(hand: Swift.Int, card: Swift.Int) -&gt; ()"
+                  moduleName = "Cooperation"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/susanjensen/Documents/Cooperation/Cooperation/View/GameViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "141"
+                  endingLineNumber = "141"
+                  offsetFromSymbolStart = "152">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "893392C0-9FCE-4023-AE86-1DE956365A70"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Cooperation/View/GameViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "147"
+            endingLineNumber = "147"
+            landmarkName = "dealCards(hand:card:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5321B233-D207-467D-9321-C0C7DA0A887B"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Cooperation/View/GameViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "149"
+            endingLineNumber = "149"
+            landmarkName = "dealCards(hand:card:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "397B100B-B3BF-40FE-9DD2-E7435C65E8DA"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Cooperation/View/GameViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "150"
+            endingLineNumber = "150"
+            landmarkName = "dealCards(hand:card:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "397B100B-B3BF-40FE-9DD2-E7435C65E8DA - 112d0a8306a91386"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Swift.Bool) -&gt; () in Cooperation.GameViewController.(dealCards in _42ED1A026F3A083E653A66594097DF6B)(hand: Swift.Int, card: Swift.Int) -&gt; ()"
+                  moduleName = "Cooperation"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/susanjensen/Documents/Cooperation/Cooperation/View/GameViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "144"
+                  endingLineNumber = "144"
+                  offsetFromSymbolStart = "207">
+               </Location>
+               <Location
+                  uuid = "397B100B-B3BF-40FE-9DD2-E7435C65E8DA - 58e24e1ccfba1867"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in closure #2 (Swift.Bool) -&gt; () in Cooperation.GameViewController.(dealCards in _42ED1A026F3A083E653A66594097DF6B)(hand: Swift.Int, card: Swift.Int) -&gt; ()"
+                  moduleName = "Cooperation"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/susanjensen/Documents/Cooperation/Cooperation/View/GameViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "144"
+                  endingLineNumber = "144"
+                  offsetFromSymbolStart = "22">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "91F35A35-841D-45E3-A750-141AE94D35D0"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Cooperation/View/GameViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "151"
+            endingLineNumber = "151"
+            landmarkName = "dealCards(hand:card:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "91F35A35-841D-45E3-A750-141AE94D35D0 - 112d0a8306a91386"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Swift.Bool) -&gt; () in Cooperation.GameViewController.(dealCards in _42ED1A026F3A083E653A66594097DF6B)(hand: Swift.Int, card: Swift.Int) -&gt; ()"
+                  moduleName = "Cooperation"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/susanjensen/Documents/Cooperation/Cooperation/View/GameViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "144"
+                  endingLineNumber = "144"
+                  offsetFromSymbolStart = "207">
+               </Location>
+               <Location
+                  uuid = "91F35A35-841D-45E3-A750-141AE94D35D0 - 58e24e1ccfba1867"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in closure #2 (Swift.Bool) -&gt; () in Cooperation.GameViewController.(dealCards in _42ED1A026F3A083E653A66594097DF6B)(hand: Swift.Int, card: Swift.Int) -&gt; ()"
+                  moduleName = "Cooperation"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/susanjensen/Documents/Cooperation/Cooperation/View/GameViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "144"
+                  endingLineNumber = "144"
+                  offsetFromSymbolStart = "22">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DC156F76-075F-4445-9223-5AC6CFB9F219"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Cooperation/View/GameViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "152"
+            endingLineNumber = "152"
+            landmarkName = "dealCards(hand:card:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "DC156F76-075F-4445-9223-5AC6CFB9F219 - 112d0a8306a91386"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Swift.Bool) -&gt; () in Cooperation.GameViewController.(dealCards in _42ED1A026F3A083E653A66594097DF6B)(hand: Swift.Int, card: Swift.Int) -&gt; ()"
+                  moduleName = "Cooperation"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/susanjensen/Documents/Cooperation/Cooperation/View/GameViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "145"
+                  endingLineNumber = "145"
+                  offsetFromSymbolStart = "464">
+               </Location>
+               <Location
+                  uuid = "DC156F76-075F-4445-9223-5AC6CFB9F219 - ddb1536295809b0c"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Swift.Bool) -&gt; () in closure #2 (Swift.Bool) -&gt; () in Cooperation.GameViewController.(dealCards in _42ED1A026F3A083E653A66594097DF6B)(hand: Swift.Int, card: Swift.Int) -&gt; ()"
+                  moduleName = "Cooperation"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/susanjensen/Documents/Cooperation/Cooperation/View/GameViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "145"
+                  endingLineNumber = "145"
+                  offsetFromSymbolStart = "19">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F211F917-2D19-440E-B314-F25B848BF84D"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Cooperation/View/GameViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "153"
+            endingLineNumber = "153"
+            landmarkName = "dealCards(hand:card:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "24F0258E-6A99-4E6B-B051-005FC53EB439"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Cooperation/View/GameViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "154"
+            endingLineNumber = "154"
+            landmarkName = "dealCards(hand:card:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CCF8F12C-EA0E-4811-A837-B456192253EE"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Cooperation/View/GameViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "155"
+            endingLineNumber = "155"
+            landmarkName = "dealCards(hand:card:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "41920C3A-AAD5-4BC2-B436-9DB7072587B4"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Cooperation/View/GameViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "157"
+            endingLineNumber = "157"
+            landmarkName = "dealCards(hand:card:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "AB654EDB-093F-44A4-A91A-2DEE618218C9"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Cooperation/View/GameViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "156"
+            endingLineNumber = "156"
+            landmarkName = "dealCards(hand:card:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3DD4D392-4984-4027-B200-12E824428D82"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Cooperation/View/GameViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "158"
+            endingLineNumber = "158"
+            landmarkName = "dealCards(hand:card:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "56C08146-77D3-47AA-BC90-DD5309373044"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Cooperation/View/GameViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "159"
+            endingLineNumber = "159"
+            landmarkName = "dealCards(hand:card:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>
