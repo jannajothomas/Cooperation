@@ -41,7 +41,7 @@ class GameViewController: UIViewController {
                 view.addSubview(playerHands[hand][card])
             }
         }
-        addCard(name: "deck")
+        deck = addCard(name: "deck")
         
         strategist = GKMinmaxStrategist()
         strategist.maxLookAheadDepth = 4
@@ -578,17 +578,21 @@ extension GameViewController: delegateUpdateView{
         print("got message to update hints")
     }
     
-    func addCard(name: String) {
+    func addCard(name: String)->CardView {
+        let newCard = CardView()
+        newCard.backgroundColor = UIColor.clear
+        newCard.isFaceUp = false
         switch(name){
             case "deck":
-                deck.backgroundColor = UIColor.clear
-                deck.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(deckTappedAction)))
-                deck.isFaceUp = false
-                deck.frame = layout.Frame(Details: screenDetails, item: CardIdentity(hand: 4, card: 1, cardIndex: 1))
-                view.addSubview(deck)
+                newCard.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(deckTappedAction)))
+                //deck.isFaceUp = false
+                newCard.frame = layout.Frame(Details: screenDetails, name: name)
+                //newCard.frame = layout.Frame(Details: screenDetails, item: CardIdentity(hand: -1, card: 1, cardIndex: 1))
+                view.addSubview(newCard)
             default:
                 print("error, name is not found in addCard")
         }
+        return newCard
     }
     
     func addCard(hand:Int, card: Int)->CardView{
@@ -596,7 +600,8 @@ extension GameViewController: delegateUpdateView{
         newCard.backgroundColor = UIColor.clear
         newCard.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(cardTappedAction)))
         newCard.isFaceUp = false
-        newCard.frame = layout.Frame(Details: screenDetails, item: CardIdentity(hand: 4, card: 1, cardIndex: 1))
+        newCard.frame = layout.Frame(Details: screenDetails, name: "center")
+        //newCard.frame = layout.Frame(Details: screenDetails, item: CardIdentity(hand: -1, card: 1, cardIndex: 1))
         return newCard
     }
 }
