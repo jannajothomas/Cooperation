@@ -51,16 +51,31 @@ class Table: NSObject{
     var hints = Array(repeating: true, count: 8) /* 4 */
     var cardLeftInDeck = 50 /*Need to make this automatically update or something.  This is a really clunky way to do this*/
     
+    var deck = Deck()
+    
     override init() {
         currentPlayer = Player.allPlayers[0]
         super.init()
         hands = buildCardPiles(numberOfPiles: numPlayers, cardInEachPile: 5)
         stacks = buildCardPiles(numberOfPiles: 5, cardInEachPile: 5)
         discardPiles = buildCardPiles(numberOfPiles: 5, cardInEachPile: 10)
+        
+        print("capacit", hands.count)
+        print("other cap", hands[0].count)
+        print("other cap", hands[1].count)
+        //print("other cap", hands[2].capacity)
+        
+        for hand in 0...1{
+            for card in 0...4{
+               // print(hands[hand][card])
+                hands[hand][card] = deck.drawCard()!
+            }
+        }
     }
     
     func buildCardPiles(numberOfPiles:Int, cardInEachPile:Int)->[[Card]]{
-        let newArray = Array(repeating: Array(repeating: Card(), count: numberOfPiles - 1), count: cardInEachPile - 1)
+        let newArray = Array(repeating: Array(repeating: Card(), count: cardInEachPile), count: numberOfPiles)
+        //print("new array capactiy" = newArray.count)
         return newArray
     }
     
@@ -156,4 +171,35 @@ extension Table: GKGameModel{
         }
     }
     
+}
+
+struct Deck {
+    var cards = [Card]()
+    
+    init() {
+        for col in Card.Col.all{
+            for num in Card.Num.all{
+                switch num{
+                case Card.Num.one:
+                    cards.append(Card(num: num, col: col))
+                    cards.append(Card(num: num, col: col))
+                    cards.append(Card(num: num, col: col))
+                case Card.Num.five:
+                    cards.append(Card(num: num, col: col))
+                default:
+                    cards.append(Card(num: num, col: col))
+                    cards.append(Card(num: num, col: col))
+                }
+            }
+        }
+    }
+    
+    mutating func drawCard() -> Card? {
+        if cards.count > 0 {
+            return cards.remove(at: Int(arc4random_uniform(UInt32(cards.count))))
+        } else {
+            return nil
+        }
+        //TODO: add other error catching stuff here
+    }
 }

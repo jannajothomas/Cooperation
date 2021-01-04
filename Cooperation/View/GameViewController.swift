@@ -10,6 +10,7 @@
 //This is really concerned with making info from the model visible.
 import UIKit
 import GameplayKit
+import Foundation
 
 class GameViewController: UIViewController {
     //var game = Game(playerNames: ["player1","player2"])
@@ -25,11 +26,21 @@ class GameViewController: UIViewController {
     var deck = CardView()
     //var cardArray = Array(repeating: Array(repeating: CardView(), count: 5), count: 5)
     var strategist: GKMinmaxStrategist!
-    var table: Table!
+    var table = Table()
     var layout = Layout()   //this should be a struct not a class
     var lastHand = 1    //Dont know what this is
     var screenDetails = ScreenDetails(windowWidth: 0, windowHeight: 0, topPadding: 0, rightPadding: 0, leftPadding: 0, bottomPadding: 0)
     
+    
+     // static var all = [Col.red, Col.blue, Col.magenta, Col.orange, Col.purple]
+    
+    let  color =  [1 : UIColor.red,
+                   2: UIColor.blue,
+                   3: UIColor.magenta,
+                   4: UIColor.orange,
+                   5: UIColor.purple,
+                   
+            ]
     
     override func viewDidLoad() {
         
@@ -600,6 +611,14 @@ extension GameViewController: delegateUpdateView{
         newCard.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(cardTappedAction)))
         newCard.isFaceUp = false
         newCard.frame = layout.Frame(Details: screenDetails, name: "center")
+        newCard.num = table.hands[hand][card].num.rawValue
+        //newCard.num = table.hands[hand][card].num
+        print("hand: ",hand,  "card ",card)
+        print("this is ",table.hands[hand][card].col)
+        print("hash value is ", table.hands[hand][card].col.rawValue)
+        print("color is",color[table.hands[hand][card].col.rawValue])
+        //print("number")
+        newCard.col = color[table.hands[hand][card].col.rawValue]!
         return newCard
     }
 }
