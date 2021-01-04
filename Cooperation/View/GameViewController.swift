@@ -13,7 +13,11 @@ import GameplayKit
 
 class GameViewController: UIViewController {
     //var game = Game(playerNames: ["player1","player2"])
-    var dealingComplete = false
+    var dealingComplete: Bool = false{
+        didSet{
+            turnOverCards()
+        }
+    }
     
     var playerHands = Array(repeating: Array(repeating: CardView(), count: 5),count: 2)
     var stacks = Array(repeating: Array(repeating: CardView(), count: 5), count: 5)
@@ -47,10 +51,7 @@ class GameViewController: UIViewController {
         strategist.maxLookAheadDepth = 4
         strategist.randomSource = GKARC4RandomSource()
         resetTable()
-        view.backgroundColor = UIColor.red
-        
-        //print("screen dtails in view did load", screenDetails)
-        //screenDetails.bottomPadding = self.view.frame.size.bottomPadding
+        //view.backgroundColor = UIColor.red
     }
 
     func resetTable(){
@@ -70,9 +71,7 @@ class GameViewController: UIViewController {
             print("deck tapped and dealing is complete")
         }else{
             dealCards(hand: 0, card: 0)
-            print("the card dealing animation should happen now")
-            dealingComplete = true
-            //TODO: Animate the dealing of the cards
+            //dealingComplete = true
         }
     }
     
@@ -143,12 +142,12 @@ class GameViewController: UIViewController {
      //Recursive function that animates the dealing of the cards
      private func dealCards(hand: Int, card: Int){
          UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut, animations:{
-            self.playerHands[hand][card].center = self.layout.Location(Details: self.screenDetails, item: CardIdentity(hand: hand, card: card, cardIndex: card))}  , completion: { _ in
+            self.playerHands[hand][card].center = self.layout.Location(Details: self.screenDetails, item: CardIdentity(hand: hand, card: card))}  , completion: { _ in
                     //see if is the last card in the hand
                     if(card == 4){
                         if hand == self.lastHand{
                             //Dealing is done.  Move deck its perm location
-                            UIView.animate(withDuration: 0.3, delay: 0, options: .curveLinear, animations: {self.deck.center = self.layout.Location(Details: self.screenDetails, item: CardIdentity(hand: 4, card: 1, cardIndex: 1))},
+                            UIView.animate(withDuration: 0.3, delay: 0, options: .curveLinear, animations: {self.deck.center = self.layout.Location(Details: self.screenDetails, item: CardIdentity(hand: 4, card: 1))},
                             completion: { _ in self.dealingComplete  = true})
                             return;
                         }else{
@@ -167,22 +166,24 @@ class GameViewController: UIViewController {
             
         }
 
-     /*
+     
      private func turnOverCards(){
          for card in 0...4{
              UIView.transition(
-                 with: PlayerCardView[0][card],
+                with: playerHands[0][card],
+                 //with: PlayerCardView[0][card],
                  duration: 1.5,
                  options: .transitionFlipFromLeft,
-                 animations: {self.PlayerCardView[0][card].isFaceUp = true},
+                 animations: {self.playerHands[0][card].isFaceUp = true},
+                 //animations: {self.PlayerCardView[0][card].isFaceUp = true},
                  completion: {_ in
                      if(card == 4){
-                         self.gamePlay.selectFirstPlayer()
+                         //self.gamePlay.selectFirstPlayer()
                      }
              })
          }
      }
-     
+     /*
      //MARK: Refresh Layout
     
      //MARK: Recognizer Actions
@@ -585,9 +586,7 @@ extension GameViewController: delegateUpdateView{
         switch(name){
             case "deck":
                 newCard.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(deckTappedAction)))
-                //deck.isFaceUp = false
                 newCard.frame = layout.Frame(Details: screenDetails, name: name)
-                //newCard.frame = layout.Frame(Details: screenDetails, item: CardIdentity(hand: -1, card: 1, cardIndex: 1))
                 view.addSubview(newCard)
             default:
                 print("error, name is not found in addCard")
@@ -601,7 +600,6 @@ extension GameViewController: delegateUpdateView{
         newCard.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(cardTappedAction)))
         newCard.isFaceUp = false
         newCard.frame = layout.Frame(Details: screenDetails, name: "center")
-        //newCard.frame = layout.Frame(Details: screenDetails, item: CardIdentity(hand: -1, card: 1, cardIndex: 1))
         return newCard
     }
 }

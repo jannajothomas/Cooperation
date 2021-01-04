@@ -40,17 +40,17 @@ struct CardLocation: CustomStringConvertible{
 
 
 struct CardIdentity:  CustomStringConvertible{
-    var description: String{return "hand \(hand) card \(card) cardIndex\(cardIndex)"}
+    var description: String{return "hand \(hand) card \(card) "}
     let hand: Int
     let card: Int
-    let cardIndex: Int
+    //let cardIndex: Int
 }
 
-let  viewLocationIndex =  ["colorHint" : CardIdentity(hand: 4, card: 0, cardIndex: 0),
-                           "numberHint"  : CardIdentity(hand: 4, card: 3, cardIndex: 3),
-                           "deck" : CardIdentity(hand: 4, card: 1, cardIndex: 1),
-                           "discard" : CardIdentity(hand: 4, card: 2, cardIndex: 2),
-                           "center" : CardIdentity(hand: 4, card: 1, cardIndex: 1)
+let  viewLocationIndex =  ["colorHint" : CardIdentity(hand: 4, card: 0/*, cardIndex: 0*/),
+                           "numberHint"  : CardIdentity(hand: 4, card: 3/*, cardIndex: 3*/),
+                           "deck" : CardIdentity(hand: 4, card: 1/*, cardIndex: 1*/),
+                           "discard" : CardIdentity(hand: 4, card: 2/*, cardIndex: 2*/),
+                           "center" : CardIdentity(hand: 4, card: 1/*, cardIndex: 1*/)
 ]
 
 struct  ScreenDetails{
