@@ -7,6 +7,9 @@
 //
 
 
+//TODO: Card doesn't start at the center of the screen
+//TODO:
+
 import UIKit
 import GameplayKit
 import Foundation
@@ -18,38 +21,35 @@ class GameViewController: UIViewController {
             layoutTable()
         }
     }
-    
-    var playerHands = Array(repeating: Array(repeating: CardView(), count: 5),count: 2)
-    var stacks = Array(repeating: Array(repeating: CardView(), count: 5), count: 5)
-    var discardPiles = Array(repeating: Array(repeating: CardView(), count: 10), count: 5)
-    var deck = CardView()
-
-    var strategist: GKMinmaxStrategist!
+ 
     var table = Table()
     var layout = Layout()   //this should be a struct not a class
-    var lastHand = 1    //Dont know what this is
-    var screenDetails = ScreenDetails(windowWidth: 0, windowHeight: 0, topPadding: 0, rightPadding: 0, leftPadding: 0, bottomPadding: 0)
     
-    var DiscardView = LabeledCardArea()     //Hand 4 Card 2
-    lazy var StackCardsView = Array(repeating: CardView(), count: 5)      //Hand 5
+    var playerHands = Array(repeating: Array(repeating: CardView(), count: 5),count: 2)
+    
     var ColorHintView = LabeledCardArea()   // Hand 4 Card 0
+    var deck = CardView()
+    var DiscardLocation = LabeledCardArea()     //Hand 4 Card 2
     var NumberHintView = LabeledCardArea()  //Hand 4 Card 3
-    lazy var DiscardedCardsView = [[CardView()],[CardView()],[CardView()],[CardView()],[CardView()]]
     
+    lazy var stackPiles = Array(repeating: CardView(), count: 5)      //Hand 5
+    var discardPiles = Array(repeating: Array(repeating: CardView(), count: 10), count: 5)
+    
+    var strategist: GKMinmaxStrategist!
+    var numPlayers = 2    //Dont know what this is
+    var screenDetails = ScreenDetails(windowWidth: 0, windowHeight: 0, topPadding: 0, rightPadding: 0, leftPadding: 0, bottomPadding: 0)
+
     let  color =  [1 : UIColor.red,
                    2: UIColor.blue,
                    3: UIColor.magenta,
                    4: UIColor.orange,
-                   5: UIColor.purple,
-                   
-            ]
+                   5: UIColor.purple]
     
     override func viewDidLoad() {
-        
         super.viewDidLoad()
         screenDetails.windowWidth = self.view.frame.size.width
         screenDetails.windowHeight =  self.view.frame.size.height
-        
+    
         //game.delegate = self
         
         for hand in 0...1{
@@ -192,9 +192,9 @@ class GameViewController: UIViewController {
      }
     
     func layoutTable(){
-        DiscardView = configureSpecialCards(name: "discard",card: 2)
-        DiscardView.isHidden = false
-        view.addSubview(DiscardView)
+        DiscardLocation = configureSpecialCards(name: "discard",card: 2)
+        DiscardLocation.isHidden = false
+        view.addSubview(DiscardLocation)
         //print(view)
         
         ColorHintView = configureSpecialCards(name: "colorHint", card: 1)
@@ -240,9 +240,9 @@ class GameViewController: UIViewController {
                     newStack.backgroundColor = UIColor.clear
                     newStack.num = 0
                     newStack.cardBackgroundColor = stackColor[card]
-                    StackCardsView[card] = newStack
-                    StackCardsView[card].isHidden = false
-                    view.addSubview(StackCardsView[card])
+                    stackPiles[card] = newStack
+                    stackPiles[card].isHidden = false
+                    view.addSubview(stackPiles[card])
                 }
     }
     
@@ -252,8 +252,8 @@ class GameViewController: UIViewController {
        deck.center = layout.Location(Details: screenDetails, item: viewLocationIndex["Deck"]!)
        deck.frame.size = layout.Size(Details: screenDetails)
        
-       DiscardView.center = layout.Location(Details: screenDetails, item: viewLocationIndex["Discard"]!)
-       DiscardView.frame.size = layout.Size(Details: screenDetails)
+       DiscardLocation.center = layout.Location(Details: screenDetails, item: viewLocationIndex["Discard"]!)
+       DiscardLocation.frame.size = layout.Size(Details: screenDetails)
        
        ColorHintView.center = layout.Location(Details: screenDetails, item: viewLocationIndex["ColorHint"]!)
        ColorHintView.frame.size = layout.Size(Details: screenDetails)
@@ -368,9 +368,14 @@ class GameViewController: UIViewController {
             self.playerHands[hand][card].center = self.layout.Location(Details: self.screenDetails, item: CardIdentity(hand: hand, card: card))}  , completion: { _ in
                     //see if is the last card in the hand
                     if(card == 4){
-                        if hand == self.lastHand{
+                        if hand == self.numPlayers  - 1{
                             //Dealing is done.  Move deck its perm location
-                            UIView.animate(withDuration: 0.3, delay: 0, options: .curveLinear, animations: {self.deck.center = self.layout.Location(Details: self.screenDetails, item: CardIdentity(hand: 4, card: 1))},
+                            UIView.animate(withDuration: 0.3, delay: 0, options: .curveLinear, animations: {
+                                self.deck.frame = self.layout.Frame(Details: self.screenDetails, name: "deck")
+                                
+                                //self.deck.center = self.layout.Location(Details: self.screenDetails, item: CardIdentity(hand: 4, card: 1))
+                                
+                            },
                             completion: { _ in self.dealingComplete  = true})
                             return;
                         }else{
@@ -419,11 +424,11 @@ class GameViewController: UIViewController {
                 lastLocation = chosenCardView.center
             case .ended:
                 lastLocation = chosenCardView.center
-                if chosenCardView.frame.intersects(DiscardView.frame){
+                if chosenCardView.frame.intersects(DiscardLocation.frame){
                     //gamePlay.discardCard(sourceHand: chosenCardView.handTag, sourceCard: chosenCardView.cardTag, playedToHand: 4, playedToCard: 2)
                 }
                 for card in 0...4{
-                    if chosenCardView.frame.intersects(StackCardsView[card].frame){
+                    if chosenCardView.frame.intersects(stackPiles[card].frame){
                         //gamePlay.playCard(hand: chosenCardView.handTag, card: chosenCardView.cardTag, playedToHand: 5, playedToCard: card)
                     }
                 }
@@ -431,16 +436,16 @@ class GameViewController: UIViewController {
                 //print("x location", chosenCardView.center.x, "y location", chosenCardView.center.y)
                 let translation = recognizer.translation(in: self.view)
                 chosenCardView.center = CGPoint(x: lastLocation.x + translation.x, y: lastLocation.y + translation.y)
-                if (chosenCardView.frame.intersects(DiscardView.frame)){
-                    DiscardView.backgroundColor = UIColor.gray
+                if (chosenCardView.frame.intersects(DiscardLocation.frame)){
+                    DiscardLocation.backgroundColor = UIColor.gray
                 }else{
-                    DiscardView.backgroundColor = UIColor.clear
+                    DiscardLocation.backgroundColor = UIColor.clear
                 }
                 for card in 0...4{
-                    if (chosenCardView.frame.intersects(StackCardsView[card].frame)){
-                        StackCardsView[card].backgroundColor = UIColor.gray
+                    if (chosenCardView.frame.intersects(stackPiles[card].frame)){
+                        stackPiles[card].backgroundColor = UIColor.gray
                     }else{
-                        StackCardsView[card].backgroundColor = UIColor.clear
+                        stackPiles[card].backgroundColor = UIColor.clear
                     }
                 }
             default: break
@@ -751,7 +756,7 @@ extension GameViewController: delegateUpdateView{
                 
                 //newCard.addGestureRecognizer(deal)
                 newCard.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(deckTappedAction)))
-                newCard.frame = layout.Frame(Details: screenDetails, name: name)
+                newCard.frame = layout.Frame(Details: screenDetails, name: "center")
                 view.addSubview(newCard)
             default:
                 print("error, name is not found in addCard")

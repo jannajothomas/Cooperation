@@ -46,11 +46,12 @@ struct CardIdentity:  CustomStringConvertible{
     //let cardIndex: Int
 }
 
+//TODO: Deck and center are the same
 let  viewLocationIndex =  ["colorHint" : CardIdentity(hand: 4, card: 0/*, cardIndex: 0*/),
                            "numberHint"  : CardIdentity(hand: 4, card: 3/*, cardIndex: 3*/),
                            "deck" : CardIdentity(hand: 4, card: 1/*, cardIndex: 1*/),
                            "discard" : CardIdentity(hand: 4, card: 2/*, cardIndex: 2*/),
-                           "center" : CardIdentity(hand: 4, card: 1/*, cardIndex: 1*/)
+                           "center" : CardIdentity(hand: -1, card: 1/*, cardIndex: 1*/)
 ]
 
 struct  ScreenDetails{
@@ -82,7 +83,6 @@ class Layout{
         }else{
            return cardCenters[item.hand][item.card]
         }
-        
     }
     
     func Frame(Details: ScreenDetails, item: CardIdentity)->CGRect{
@@ -130,8 +130,6 @@ class Layout{
                }
         var xCardLocations = CGFloat()
         var yCardLocations = CGFloat()
-        //var offset = CGFloat()
-       // var stackXAdd = CGFloat()
         if orientation == "L"{
             spacingX = CGFloat(20)
         }else{
@@ -142,12 +140,9 @@ class Layout{
             if orientation == "L"{
                 xCardLocations = screenDetails.windowWidth - ((cardWidth  / 2) + (cardWidth * CGFloat(card)) + (spacingX * CGFloat(card)) + screenDetails.leftPadding)
                 yCardLocations = screenDetails.topPadding + (cardHeight / 2) + screenDetails.topPadding
-                //offset = CGFloat(6  + card)
             }else{  //"P"
                 xCardLocations  = (cardWidth  / 2) + (cardWidth * CGFloat(card)) + spacingX + (spacingX * CGFloat(card)) + screenDetails.leftPadding
                 yCardLocations = screenDetails.topPadding + (cardHeight / 2) + spacingX
-                 //offset = CGFloat(card)
-               // stackXAdd = screenDetails.leftPadding
             }
         //HAND 0
             cardCenters[0][card] = CGPoint(x: xCardLocations, y: yCardLocations)
@@ -183,7 +178,7 @@ class Layout{
                     y: yCardLocations + cardHeight * CGFloat(3) + spacingX * CGFloat(2)  + localSpacing + starWidth + starBuffer * 2) //+ CGFloat(50))
             }
             //Center of screen
-            centerOfScreen = CGPoint(x: screenDetails.windowWidth / 2, y: screenDetails.windowHeight / 2)
+            centerOfScreen = CGPoint(x: (screenDetails.windowWidth / 2) - (cardWidth / 2), y: (screenDetails.windowHeight / 2) - (cardHeight / 2))
         }
     }
 }
