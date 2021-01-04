@@ -31,6 +31,7 @@ class GameViewController: UIViewController {
     var lastHand = 1    //Dont know what this is
     var screenDetails = ScreenDetails(windowWidth: 0, windowHeight: 0, topPadding: 0, rightPadding: 0, leftPadding: 0, bottomPadding: 0)
     
+    //let deal = UITapGestureRecognizer(target: self, action: #selector(deckTappedAction))
     
      // static var all = [Col.red, Col.blue, Col.magenta, Col.orange, Col.purple]
     
@@ -76,18 +77,14 @@ class GameViewController: UIViewController {
     }
 
     @objc func deckTappedAction(){
-        //print("Deck tapped")
-        if(dealingComplete == true){
-            //TODO: Notify the game that a card should be drawn
-            print("deck tapped and dealing is complete")
-        }else{
-            dealCards(hand: 0, card: 0)
-            //dealingComplete = true
+        dealCards(hand: 0, card: 0)
+        for gesture in deck.gestureRecognizers! {
+            gesture.isEnabled = false
         }
     }
     
     @objc func cardTappedAction(){
-        
+        print("Card tapped")
     }
     
     //This is called when a new card is created during the card dealing process
@@ -596,6 +593,8 @@ extension GameViewController: delegateUpdateView{
         newCard.isFaceUp = false
         switch(name){
             case "deck":
+                
+                //newCard.addGestureRecognizer(deal)
                 newCard.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(deckTappedAction)))
                 newCard.frame = layout.Frame(Details: screenDetails, name: name)
                 view.addSubview(newCard)
@@ -612,12 +611,6 @@ extension GameViewController: delegateUpdateView{
         newCard.isFaceUp = false
         newCard.frame = layout.Frame(Details: screenDetails, name: "center")
         newCard.num = table.hands[hand][card].num.rawValue
-        //newCard.num = table.hands[hand][card].num
-        print("hand: ",hand,  "card ",card)
-        print("this is ",table.hands[hand][card].col)
-        print("hash value is ", table.hands[hand][card].col.rawValue)
-        print("color is",color[table.hands[hand][card].col.rawValue])
-        //print("number")
         newCard.col = color[table.hands[hand][card].col.rawValue]!
         return newCard
     }
