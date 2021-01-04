@@ -2,7 +2,7 @@
 //  LabeledCardArea.swift
 //  Cooperation
 //
-//  Created by Susan Jensen on 1/4/21.
+//  Created by Janna Thomas on 1/4/21.
 //  Copyright © 2021 Personal. All rights reserved.
 //
 

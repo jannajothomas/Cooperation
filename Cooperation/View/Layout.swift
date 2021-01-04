@@ -2,7 +2,7 @@
 //  Layout.swift
 //  Cooperation
 //
-//  Created by Susan Jensen on 4/16/20.
+//  Created by Janna Thomas on 4/16/20.
 //  Copyright © 2020 Susan Jensen. All rights reserved.
 //
 //OLD

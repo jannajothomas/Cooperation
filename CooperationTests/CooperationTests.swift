@@ -2,7 +2,7 @@
 //  CooperationTests.swift
 //  CooperationTests
 //
-//  Created by Susan Jensen on 12/7/20.
+//  Created by Janna Thomas on 12/7/20.
 //  Copyright © 2020 Personal. All rights reserved.
 //
 
