@@ -49,6 +49,7 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
         screenDetails.windowWidth = self.view.frame.size.width
         screenDetails.windowHeight =  self.view.frame.size.height
+        print(self.view.safeAreaInsets.top)
     
         //game.delegate = self
         
@@ -292,19 +293,14 @@ class GameViewController: UIViewController {
     func configureSpecialCards(name: String, card: Int)->LabeledCardArea{
         let specialCard = LabeledCardArea()
         specialCard.frame = layout.Frame(Details: screenDetails, name: name)
-        //specialCard.frame.size = layout.Size(Details: screenDetails)
-        //specialCard.center = layout.Location(Details: screenDetails, item: CardIdentity(hand: 3, card: card))
         specialCard.backgroundColor = UIColor.clear
         if name == "Discard"{
             specialCard.numberOfLines = 1
-            //specialCard.isHidden = false
         }else{
             specialCard.numberOfLines = 2
-            //specialCard.isHidden = true
             specialCard.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hintCardAction(_:))))
         }
         specialCard.cardText = name
-        //specialCard.cardBackgroundColor = UIColor.orange
         return specialCard
     }
     
@@ -335,25 +331,11 @@ class GameViewController: UIViewController {
 
 
 /*
-     
-     //MARK: objects
-     lazy var PlayerCardView = Array(repeating: Array(repeating: HanabiCards(), count:5), count:4) //Hand  0,1
-     
-     var DeckView = HanabiCards()            // Hand 4 Card 1
-     
-     
-     lazy var StackCardsView = Array(repeating: HanabiCards(), count: 5)      //Hand 5
-     
+
      var cardSelected = [false,false,false,false,false]
      
      var hintImages = [HintSymbol(),HintSymbol(),HintSymbol(),HintSymbol(),HintSymbol(),HintSymbol(),HintSymbol()]
      var turnImage = TurnIndicator()
-     
-     //Testing Only
-     
-     
-     //MARK: Constants
-     var lastHand = 1    //this  should ultimately come from somewhere else
      var timeInterval = TimeInterval(6)
 
      //MARK: Animation flags
@@ -384,23 +366,14 @@ class GameViewController: UIViewController {
             }
         )
      }
-    
-    override func viewDidLayoutSubviews() {
-            //updateScreenDetails()
-            //layoutCardCentersAndSize()
-            
-        }
 
-     
      private func turnOverCards(){
          for card in 0...4{
              UIView.transition(
                 with: playerHands[0][card],
-                 //with: PlayerCardView[0][card],
                  duration: 1.5,
                  options: .transitionFlipFromLeft,
                  animations: {self.playerHands[0][card].isFaceUp = true},
-                 //animations: {self.PlayerCardView[0][card].isFaceUp = true},
                  completion: {_ in
                      if(card == 4){
                          //self.gamePlay.selectFirstPlayer()
@@ -408,9 +381,7 @@ class GameViewController: UIViewController {
              })
          }
      }
-    
-    //TODO: Copy and  paste job
-    
+
     var lastLocation = CGPoint()
     @objc func detectPanAction(_ recognizer:UIPanGestureRecognizer) {
         if let chosenCardView = recognizer.view as? CardView{
@@ -449,62 +420,8 @@ class GameViewController: UIViewController {
             }
         }
     }
-    
-    
-    
-    /*
-     
-     var lastLocation = CGPoint()
-     @objc func detectPanAction(_ recognizer:UIPanGestureRecognizer) {
-         if let chosenCardView = recognizer.view as? HanabiCards{
-             //var lastLocation = chosenCardView.center
-             chosenCardView.superview?.bringSubviewToFront(chosenCardView)
-             switch  recognizer.state{
-             case .began:
-                 lastLocation = chosenCardView.center
-             case .ended:
-                 lastLocation = chosenCardView.center
-                 if chosenCardView.frame.intersects(DiscardView.frame){
-                     gamePlay.discardCard(sourceHand: chosenCardView.handTag, sourceCard: chosenCardView.cardTag, playedToHand: 4, playedToCard: 2)
-                 }
-                 for card in 0...4{
-                     if chosenCardView.frame.intersects(StackCardsView[card].frame){
-                         gamePlay.playCard(hand: chosenCardView.handTag, card: chosenCardView.cardTag, playedToHand: 5, playedToCard: card)
-                     }
-                 }
-             case .changed:
-                 print("x location", chosenCardView.center.x, "y location", chosenCardView.center.y)
-                 let translation = recognizer.translation(in: self.view)
-                 chosenCardView.center = CGPoint(x: lastLocation.x + translation.x, y: lastLocation.y + translation.y)
-                 if (chosenCardView.frame.intersects(DiscardView.frame)){
-                     DiscardView.backgroundColor = UIColor.gray
-                 }else{
-                     DiscardView.backgroundColor = UIColor.clear
-                 }
-                 for card in 0...4{
-                     if (chosenCardView.frame.intersects(StackCardsView[card].frame)){
-                         StackCardsView[card].backgroundColor = UIColor.gray
-                     }else{
-                         StackCardsView[card].backgroundColor = UIColor.clear
-                     }
-                 }
-             default: break
-             }
-         }
-     }
-     
-
-     */
-    
-    
-    
-}
-
-
 
  //MARK: ScreenLayout
-
-
      /*
      
      func createStackCard(card: Int, color: UIColor)->HanabiCards{
@@ -540,42 +457,43 @@ class GameViewController: UIViewController {
                   }
               }
      }
-     
+     */
      func drawCardAnimation(hand: Int, card: Int) {
-             let delay = GameBoardViewController.cardMoveTime * 2 + GameBoardViewController.cardFlipTime
-             PlayerCardView[hand][card] = createHanabiCardAtLocation(hand: hand, card: card, location: layout.Location(Details: screenDetails, item: CardIdentity(hand: 4, card: 1, cardIndex: 1)))
-             UIView.animate(withDuration: GameBoardViewController.cardMoveTime, delay: delay, options: UIView.AnimationOptions.curveEaseIn, animations: {
+             let delay = GameViewController.cardMoveTime * 2 + GameViewController.cardFlipTime
+            playerHands[hand][card] = addCard(hand: hand, card: card)
+            //playerHands[hand][card] = createHanabiCardAtLocation(hand: hand, card: card, location: layout.Location(Details: screenDetails, item: CardIdentity(hand: 4, card: 1)))
+             UIView.animate(withDuration: GameViewController.cardMoveTime, delay: delay, options: UIView.AnimationOptions.curveEaseIn, animations: {
 
-                 self.PlayerCardView[hand][card].center = self.layout.Location(Details: self.screenDetails, item: CardIdentity(hand: hand, card: card, cardIndex: card))
+                 self.playerHands[hand][card].center = self.layout.Location(Details: self.screenDetails, item: CardIdentity(hand: hand, card: card))
                     })
          }
      
      func moveCardAnimation(sourceHand: Int, sourceCard: Int, destinationCard: Int, destintionHand: Int, playedToCard: Int, playedToHand: Int) {
-                let chosenCardView = PlayerCardView[sourceHand][sourceCard]
+                let chosenCardView = playerHands[sourceHand][sourceCard]
          view.bringSubviewToFront(chosenCardView)
                  self.view.layoutIfNeeded()
                  UIView.animate(
-                  withDuration: GameBoardViewController.cardMoveTime,
+                  withDuration: GameViewController.cardMoveTime,
                      animations: {
-                         chosenCardView.center = self.layout.Location(Details: self.screenDetails, item: CardIdentity(hand: playedToHand, card: playedToCard, cardIndex: playedToCard))},
+                         chosenCardView.center = self.layout.Location(Details: self.screenDetails, item: CardIdentity(hand: playedToHand, card: playedToCard))},
                      completion: {_ in
                          UIView.transition(
                              with: chosenCardView,
-                             duration: GameBoardViewController.cardFlipTime,
+                             duration: GameViewController.cardFlipTime,
                              options: .transitionFlipFromLeft,
                              animations: {
                                  chosenCardView.isFaceUp = true},
                              completion: {_ in
                                      UIView.animate(
-                                      withDuration: GameBoardViewController.cardMoveTime,
+                                      withDuration: GameViewController.cardMoveTime,
                                          animations:  {
-                                             chosenCardView.center = self.layout.Location(Details: self.screenDetails, item: CardIdentity(hand: destintionHand, card: destinationCard, cardIndex: destinationCard))
+                                             chosenCardView.center = self.layout.Location(Details: self.screenDetails, item: CardIdentity(hand: destintionHand, card: destinationCard))
                                      },
                                          completion: {_ in
                                           if destintionHand == 5{
-                                               self.DiscardedCardsView[destinationCard][destintionHand - 5] = chosenCardView
+                                               self.discardPiles[destinationCard][destintionHand - 5] = chosenCardView
                                           }else{
-                                              self.DiscardedCardsView[destinationCard].append(chosenCardView)
+                                              self.discardPiles[destinationCard].append(chosenCardView)
                                           }
                                      }
                                   )
@@ -587,16 +505,15 @@ class GameViewController: UIViewController {
 
      func playCardAnimation(hand:Int, card: Int, stackIndex: Int, cardInStack: Int){
          
-     }*/
+     }
  }
-     
- extension GameBoardViewController{
+  
+ extension GameViewController{
      static var cardMoveTime = 0.8
      static var cardFlipTime = 0.5
  }
 
- */
-}
+ 
 
 extension GameViewController: delegateUpdateView{
     func moveCard(card: Card, stack: String, location: Int) {
