@@ -84,7 +84,74 @@ class GameViewController: UIViewController {
     }
     
     @objc func selectCardAction(_ recognizer: UITapGestureRecognizer){
-  
+        switch recognizer.state{
+            case .ended:
+            if let chosenCardView = recognizer.view as? CardView{
+                chosenCardView.layer.shadowColor = UIColor.black.cgColor
+                chosenCardView.layer.shadowOpacity = 1
+                chosenCardView.layer.shadowOffset = .zero
+                chosenCardView.layer.shadowRadius = 10
+            }
+            default:
+            print("reached default condition in selectCardAction")
+        }
+  /*var hideColorHints = false
+  var hideNumberHints = false
+  switch recognizer.state{
+  case .ended:
+      if let chosenCardView = recognizer.view as?  CardView{
+          chosenCardView.cardSelected = !chosenCardView.cardSelected
+          if chosenCardView.cardSelected{
+              cardSelected[chosenCardView.tag] = true
+              chosenCardView.layer.shadowColor = UIColor.black.cgColor
+              chosenCardView.layer.shadowOpacity = 1
+              chosenCardView.layer.shadowOffset = .zero
+              chosenCardView.layer.shadowRadius = 10
+              selectedNumber[chosenCardView.tag] = chosenCardView.num
+              selectedColor[chosenCardView.tag] = chosenCardView.cardBackgroundColor
+              
+              //TEMPORARY FOR TROUBLESHOOTING
+              gamePlay.computerPlayer.printComputerHandPossibilities(card: chosenCardView.tag)
+             
+          }else{
+              chosenCardView.layer.shadowRadius = 0
+              cardSelected[chosenCardView.tag] = false
+              selectedNumber[chosenCardView.tag] = 0
+              selectedColor[chosenCardView.tag] = UIColor.black
+          }
+          numberHint = 0
+          colorHint = UIColor.black
+          
+          for card in 0...4{
+              if selectedNumber[card] != 0{       //Only looks at cards that have been selected
+                  if numberHint == 0{
+                      //This checks to see if a number has been stored
+                      numberHint = selectedNumber[card]  //If there isn't a number, this is the first number
+                  }
+                  if(selectedNumber[card] != numberHint){    //If this card number is the stored value
+                      hideNumberHints = true         //make the numbers show
+                  }
+              }
+              if selectedColor[card] !=  UIColor.black{
+                  if colorHint == UIColor.black{
+                      colorHint = selectedColor[card]
+                  }
+                  if(selectedColor[card] != colorHint){
+                      hideColorHints = true
+                  }
+              }
+          }
+          if numberHint == 0{
+              hideNumberHints = true
+          }
+          if colorHint == UIColor.black{
+              hideColorHints = true
+          }
+          NumberHintView.isHidden = hideNumberHints
+          ColorHintView.isHidden = hideColorHints
+      }
+  default: break
+  }*/
       }
       
       @objc func flipCardAction(_ recognizer: UITapGestureRecognizer) {
