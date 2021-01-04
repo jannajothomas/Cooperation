@@ -155,13 +155,20 @@ class CardView: UIView {
         }
         
         roundRect.fill()
+
+        
         
         cardOutlineColor.setStroke()
         if(isSelected){
             roundRect.lineWidth = CGFloat(10)
+            layer.shadowColor = UIColor.black.cgColor
+            layer.shadowOpacity = 1
+            layer.shadowOffset = .zero
+            layer.shadowRadius = 10
             //roundRect.
         }else{
             roundRect.lineWidth = CGFloat(lineWidth)
+            layer.shadowRadius = 0
         }
         roundRect.stroke()
         if isFaceUp{}

@@ -87,14 +87,13 @@ class GameViewController: UIViewController {
         switch recognizer.state{
             case .ended:
             if let chosenCardView = recognizer.view as? CardView{
-                chosenCardView.layer.shadowColor = UIColor.black.cgColor
-                chosenCardView.layer.shadowOpacity = 1
-                chosenCardView.layer.shadowOffset = .zero
-                chosenCardView.layer.shadowRadius = 10
+                chosenCardView.isSelected = !chosenCardView.isSelected
+                
             }
             default:
             print("reached default condition in selectCardAction")
-        }
+            }
+        
   /*var hideColorHints = false
   var hideNumberHints = false
   switch recognizer.state{
