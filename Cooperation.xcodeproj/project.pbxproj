@@ -34,6 +34,7 @@
 		D5E5CB2325826D8E000D0B72 /* HandTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E5CB2225826D8E000D0B72 /* HandTest.swift */; };
 		D5EF70D825952F0400BC6A47 /* Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5EF70D725952F0400BC6A47 /* Table.swift */; };
 		D5EF70DA259580E900BC6A47 /* Move.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5EF70D9259580E900BC6A47 /* Move.swift */; };
+		D5F2C67625A340900050F19A /* LabeledCardArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F2C67525A340900050F19A /* LabeledCardArea.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +88,7 @@
 		D5E5CB2225826D8E000D0B72 /* HandTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandTest.swift; sourceTree = "<group>"; };
 		D5EF70D725952F0400BC6A47 /* Table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Table.swift; path = ../../Table.swift; sourceTree = "<group>"; };
 		D5EF70D9259580E900BC6A47 /* Move.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Move.swift; sourceTree = "<group>"; };
+		D5F2C67525A340900050F19A /* LabeledCardArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabeledCardArea.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -203,6 +205,7 @@
 			isa = PBXGroup;
 			children = (
 				D5E5CADE257F15BE000D0B72 /* GameViewController.swift */,
+				D5F2C67525A340900050F19A /* LabeledCardArea.swift */,
 				D5E5CB0F257FA6C0000D0B72 /* CardView.swift */,
 				D5E5CB11257FA886000D0B72 /* Layout.swift */,
 			);
@@ -347,6 +350,7 @@
 				D5E5CB182581208F000D0B72 /* Card.swift in Sources */,
 				D5E5CB10257FA6C0000D0B72 /* CardView.swift in Sources */,
 				D5E5CB1C258120A5000D0B72 /* Hand.swift in Sources */,
+				D5F2C67625A340900050F19A /* LabeledCardArea.swift in Sources */,
 				D5E5CADB257F15BE000D0B72 /* AppDelegate.swift in Sources */,
 				D5E5CB0E257F187A000D0B72 /* Game.swift in Sources */,
 				D5EF70DA259580E900BC6A47 /* Move.swift in Sources */,

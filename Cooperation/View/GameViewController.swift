@@ -17,6 +17,7 @@ class GameViewController: UIViewController {
     var dealingComplete: Bool = false{
         didSet{
             turnOverCards()
+            layoutTable()
         }
     }
     
@@ -31,9 +32,10 @@ class GameViewController: UIViewController {
     var lastHand = 1    //Dont know what this is
     var screenDetails = ScreenDetails(windowWidth: 0, windowHeight: 0, topPadding: 0, rightPadding: 0, leftPadding: 0, bottomPadding: 0)
     
-    //let deal = UITapGestureRecognizer(target: self, action: #selector(deckTappedAction))
-    
-     // static var all = [Col.red, Col.blue, Col.magenta, Col.orange, Col.purple]
+    var DiscardView = LabeledCardArea()     //Hand 4 Card 2
+    lazy var StackCardsView = Array(repeating: CardView(), count: 5)      //Hand 5
+    var ColorHintView = LabeledCardArea()   // Hand 4 Card 0
+    var NumberHintView = LabeledCardArea()  //Hand 4 Card 3
     
     let  color =  [1 : UIColor.red,
                    2: UIColor.blue,
@@ -170,6 +172,105 @@ class GameViewController: UIViewController {
         print("Card tapped")
     }
     
+    @objc func colorHint(_ recognizer:UITapGestureRecognizer){
+        //gamePlay.getHint(color: colorHint)
+    }
+    
+    @objc func numberHint(_ recognizer: UITapGestureRecognizer){
+        //gamePlay.getHint(number: numberHint)
+    }
+    
+    @objc func hintCardAction(_ recognizer:UITapGestureRecognizer){
+         if let chosenCardView = recognizer.view as? LabeledCardArea{
+             if(chosenCardView.cardText == "Number Hint"){
+                 //gamePlay.getHint(number: numberHint)
+             }
+             if(chosenCardView.cardText == "Color Hint"){
+                 //gamePlay.getHint(color: colorHint)
+             }
+         }
+     }
+    
+    func layoutTable(){
+        //setup Hands - MAYBE THIS HAPPENS SOMEWHERE ELSE OR DOESN'T NEED TO HAPPEN?
+         /*        for hand in 0...1{
+                     for card in 0...4{
+                         PlayerCardView[hand][card].tag = card
+                     }
+                 }
+        */
+        DiscardView = configureSpecialCards(name: "Discard",card: 2)
+        view.addSubview(DiscardView)
+        //print(view)
+        
+        ColorHintView = configureSpecialCards(name: "Color Hint", card: 1)
+        view.addSubview(ColorHintView)
+        ColorHintView.isHidden = true
+        ColorHintView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(colorHint(_:))))
+        
+        NumberHintView = configureSpecialCards(name: "Number Hint", card: 3)
+        view.addSubview(NumberHintView)
+        NumberHintView.isHidden = true
+        NumberHintView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(numberHint(_:))))
+        
+        //setup Hints
+            //for count in 0...6{
+           //     let newImage = HintSymbol()
+           //     newImage.center = layout.StarLocation(Details: screenDetails, Index: count)
+          //      newImage.frame.size = layout.starSize(Details: screenDetails)
+          //      newImage.fontSize = (layout.starSize(Details: screenDetails)).height
+                //newImage.fontSize = 80
+               //  if gamePlay.hintsLeft >= count{
+               //     newImage.isFaceUp = true
+               // }else{
+               //     newImage.isFaceUp = false
+               // }
+           //     hintImages[count] = newImage
+           //     view.addSubview(hintImages[count])
+          //  }
+        
+        //setup Turn image
+           // let newHintImage = TurnIndicator()
+        //newHintImage.frame.size = layout.starSize(Details: screenDetails)
+        //newHintImage.fontSize = (layout.starSize(Details: screenDetails)).height
+        //turnImage = newHintImage
+        //print(view)
+        //view.addSubview(turnImage)
+            
+        //setup Stacks
+           let stackColor = [UIColor.red, UIColor.blue, UIColor.magenta, UIColor.orange,UIColor.purple]
+                for card in 0...4{
+                    let newStack = CardView()
+                   newStack.frame.size = layout.Size(Details: screenDetails)
+                    newStack.center = layout.Location(Details: screenDetails, item: CardIdentity(hand: 5, card: card))
+                    newStack.backgroundColor = UIColor.clear
+                    newStack.num = 0
+                    newStack.cardBackgroundColor = stackColor[card]
+                    StackCardsView[card] = newStack
+                    StackCardsView[card].isHidden = false
+                    view.addSubview(StackCardsView[card])
+                }
+    }
+    
+    func configureSpecialCards(name: String, card: Int)->LabeledCardArea{
+        let specialCard = LabeledCardArea()
+        specialCard.frame.size = layout.Size(Details: screenDetails)
+        specialCard.center = layout.Location(Details: screenDetails, item: CardIdentity(hand: 3, card: card))
+        specialCard.backgroundColor = UIColor.clear
+        if name == "Discard"{
+            specialCard.numberOfLines = 1
+            //specialCard.isHidden = false
+        }else{
+            specialCard.numberOfLines = 2
+            //specialCard.isHidden = true
+            specialCard.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hintCardAction(_:))))
+        }
+        specialCard.cardText = name
+        //specialCard.cardBackgroundColor = UIColor.orange
+        return specialCard
+    }
+    
+    
     //This is called when a new card is created during the card dealing process
     func drawCardView(hand: Int, card: Int)->CardView{
         let newCard = CardView()
@@ -196,14 +297,13 @@ class GameViewController: UIViewController {
 
 
 /*
-     var layout = Layout()
      
      //MARK: objects
      lazy var PlayerCardView = Array(repeating: Array(repeating: HanabiCards(), count:5), count:4) //Hand  0,1
-     var ColorHintView = LabeledCardArea()   // Hand 4 Card 0
+     
      var DeckView = HanabiCards()            // Hand 4 Card 1
      var DiscardView = LabeledCardArea()     //Hand 4 Card 2
-     var NumberHintView = LabeledCardArea()  //Hand 4 Card 3
+     
      lazy var StackCardsView = Array(repeating: HanabiCards(), count: 5)      //Hand 5
      lazy var DiscardedCardsView = [[HanabiCards()],[HanabiCards()],[HanabiCards()],[HanabiCards()],[HanabiCards()]]
      var cardSelected = [false,false,false,false,false]
@@ -220,12 +320,6 @@ class GameViewController: UIViewController {
 
      //MARK: Animation flags
      var discardCard = Bool()
-     var dealingComplete = Bool() {
-         didSet{
-             layoutBoard()
-             turnOverCards();
-         }
-     }
 
 
      */
@@ -275,18 +369,52 @@ class GameViewController: UIViewController {
          }
      }
     
+    //TODO: Copy and  paste job
+    
+    var lastLocation = CGPoint()
+    @objc func detectPanAction(_ recognizer:UIPanGestureRecognizer) {
+        if let chosenCardView = recognizer.view as? CardView{
+            //var lastLocation = chosenCardView.center
+            chosenCardView.superview?.bringSubviewToFront(chosenCardView)
+            switch  recognizer.state{
+            case .began:
+                lastLocation = chosenCardView.center
+            case .ended:
+                lastLocation = chosenCardView.center
+                if chosenCardView.frame.intersects(DiscardView.frame){
+                    //gamePlay.discardCard(sourceHand: chosenCardView.handTag, sourceCard: chosenCardView.cardTag, playedToHand: 4, playedToCard: 2)
+                }
+                for card in 0...4{
+                    if chosenCardView.frame.intersects(StackCardsView[card].frame){
+                        //gamePlay.playCard(hand: chosenCardView.handTag, card: chosenCardView.cardTag, playedToHand: 5, playedToCard: card)
+                    }
+                }
+            case .changed:
+                print("x location", chosenCardView.center.x, "y location", chosenCardView.center.y)
+                let translation = recognizer.translation(in: self.view)
+                chosenCardView.center = CGPoint(x: lastLocation.x + translation.x, y: lastLocation.y + translation.y)
+                if (chosenCardView.frame.intersects(DiscardView.frame)){
+                    DiscardView.backgroundColor = UIColor.gray
+                }else{
+                    DiscardView.backgroundColor = UIColor.clear
+                }
+                for card in 0...4{
+                    if (chosenCardView.frame.intersects(StackCardsView[card].frame)){
+                        StackCardsView[card].backgroundColor = UIColor.gray
+                    }else{
+                        StackCardsView[card].backgroundColor = UIColor.clear
+                    }
+                }
+            default: break
+            }
+        }
+    }
+    
+    
+    
     /*
      //MARK: Recognizer Actions
-     @objc func hintCardAction(_ recognizer:UITapGestureRecognizer){
-         if let chosenCardView = recognizer.view as? LabeledCardArea{
-             if(chosenCardView.cardText == "Number Hint"){
-                 gamePlay.getHint(number: numberHint)
-             }
-             if(chosenCardView.cardText == "Color Hint"){
-                 gamePlay.getHint(color: colorHint)
-             }
-         }
-     }
+ 
      /*
      var selectedNumber = [0,0,0,0,0]
      var selectedColor = [UIColor.black,UIColor.black,UIColor.black,UIColor.black,UIColor.black]
@@ -500,66 +628,7 @@ class GameViewController: UIViewController {
          gamePlay.getHint(number: numberHint)
      }
      
-     func layoutBoard(){
-         //setup Hands - MAYBE THIS HAPPENS SOMEWHERE ELSE OR DOESN'T NEED TO HAPPEN?
-                  for hand in 0...1{
-                      for card in 0...4{
-                          PlayerCardView[hand][card].tag = card
-                      }
-                  }
-         
-         DiscardView = configureSpecialCards(name: "Discard",card: 2)
-         view.addSubview(DiscardView)
-         print(view)
-         
-         ColorHintView = configureSpecialCards(name: "Color Hint", card: 1)
-         view.addSubview(ColorHintView)
-         ColorHintView.isHidden = true
-         ColorHintView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(colorHint(_:))))
-         
-         NumberHintView = configureSpecialCards(name: "Number Hint", card: 3)
-         view.addSubview(NumberHintView)
-         NumberHintView.isHidden = true
-         NumberHintView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(numberHint(_:))))
-         
-         //setup Hints
-             for count in 0...6{
-                 let newImage = HintSymbol()
-                 newImage.center = layout.StarLocation(Details: screenDetails, Index: count)
-                 newImage.frame.size = layout.starSize(Details: screenDetails)
-                 newImage.fontSize = (layout.starSize(Details: screenDetails)).height
-                 //newImage.fontSize = 80
-                //  if gamePlay.hintsLeft >= count{
-                //     newImage.isFaceUp = true
-                // }else{
-                //     newImage.isFaceUp = false
-                // }
-                 hintImages[count] = newImage
-                 view.addSubview(hintImages[count])
-             }
-         
-         //setup Turn image
-             let newHintImage = TurnIndicator()
-         newHintImage.frame.size = layout.starSize(Details: screenDetails)
-         newHintImage.fontSize = (layout.starSize(Details: screenDetails)).height
-         turnImage = newHintImage
-         print(view)
-         view.addSubview(turnImage)
-             
-         //setup Stacks
-            let stackColor = [UIColor.red, UIColor.blue, UIColor.magenta, UIColor.orange,UIColor.purple]
-                 for card in 0...4{
-                     let newStack = HanabiCards()
-                    newStack.frame.size = layout.Size(Details: screenDetails)
-                     newStack.center = layout.Location(Details: screenDetails, item: CardIdentity(hand: 5, card: card, cardIndex: card))
-                     newStack.backgroundColor = UIColor.clear
-                     newStack.num = 0
-                     newStack.cardBackgroundColor = stackColor[card]
-                     StackCardsView[card] = newStack
-                     StackCardsView[card].isHidden = false
-                     view.addSubview(StackCardsView[card])
-                 }
-     }
+     
  }
  //MARK: DelegateUpdateCards
  extension GameBoardViewController: delegateUpdateCards{
@@ -697,6 +766,7 @@ extension GameViewController: delegateUpdateView{
         }
         if hand == 1{
               newCard.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(flipCardAction)))
+            newCard.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(detectPanAction(_:))))
         }
         
         newCard.isFaceUp = false
