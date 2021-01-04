@@ -59,12 +59,7 @@ class Table: NSObject{
         hands = buildCardPiles(numberOfPiles: numPlayers, cardInEachPile: 5)
         stacks = buildCardPiles(numberOfPiles: 5, cardInEachPile: 5)
         discardPiles = buildCardPiles(numberOfPiles: 5, cardInEachPile: 10)
-        
-        print("capacit", hands.count)
-        print("other cap", hands[0].count)
-        print("other cap", hands[1].count)
-        //print("other cap", hands[2].capacity)
-        
+
         for hand in 0...1{
             for card in 0...4{
                // print(hands[hand][card])
@@ -150,6 +145,11 @@ class Table: NSObject{
     
     func nextEmptySpotInStack(){
         
+    }
+    
+    func discardCard(hand:Int, card:Int)->Int{
+        print("Got message to discard card hand: ",hand," card: ",card)
+        return hands[hand][card].col.rawValue
     }
     
 }

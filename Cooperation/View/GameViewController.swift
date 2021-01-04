@@ -359,17 +359,25 @@ class GameViewController: UIViewController {
      }
 
     var lastLocation = CGPoint()
+    
     @objc func detectPanAction(_ recognizer:UIPanGestureRecognizer) {
         if let chosenCardView = recognizer.view as? CardView{
-            var lastLocation = chosenCardView.center
+            print(chosenCardView.center)
+            //var lastLocation = chosenCardView.center
             chosenCardView.superview?.bringSubviewToFront(chosenCardView)
             switch  recognizer.state{
             case .began:
                 lastLocation = chosenCardView.center
+                print("last  lcoation", lastLocation)
             case .ended:
                 print("ended")
                 lastLocation = chosenCardView.center
                 if chosenCardView.frame.intersects(DiscardLocation.frame){
+                    let pileNum = table.discardCard(hand:chosenCardView.hand, card: chosenCardView.card)
+                    discardCardAnimation(hand: chosenCardView.hand, card: chosenCardView.card, stack: pileNum)
+                    
+                   
+                    //TODO: activate animation to appropriate location.
                     print("intersecet A")
                     //gamePlay.discardCard(sourceHand: chosenCardView.handTag, sourceCard: chosenCardView.cardTag, playedToHand: 4, playedToCard: 2)
                 }
@@ -380,10 +388,10 @@ class GameViewController: UIViewController {
                     }
                 }
             case .changed:
-                print("x location", chosenCardView.center.x, "y location", chosenCardView.center.y)
                 let translation = recognizer.translation(in: self.view)
                 chosenCardView.center = CGPoint(x: lastLocation.x + translation.x, y: lastLocation.y + translation.y)
-                /*if (chosenCardView.frame.intersects(DiscardLocation.frame)){
+                print("Chosen card view center after changed", chosenCardView.center)
+                if (chosenCardView.frame.intersects(DiscardLocation.frame)){
                     DiscardLocation.backgroundColor = UIColor.gray
                 }else{
                     DiscardLocation.backgroundColor = UIColor.clear
@@ -394,7 +402,7 @@ class GameViewController: UIViewController {
                     }else{
                         stackPiles[card].backgroundColor = UIColor.clear
                     }
-                }*/
+                }
             default: break
             }
         }
@@ -482,6 +490,39 @@ class GameViewController: UIViewController {
                  )
      }
 
+    func discardCardAnimation(hand: Int, card: Int, stack: Int) {
+        let chosenCardView = playerHands[hand][card]
+        view.bringSubviewToFront(chosenCardView)
+                self.view.layoutIfNeeded()
+                UIView.animate(
+                 withDuration: GameViewController.cardMoveTime,
+                    animations: {
+                        chosenCardView.center = self.layout.Location(Details: self.screenDetails, item: CardIdentity(hand:4 , card: 2))},
+                    completion: {_ in
+                        UIView.transition(
+                            with: chosenCardView,
+                            duration: GameViewController.cardFlipTime,
+                            options: .transitionFlipFromLeft,
+                            animations: {
+                                chosenCardView.isFaceUp = true},
+                            completion: {_ in
+                                    UIView.animate(
+                                     withDuration: GameViewController.cardMoveTime,
+                                        animations:  {
+                                            chosenCardView.center = self.layout.Location(Details: self.screenDetails, item: CardIdentity(hand: 5, card: stack))
+                                    },
+                                        completion: {_ in
+                                  
+                                    }
+                                 )
+                            }
+                        )
+                    }
+                )
+    }
+
+    
+    
      func playCardAnimation(hand:Int, card: Int, stackIndex: Int, cardInStack: Int){
          
      }
@@ -552,7 +593,8 @@ extension GameViewController: delegateUpdateView{
               newCard.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(flipCardAction)))
             newCard.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(detectPanAction(_:))))
         }
-        
+        newCard.hand = hand
+        newCard.card = card
         newCard.isFaceUp = false
         newCard.frame = layout.Frame(Details: screenDetails, name: "center")
         newCard.num = table.hands[hand][card].num.rawValue
