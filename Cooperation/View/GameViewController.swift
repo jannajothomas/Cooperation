@@ -305,31 +305,7 @@ class GameViewController: UIViewController {
     }
     
     
-    //This is called when a new card is created during the card dealing process
-    func drawCardView(hand: Int, card: Int)->CardView{
-        let newCard = CardView()
-        if hand == 0{
-            //newCard.num = game.stacksOfCards.playerHands[hand][card].num.rawValue
-            //newCard.cardBackgroundColor = game.getUIColor(card: game.stacksOfCards.playerHands[hand][card])
-            //newCard.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(selectCardAction(_:))))
-        }
-            
-        if hand == 1{
-            //newCard.num = gamePlay.stacksOfCards.playerHands[hand][card].num.rawValue
-            //newCard.cardBackgroundColor  = gamePlay.getUIColor(card: gamePlay.stacksOfCards.playerHands[hand][card])
-             //newCard.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(detectPanAction(_:))))
-            //Temporary
-            //newCard.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(flipCardAction(_:))))
-        }
-        return newCard
-    }
-    
-    
-    
-    
-    
-
-
+  
 /*
 
      var cardSelected = [false,false,false,false,false]
@@ -385,26 +361,29 @@ class GameViewController: UIViewController {
     var lastLocation = CGPoint()
     @objc func detectPanAction(_ recognizer:UIPanGestureRecognizer) {
         if let chosenCardView = recognizer.view as? CardView{
-            //var lastLocation = chosenCardView.center
+            var lastLocation = chosenCardView.center
             chosenCardView.superview?.bringSubviewToFront(chosenCardView)
             switch  recognizer.state{
             case .began:
                 lastLocation = chosenCardView.center
             case .ended:
+                print("ended")
                 lastLocation = chosenCardView.center
                 if chosenCardView.frame.intersects(DiscardLocation.frame){
+                    print("intersecet A")
                     //gamePlay.discardCard(sourceHand: chosenCardView.handTag, sourceCard: chosenCardView.cardTag, playedToHand: 4, playedToCard: 2)
                 }
                 for card in 0...4{
                     if chosenCardView.frame.intersects(stackPiles[card].frame){
+                        print("intersect B")
                         //gamePlay.playCard(hand: chosenCardView.handTag, card: chosenCardView.cardTag, playedToHand: 5, playedToCard: card)
                     }
                 }
             case .changed:
-                //print("x location", chosenCardView.center.x, "y location", chosenCardView.center.y)
+                print("x location", chosenCardView.center.x, "y location", chosenCardView.center.y)
                 let translation = recognizer.translation(in: self.view)
                 chosenCardView.center = CGPoint(x: lastLocation.x + translation.x, y: lastLocation.y + translation.y)
-                if (chosenCardView.frame.intersects(DiscardLocation.frame)){
+                /*if (chosenCardView.frame.intersects(DiscardLocation.frame)){
                     DiscardLocation.backgroundColor = UIColor.gray
                 }else{
                     DiscardLocation.backgroundColor = UIColor.clear
@@ -415,7 +394,7 @@ class GameViewController: UIViewController {
                     }else{
                         stackPiles[card].backgroundColor = UIColor.clear
                     }
-                }
+                }*/
             default: break
             }
         }
