@@ -7,13 +7,11 @@
 //
 
 
-//This is really concerned with making info from the model visible.
 import UIKit
 import GameplayKit
 import Foundation
 
 class GameViewController: UIViewController {
-    //var game = Game(playerNames: ["player1","player2"])
     var dealingComplete: Bool = false{
         didSet{
             turnOverCards()
@@ -25,7 +23,7 @@ class GameViewController: UIViewController {
     var stacks = Array(repeating: Array(repeating: CardView(), count: 5), count: 5)
     var discardPiles = Array(repeating: Array(repeating: CardView(), count: 10), count: 5)
     var deck = CardView()
-    //var cardArray = Array(repeating: Array(repeating: CardView(), count: 5), count: 5)
+
     var strategist: GKMinmaxStrategist!
     var table = Table()
     var layout = Layout()   //this should be a struct not a class
@@ -96,65 +94,65 @@ class GameViewController: UIViewController {
             default:
             print("reached default condition in selectCardAction")
             }
-        
-  /*var hideColorHints = false
-  var hideNumberHints = false
-  switch recognizer.state{
-  case .ended:
-      if let chosenCardView = recognizer.view as?  CardView{
-          chosenCardView.cardSelected = !chosenCardView.cardSelected
-          if chosenCardView.cardSelected{
-              cardSelected[chosenCardView.tag] = true
-              chosenCardView.layer.shadowColor = UIColor.black.cgColor
-              chosenCardView.layer.shadowOpacity = 1
-              chosenCardView.layer.shadowOffset = .zero
-              chosenCardView.layer.shadowRadius = 10
-              selectedNumber[chosenCardView.tag] = chosenCardView.num
-              selectedColor[chosenCardView.tag] = chosenCardView.cardBackgroundColor
+        }
+      /*var hideColorHints = false
+      var hideNumberHints = false
+      switch recognizer.state{
+      case .ended:
+          if let chosenCardView = recognizer.view as?  CardView{
+              chosenCardView.cardSelected = !chosenCardView.cardSelected
+              if chosenCardView.cardSelected{
+                  cardSelected[chosenCardView.tag] = true
+                  chosenCardView.layer.shadowColor = UIColor.black.cgColor
+                  chosenCardView.layer.shadowOpacity = 1
+                  chosenCardView.layer.shadowOffset = .zero
+                  chosenCardView.layer.shadowRadius = 10
+                  selectedNumber[chosenCardView.tag] = chosenCardView.num
+                  selectedColor[chosenCardView.tag] = chosenCardView.cardBackgroundColor
+                  
+                  //TEMPORARY FOR TROUBLESHOOTING
+                  gamePlay.computerPlayer.printComputerHandPossibilities(card: chosenCardView.tag)
+                 
+              }else{
+                  chosenCardView.layer.shadowRadius = 0
+                  cardSelected[chosenCardView.tag] = false
+                  selectedNumber[chosenCardView.tag] = 0
+                  selectedColor[chosenCardView.tag] = UIColor.black
+              }
+              numberHint = 0
+              colorHint = UIColor.black
               
-              //TEMPORARY FOR TROUBLESHOOTING
-              gamePlay.computerPlayer.printComputerHandPossibilities(card: chosenCardView.tag)
-             
-          }else{
-              chosenCardView.layer.shadowRadius = 0
-              cardSelected[chosenCardView.tag] = false
-              selectedNumber[chosenCardView.tag] = 0
-              selectedColor[chosenCardView.tag] = UIColor.black
-          }
-          numberHint = 0
-          colorHint = UIColor.black
-          
-          for card in 0...4{
-              if selectedNumber[card] != 0{       //Only looks at cards that have been selected
-                  if numberHint == 0{
-                      //This checks to see if a number has been stored
-                      numberHint = selectedNumber[card]  //If there isn't a number, this is the first number
+              for card in 0...4{
+                  if selectedNumber[card] != 0{       //Only looks at cards that have been selected
+                      if numberHint == 0{
+                          //This checks to see if a number has been stored
+                          numberHint = selectedNumber[card]  //If there isn't a number, this is the first number
+                      }
+                      if(selectedNumber[card] != numberHint){    //If this card number is the stored value
+                          hideNumberHints = true         //make the numbers show
+                      }
                   }
-                  if(selectedNumber[card] != numberHint){    //If this card number is the stored value
-                      hideNumberHints = true         //make the numbers show
+                  if selectedColor[card] !=  UIColor.black{
+                      if colorHint == UIColor.black{
+                          colorHint = selectedColor[card]
+                      }
+                      if(selectedColor[card] != colorHint){
+                          hideColorHints = true
+                      }
                   }
               }
-              if selectedColor[card] !=  UIColor.black{
-                  if colorHint == UIColor.black{
-                      colorHint = selectedColor[card]
-                  }
-                  if(selectedColor[card] != colorHint){
-                      hideColorHints = true
-                  }
+              if numberHint == 0{
+                  hideNumberHints = true
               }
+              if colorHint == UIColor.black{
+                  hideColorHints = true
+              }
+              NumberHintView.isHidden = hideNumberHints
+              ColorHintView.isHidden = hideColorHints
           }
-          if numberHint == 0{
-              hideNumberHints = true
-          }
-          if colorHint == UIColor.black{
-              hideColorHints = true
-          }
-          NumberHintView.isHidden = hideNumberHints
-          ColorHintView.isHidden = hideColorHints
-      }
-  default: break
-  }*/
-      }
+      default: break
+      }*/
+      
       
       @objc func flipCardAction(_ recognizer: UITapGestureRecognizer) {
         switch recognizer.state {
@@ -170,18 +168,19 @@ class GameViewController: UIViewController {
        }
     
     @objc func cardTappedAction(){
-        print("Card tapped")
+        print("Card tapped Action")
     }
     
     @objc func colorHint(_ recognizer:UITapGestureRecognizer){
-        //gamePlay.getHint(color: colorHint)
+        print("colorHint")
     }
     
     @objc func numberHint(_ recognizer: UITapGestureRecognizer){
-        //gamePlay.getHint(number: numberHint)
+        print("numberHint")
     }
     
     @objc func hintCardAction(_ recognizer:UITapGestureRecognizer){
+        print("hintCard Action")
          if let chosenCardView = recognizer.view as? LabeledCardArea{
              if(chosenCardView.cardText == "Number Hint"){
                  //gamePlay.getHint(number: numberHint)
@@ -193,26 +192,19 @@ class GameViewController: UIViewController {
      }
     
     func layoutTable(){
-        //setup Hands - MAYBE THIS HAPPENS SOMEWHERE ELSE OR DOESN'T NEED TO HAPPEN?
-         /*        for hand in 0...1{
-                     for card in 0...4{
-                         PlayerCardView[hand][card].tag = card
-                     }
-                 }
-        */
         DiscardView = configureSpecialCards(name: "discard",card: 2)
         DiscardView.isHidden = false
         view.addSubview(DiscardView)
         //print(view)
         
         ColorHintView = configureSpecialCards(name: "colorHint", card: 1)
-        view.addSubview(ColorHintView)
-        ColorHintView.isHidden = true
+        ColorHintView.isHidden = false
         ColorHintView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(colorHint(_:))))
+        view.addSubview(ColorHintView)
         
         NumberHintView = configureSpecialCards(name: "numberHint", card: 3)
         view.addSubview(NumberHintView)
-        NumberHintView.isHidden = true
+        NumberHintView.isHidden = false
         NumberHintView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(numberHint(_:))))
         
         //setup Hints
@@ -436,7 +428,7 @@ class GameViewController: UIViewController {
                     }
                 }
             case .changed:
-                print("x location", chosenCardView.center.x, "y location", chosenCardView.center.y)
+                //print("x location", chosenCardView.center.x, "y location", chosenCardView.center.y)
                 let translation = recognizer.translation(in: self.view)
                 chosenCardView.center = CGPoint(x: lastLocation.x + translation.x, y: lastLocation.y + translation.y)
                 if (chosenCardView.frame.intersects(DiscardView.frame)){
@@ -721,11 +713,11 @@ class GameViewController: UIViewController {
 
 extension GameViewController: delegateUpdateView{
     func moveCard(card: Card, stack: String, location: Int) {
-        print("here")
+        print("move  card")
     }
     
     func drawCard(hand: Int, card: Int) {
-        print("and here")
+        print("draw Card")
     }
     
     func draw() {
@@ -746,7 +738,7 @@ extension GameViewController: delegateUpdateView{
     
     func updateHints(hints: Int) {
         //TODO:
-        print("got message to update hints")
+        print("updateHints")
     }
     
     //TODO: Combine these two functions in any way reasonable
