@@ -372,9 +372,6 @@ class GameViewController: UIViewController {
                             //Dealing is done.  Move deck its perm location
                             UIView.animate(withDuration: 0.3, delay: 0, options: .curveLinear, animations: {
                                 self.deck.frame = self.layout.Frame(Details: self.screenDetails, name: "deck")
-                                
-                                //self.deck.center = self.layout.Location(Details: self.screenDetails, item: CardIdentity(hand: 4, card: 1))
-                                
                             },
                             completion: { _ in self.dealingComplete  = true})
                             return;
@@ -456,88 +453,6 @@ class GameViewController: UIViewController {
     
     
     /*
-     //MARK: Recognizer Actions
- 
-     /*
-     var selectedNumber = [0,0,0,0,0]
-     var selectedColor = [UIColor.black,UIColor.black,UIColor.black,UIColor.black,UIColor.black]
-     var numberHint = 0
-     var colorHint = UIColor.black
-     
-     //Controls logic of card selection and the hints that are available for the computer's hand
- 
-     @objc func selectCardAction(_ recognizer: UITapGestureRecognizer){
-         var hideColorHints = false
-         var hideNumberHints = false
-         switch recognizer.state{
-         case .ended:
-             if let chosenCardView = recognizer.view as?  HanabiCards{
-                 chosenCardView.cardSelected = !chosenCardView.cardSelected
-                 if chosenCardView.cardSelected{
-                     cardSelected[chosenCardView.tag] = true
-                     chosenCardView.layer.shadowColor = UIColor.black.cgColor
-                     chosenCardView.layer.shadowOpacity = 1
-                     chosenCardView.layer.shadowOffset = .zero
-                     chosenCardView.layer.shadowRadius = 10
-                     selectedNumber[chosenCardView.tag] = chosenCardView.num
-                     selectedColor[chosenCardView.tag] = chosenCardView.cardBackgroundColor
-                     
-                     //TEMPORARY FOR TROUBLESHOOTING
-                     gamePlay.computerPlayer.printComputerHandPossibilities(card: chosenCardView.tag)
-                    
-                 }else{
-                     chosenCardView.layer.shadowRadius = 0
-                     cardSelected[chosenCardView.tag] = false
-                     selectedNumber[chosenCardView.tag] = 0
-                     selectedColor[chosenCardView.tag] = UIColor.black
-                 }
-                 numberHint = 0
-                 colorHint = UIColor.black
-                 
-                 for card in 0...4{
-                     if selectedNumber[card] != 0{       //Only looks at cards that have been selected
-                         if numberHint == 0{
-                             //This checks to see if a number has been stored
-                             numberHint = selectedNumber[card]  //If there isn't a number, this is the first number
-                         }
-                         if(selectedNumber[card] != numberHint){    //If this card number is the stored value
-                             hideNumberHints = true         //make the numbers show
-                         }
-                     }
-                     if selectedColor[card] !=  UIColor.black{
-                         if colorHint == UIColor.black{
-                             colorHint = selectedColor[card]
-                         }
-                         if(selectedColor[card] != colorHint){
-                             hideColorHints = true
-                         }
-                     }
-                 }
-                 if numberHint == 0{
-                     hideNumberHints = true
-                 }
-                 if colorHint == UIColor.black{
-                     hideColorHints = true
-                 }
-                 NumberHintView.isHidden = hideNumberHints
-                 ColorHintView.isHidden = hideColorHints
-             }
-         default: break
-         }
-     }
-     
-     @objc func flipCardAction(_ recognizer: UITapGestureRecognizer) {
-          switch recognizer.state {
-          case .ended:
-              if let chosenCardView = recognizer.view as? HanabiCards{
-                  UIView.transition(with: chosenCardView, duration: 0.5, options: .transitionFlipFromLeft, animations:{
-                      chosenCardView.isFaceUp = !chosenCardView.isFaceUp}
-                     )
-              }
-          default:
-              break
-          }
-      }
      
      var lastLocation = CGPoint()
      @objc func detectPanAction(_ recognizer:UIPanGestureRecognizer) {
@@ -591,9 +506,6 @@ class GameViewController: UIViewController {
 
 
      /*
-    // func setupScreen(){
-  
-    // }
      
      func createStackCard(card: Int, color: UIColor)->HanabiCards{
          let newStack = HanabiCards()
@@ -604,37 +516,7 @@ class GameViewController: UIViewController {
          newStack.cardBackgroundColor = color
          return newStack
      }
-     
-     func configureSpecialCards(name: String, card: Int)->LabeledCardArea{
-         let specialCard = LabeledCardArea()
-         specialCard.frame.size = layout.Size(Details: screenDetails)
-         specialCard.center = layout.Location(Details: screenDetails, item: CardIdentity(hand: 3, card: card, cardIndex: card))
-         specialCard.backgroundColor = UIColor.clear
-         if name == "Discard"{
-             specialCard.numberOfLines = 1
-             //specialCard.isHidden = false
-         }else{
-             specialCard.numberOfLines = 2
-             //specialCard.isHidden = true
-             specialCard.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hintCardAction(_:))))
-         }
-         specialCard.cardText = name
-         //specialCard.cardBackgroundColor = UIColor.orange
-         return specialCard
-     }
-     
-     
-     
-     //MARK: WORKING HERE
-     @objc func colorHint(_ recognizer:UITapGestureRecognizer){
-         gamePlay.getHint(color: colorHint)
-     }
-     
-     @objc func numberHint(_ recognizer: UITapGestureRecognizer){
-         gamePlay.getHint(number: numberHint)
-     }
-     
-     
+
  }
  //MARK: DelegateUpdateCards
  extension GameBoardViewController: delegateUpdateCards{
