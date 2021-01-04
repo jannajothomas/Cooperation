@@ -36,6 +36,7 @@ class GameViewController: UIViewController {
     lazy var StackCardsView = Array(repeating: CardView(), count: 5)      //Hand 5
     var ColorHintView = LabeledCardArea()   // Hand 4 Card 0
     var NumberHintView = LabeledCardArea()  //Hand 4 Card 3
+    lazy var DiscardedCardsView = [[CardView()],[CardView()],[CardView()],[CardView()],[CardView()]]
     
     let  color =  [1 : UIColor.red,
                    2: UIColor.blue,
@@ -199,16 +200,17 @@ class GameViewController: UIViewController {
                      }
                  }
         */
-        DiscardView = configureSpecialCards(name: "Discard",card: 2)
+        DiscardView = configureSpecialCards(name: "discard",card: 2)
+        DiscardView.isHidden = false
         view.addSubview(DiscardView)
         //print(view)
         
-        ColorHintView = configureSpecialCards(name: "Color Hint", card: 1)
+        ColorHintView = configureSpecialCards(name: "colorHint", card: 1)
         view.addSubview(ColorHintView)
         ColorHintView.isHidden = true
         ColorHintView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(colorHint(_:))))
         
-        NumberHintView = configureSpecialCards(name: "Number Hint", card: 3)
+        NumberHintView = configureSpecialCards(name: "numberHint", card: 3)
         view.addSubview(NumberHintView)
         NumberHintView.isHidden = true
         NumberHintView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(numberHint(_:))))
@@ -252,10 +254,54 @@ class GameViewController: UIViewController {
                 }
     }
     
+    
+    func layoutCardCentersAndSize(){
+        
+       deck.center = layout.Location(Details: screenDetails, item: viewLocationIndex["Deck"]!)
+       deck.frame.size = layout.Size(Details: screenDetails)
+       
+       DiscardView.center = layout.Location(Details: screenDetails, item: viewLocationIndex["Discard"]!)
+       DiscardView.frame.size = layout.Size(Details: screenDetails)
+       
+       ColorHintView.center = layout.Location(Details: screenDetails, item: viewLocationIndex["ColorHint"]!)
+       ColorHintView.frame.size = layout.Size(Details: screenDetails)
+       
+       NumberHintView.center = layout.Location(Details: screenDetails, item: viewLocationIndex["NumberHint"]!)
+       NumberHintView.frame.size = layout.Size(Details: screenDetails)
+       
+
+       /* if dealingComplete{
+           for hand in 0...1{
+               for card in 0...4{
+                
+                   PlayerCardView[hand][card].frame.size = layout.Size(Details: screenDetails)
+                   PlayerCardView[hand][card].center = layout.Location(Details: screenDetails, item: CardIdentity(hand: hand, card: card))
+                   }
+               }
+        for stack in 0...4{
+            StackCardsView[stack].frame.size = layout.Size(Details: screenDetails)
+            StackCardsView[stack].center = layout.Location(Details: screenDetails, item: CardIdentity(hand: 5, card: stack))
+           }
+        for discards in 0...4{
+            for rows in 0...DiscardedCardsView[discards].count - 1{
+                DiscardedCardsView[discards][rows].frame.size = layout.Size(Details: screenDetails)
+                DiscardedCardsView[discards][rows].center = layout.Location(Details: screenDetails, item: CardIdentity(hand: rows + 5, card: discards))
+            }
+        }
+        //for count in 0...6{
+        //    hintImages[count].center = layout.StarLocation(Details: screenDetails, Index: count)
+        //       }
+        //   turnImage.center = layout.centerOfScreen
+        }else{deck.center = layout.centerOfScreen}*/
+    }
+
+    
+    
     func configureSpecialCards(name: String, card: Int)->LabeledCardArea{
         let specialCard = LabeledCardArea()
-        specialCard.frame.size = layout.Size(Details: screenDetails)
-        specialCard.center = layout.Location(Details: screenDetails, item: CardIdentity(hand: 3, card: card))
+        specialCard.frame = layout.Frame(Details: screenDetails, name: name)
+        //specialCard.frame.size = layout.Size(Details: screenDetails)
+        //specialCard.center = layout.Location(Details: screenDetails, item: CardIdentity(hand: 3, card: card))
         specialCard.backgroundColor = UIColor.clear
         if name == "Discard"{
             specialCard.numberOfLines = 1
@@ -302,10 +348,10 @@ class GameViewController: UIViewController {
      lazy var PlayerCardView = Array(repeating: Array(repeating: HanabiCards(), count:5), count:4) //Hand  0,1
      
      var DeckView = HanabiCards()            // Hand 4 Card 1
-     var DiscardView = LabeledCardArea()     //Hand 4 Card 2
+     
      
      lazy var StackCardsView = Array(repeating: HanabiCards(), count: 5)      //Hand 5
-     lazy var DiscardedCardsView = [[HanabiCards()],[HanabiCards()],[HanabiCards()],[HanabiCards()],[HanabiCards()]]
+     
      var cardSelected = [false,false,false,false,false]
      
      var hintImages = [HintSymbol(),HintSymbol(),HintSymbol(),HintSymbol(),HintSymbol(),HintSymbol(),HintSymbol()]
@@ -580,44 +626,7 @@ class GameViewController: UIViewController {
          return specialCard
      }
      
-     func layoutCardCentersAndSize(){
-         DeckView.center = layout.Location(Details: screenDetails, item: viewLocationIndex["Deck"]!)
-         DeckView.frame.size = layout.Size(Details: screenDetails)
-         
-         DiscardView.center = layout.Location(Details: screenDetails, item: viewLocationIndex["Discard"]!)
-         DiscardView.frame.size = layout.Size(Details: screenDetails)
-         
-         ColorHintView.center = layout.Location(Details: screenDetails, item: viewLocationIndex["ColorHint"]!)
-         ColorHintView.frame.size = layout.Size(Details: screenDetails)
-         
-         NumberHintView.center = layout.Location(Details: screenDetails, item: viewLocationIndex["NumberHint"]!)
-         NumberHintView.frame.size = layout.Size(Details: screenDetails)
-         
-
-          if dealingComplete{
-             for hand in 0...1{
-                 for card in 0...4{
-                     PlayerCardView[hand][card].frame.size = layout.Size(Details: screenDetails)
-                     PlayerCardView[hand][card].center = layout.Location(Details: screenDetails, item: CardIdentity(hand: hand, card: card, cardIndex: card))
-                     }
-                 }
-          for stack in 0...4{
-              StackCardsView[stack].frame.size = layout.Size(Details: screenDetails)
-              StackCardsView[stack].center = layout.Location(Details: screenDetails, item: CardIdentity(hand: 5, card: stack, cardIndex: stack))
-             }
-          for discards in 0...4{
-              for rows in 0...DiscardedCardsView[discards].count - 1{
-                  DiscardedCardsView[discards][rows].frame.size = layout.Size(Details: screenDetails)
-                  DiscardedCardsView[discards][rows].center = layout.Location(Details: screenDetails, item: CardIdentity(hand: rows + 5, card: discards, cardIndex: discards))
-              }
-          }
-          for count in 0...6{
-              hintImages[count].center = layout.StarLocation(Details: screenDetails, Index: count)
-                 }
-             turnImage.center = layout.centerOfScreen
-          }else{DeckView.center = layout.centerOfScreen}
-      }
-
+     
      
      //MARK: WORKING HERE
      @objc func colorHint(_ recognizer:UITapGestureRecognizer){
