@@ -83,6 +83,23 @@ class GameViewController: UIViewController {
         }
     }
     
+    @objc func selectCardAction(_ recognizer: UITapGestureRecognizer){
+  
+      }
+      
+      @objc func flipCardAction(_ recognizer: UITapGestureRecognizer) {
+        switch recognizer.state {
+          case .ended:
+              if let chosenCardView = recognizer.view as? CardView{
+                  UIView.transition(with: chosenCardView, duration: 0.5, options: .transitionFlipFromLeft, animations:{
+                      chosenCardView.isFaceUp = !chosenCardView.isFaceUp}
+                     )
+              }
+          default:
+              break
+          }
+       }
+    
     @objc func cardTappedAction(){
         print("Card tapped")
     }
@@ -191,9 +208,8 @@ class GameViewController: UIViewController {
              })
          }
      }
-     /*
-     //MARK: Refresh Layout
     
+    /*
      //MARK: Recognizer Actions
      @objc func hintCardAction(_ recognizer:UITapGestureRecognizer){
          if let chosenCardView = recognizer.view as? LabeledCardArea{
@@ -205,13 +221,14 @@ class GameViewController: UIViewController {
              }
          }
      }
-     
+     /*
      var selectedNumber = [0,0,0,0,0]
      var selectedColor = [UIColor.black,UIColor.black,UIColor.black,UIColor.black,UIColor.black]
      var numberHint = 0
      var colorHint = UIColor.black
      
      //Controls logic of card selection and the hints that are available for the computer's hand
+ 
      @objc func selectCardAction(_ recognizer: UITapGestureRecognizer){
          var hideColorHints = false
          var hideNumberHints = false
@@ -547,7 +564,7 @@ class GameViewController: UIViewController {
 
      func playCardAnimation(hand:Int, card: Int, stackIndex: Int, cardInStack: Int){
          
-     }
+     }*/
  }
      
  extension GameBoardViewController{
@@ -556,6 +573,7 @@ class GameViewController: UIViewController {
  }
 
  */
+}
 
 extension GameViewController: delegateUpdateView{
     func moveCard(card: Card, stack: String, location: Int) {
@@ -587,6 +605,7 @@ extension GameViewController: delegateUpdateView{
         print("got message to update hints")
     }
     
+    //TODO: Combine these two functions in any way reasonable
     func addCard(name: String)->CardView {
         let newCard = CardView()
         newCard.backgroundColor = UIColor.clear
@@ -607,7 +626,13 @@ extension GameViewController: delegateUpdateView{
     func addCard(hand:Int, card: Int)->CardView{
         let newCard = CardView()
         newCard.backgroundColor = UIColor.clear
-        newCard.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(cardTappedAction)))
+        if hand == 0{
+            newCard.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(selectCardAction)))
+        }
+        if hand == 1{
+              newCard.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(flipCardAction)))
+        }
+        
         newCard.isFaceUp = false
         newCard.frame = layout.Frame(Details: screenDetails, name: "center")
         newCard.num = table.hands[hand][card].num.rawValue
