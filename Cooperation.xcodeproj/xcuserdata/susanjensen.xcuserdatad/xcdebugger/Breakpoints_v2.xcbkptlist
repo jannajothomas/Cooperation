@@ -639,8 +639,13 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "156"
             endingLineNumber = "156"
+<<<<<<< HEAD
             landmarkName = "dealCards(hand:card:)"
             landmarkType = "7">
+=======
+            landmarkName = "GameViewController"
+            landmarkType = "3">
+>>>>>>> refactorToSprite
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -671,7 +676,11 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "157"
             endingLineNumber = "157"
+<<<<<<< HEAD
             landmarkName = "dealCards(hand:card:)"
+=======
+            landmarkName = "viewDidLayoutSubviews()"
+>>>>>>> refactorToSprite
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -687,7 +696,11 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "158"
             endingLineNumber = "158"
+<<<<<<< HEAD
             landmarkName = "dealCards(hand:card:)"
+=======
+            landmarkName = "viewDidLayoutSubviews()"
+>>>>>>> refactorToSprite
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
