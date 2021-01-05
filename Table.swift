@@ -54,6 +54,7 @@ class Table: NSObject{
     var deck = Deck()
     
     override init() {
+        //print("initialized")
         currentPlayer = Player.allPlayers[0]
         super.init()
         hands = buildCardPiles(numberOfPiles: numPlayers, cardInEachPile: 5)
@@ -62,8 +63,9 @@ class Table: NSObject{
 
         for hand in 0...1{
             for card in 0...4{
-               // print(hands[hand][card])
+              
                 hands[hand][card] = deck.drawCard()!
+                print(hands[hand][card])
             }
         }
     }
@@ -149,6 +151,8 @@ class Table: NSObject{
     
     func discardCard(hand:Int, card:Int)->Int{
         print("Got message to discard card hand: ",hand," card: ",card)
+        print("returning stack number : ",hands[hand][card].col.rawValue)
+        print("disarding Card: ",hands[hand][card].num , hands[hand][card].col)
         return hands[hand][card].col.rawValue
     }
     
