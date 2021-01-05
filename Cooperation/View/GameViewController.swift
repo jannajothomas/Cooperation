@@ -494,7 +494,8 @@ class GameViewController: UIViewController {
                 UIView.animate(
                  withDuration: GameViewController.cardMoveTime,
                     animations: {
-                        chosenCardView.center = self.layout.Location(Details: self.screenDetails, item: CardIdentity(hand:4 , card: 2))},
+                        chosenCardView.frame = self.layout.Frame(Details: self.screenDetails, item: CardIdentity(hand: 4, card: 2))},
+                        //chosenCardView.center = self.layout.Location(Details: self.screenDetails, item: CardIdentity(hand:4 , card: 2))},
                     completion: {_ in
                         UIView.transition(
                             with: chosenCardView,
