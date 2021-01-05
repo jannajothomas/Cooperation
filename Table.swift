@@ -153,7 +153,8 @@ class Table: NSObject{
         print("Got message to discard card hand: ",hand," card: ",card)
         print("returning stack number : ",hands[hand][card].col.rawValue)
         print("disarding Card: ",hands[hand][card].num , hands[hand][card].col)
-        return hands[hand][card].col.rawValue
+        //-1 is to leave a spot for none
+        return hands[hand][card].col.rawValue - 1
     }
     
 }
