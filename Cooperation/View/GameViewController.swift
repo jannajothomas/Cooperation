@@ -441,7 +441,8 @@ class GameViewController: UIViewController {
      }
      */
      func drawCardAnimation(hand: Int, card: Int) {
-             let delay = GameViewController.cardMoveTime * 2 + GameViewController.cardFlipTime
+            //let delay = GameViewController.cardMoveTime * 2 + GameViewController.cardFlipTime
+            let delay = GameViewController.cardMoveTime 
             playerHands[hand][card] = addCard(hand: hand, card: card)
         
             print("made it here")
