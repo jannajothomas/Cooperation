@@ -365,13 +365,13 @@ class GameViewController: UIViewController {
             switch  recognizer.state{
             case .began:
                 lastLocation = chosenCardView.center
-                print("last  lcoation", lastLocation)
             case .ended:
-                print("ended")
+                print("in pan gesture recognizer Card",chosenCardView.card, "hand", chosenCardView.hand, " is ",table.hands[chosenCardView.hand][chosenCardView.card])
+                print(" pile Num", table.discardCard(hand:chosenCardView.hand, card: chosenCardView.card))
                 lastLocation = chosenCardView.center
                 if chosenCardView.frame.intersects(DiscardLocation.frame){
                     let pileNum = table.discardCard(hand:chosenCardView.hand, card: chosenCardView.card)
-                    discardCardAnimation(hand: chosenCardView.hand, card: chosenCardView.card, stack: pileNum)
+                    discardCardAnimation(hand: chosenCardView.hand, card: chosenCardView.card, column: pileNum)
                     
                    
                     //TODO: activate animation to appropriate location.
@@ -487,7 +487,9 @@ class GameViewController: UIViewController {
                  )
      }
 
-    func discardCardAnimation(hand: Int, card: Int, stack: Int) {
+    func discardCardAnimation(hand: Int, card: Int, column: Int) {
+        let nextEmptyRow = self.findNextCardSlot(column: column)
+        print("next  empty row: ",nextEmptyRow)
         let chosenCardView = playerHands[hand][card]
         view.bringSubviewToFront(chosenCardView)
                 self.view.layoutIfNeeded()
@@ -495,7 +497,6 @@ class GameViewController: UIViewController {
                  withDuration: GameViewController.cardMoveTime,
                     animations: {
                         chosenCardView.frame = self.layout.Frame(Details: self.screenDetails, item: CardIdentity(hand: 4, card: 2))},
-                        //chosenCardView.center = self.layout.Location(Details: self.screenDetails, item: CardIdentity(hand:4 , card: 2))},
                     completion: {_ in
                         UIView.transition(
                             with: chosenCardView,
@@ -507,10 +508,12 @@ class GameViewController: UIViewController {
                                     UIView.animate(
                                      withDuration: GameViewController.cardMoveTime,
                                         animations:  {
-                                            chosenCardView.center = self.layout.Location(Details: self.screenDetails, item: CardIdentity(hand: 5, card: stack))
+                                            
+                                            chosenCardView.center = self.layout.Location(Details: self.screenDetails, item: CardIdentity(hand: nextEmptyRow + 6, card: column))
+                                           // chosenCardView.center = self.layout.Location(Details: self.screenDetails, item: CardIdentity(hand: self.findNextCardSlot(stack: stack), card: stack))
                                     },
                                         completion: {_ in
-                                  
+                                            self.discardPiles[column][nextEmptyRow] = self.playerHands[hand][card]
                                     }
                                  )
                             }
@@ -519,7 +522,18 @@ class GameViewController: UIViewController {
                 )
     }
 
-    
+    func findNextCardSlot(column: Int)->Int{
+        print("finding next card in column ", column)
+        print(discardPiles)
+        for row in 0...discardPiles[column].count - 1{
+            if(discardPiles[column][row].num == 0){
+                print("found a slot in row ", row)
+                return row
+            }
+            
+        }
+        return -1
+    }
     
      func playCardAnimation(hand:Int, card: Int, stackIndex: Int, cardInStack: Int){
          

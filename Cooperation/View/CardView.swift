@@ -9,6 +9,13 @@
 import UIKit
 
 class CardView: UIView {
+    override var description: String {
+        let output = "num is \(num),"
+        //output += " number is \(num.rawValue)"
+        return output
+    }
+    
+    
     public var hand = Int()
     public var card = Int()
    
