@@ -6,10 +6,6 @@
 //  Copyright © 2020 Personal. All rights reserved.
 //
 
-
-//TODO: Card doesn't start at the center of the screen
-//TODO:
-
 import UIKit
 import GameplayKit
 import Foundation
@@ -93,77 +89,19 @@ class GameViewController: UIViewController {
             print("reached default condition in selectCardAction")
             }
         }
-      /*var hideColorHints = false
-      var hideNumberHints = false
-      switch recognizer.state{
+ 
+    @objc func flipCardAction(_ recognizer: UITapGestureRecognizer) {
+    switch recognizer.state {
       case .ended:
-          if let chosenCardView = recognizer.view as?  CardView{
-              chosenCardView.cardSelected = !chosenCardView.cardSelected
-              if chosenCardView.cardSelected{
-                  cardSelected[chosenCardView.tag] = true
-                  chosenCardView.layer.shadowColor = UIColor.black.cgColor
-                  chosenCardView.layer.shadowOpacity = 1
-                  chosenCardView.layer.shadowOffset = .zero
-                  chosenCardView.layer.shadowRadius = 10
-                  selectedNumber[chosenCardView.tag] = chosenCardView.num
-                  selectedColor[chosenCardView.tag] = chosenCardView.cardBackgroundColor
-                  
-                  //TEMPORARY FOR TROUBLESHOOTING
-                  gamePlay.computerPlayer.printComputerHandPossibilities(card: chosenCardView.tag)
-                 
-              }else{
-                  chosenCardView.layer.shadowRadius = 0
-                  cardSelected[chosenCardView.tag] = false
-                  selectedNumber[chosenCardView.tag] = 0
-                  selectedColor[chosenCardView.tag] = UIColor.black
-              }
-              numberHint = 0
-              colorHint = UIColor.black
-              
-              for card in 0...4{
-                  if selectedNumber[card] != 0{       //Only looks at cards that have been selected
-                      if numberHint == 0{
-                          //This checks to see if a number has been stored
-                          numberHint = selectedNumber[card]  //If there isn't a number, this is the first number
-                      }
-                      if(selectedNumber[card] != numberHint){    //If this card number is the stored value
-                          hideNumberHints = true         //make the numbers show
-                      }
-                  }
-                  if selectedColor[card] !=  UIColor.black{
-                      if colorHint == UIColor.black{
-                          colorHint = selectedColor[card]
-                      }
-                      if(selectedColor[card] != colorHint){
-                          hideColorHints = true
-                      }
-                  }
-              }
-              if numberHint == 0{
-                  hideNumberHints = true
-              }
-              if colorHint == UIColor.black{
-                  hideColorHints = true
-              }
-              NumberHintView.isHidden = hideNumberHints
-              ColorHintView.isHidden = hideColorHints
+          if let chosenCardView = recognizer.view as? CardView{
+              UIView.transition(with: chosenCardView, duration: 0.5, options: .transitionFlipFromLeft, animations:{
+                  chosenCardView.isFaceUp = !chosenCardView.isFaceUp}
+                 )
           }
-      default: break
-      }*/
-      
-      
-      @objc func flipCardAction(_ recognizer: UITapGestureRecognizer) {
-        switch recognizer.state {
-          case .ended:
-              if let chosenCardView = recognizer.view as? CardView{
-                  UIView.transition(with: chosenCardView, duration: 0.5, options: .transitionFlipFromLeft, animations:{
-                      chosenCardView.isFaceUp = !chosenCardView.isFaceUp}
-                     )
-              }
-          default:
-              break
-          }
-       }
+      default:
+          break
+      }
+    }
     
     @objc func cardTappedAction(){
         print("Card tapped Action")
@@ -193,8 +131,7 @@ class GameViewController: UIViewController {
         DiscardLocation = configureSpecialCards(name: "discard",card: 2)
         DiscardLocation.isHidden = false
         view.addSubview(DiscardLocation)
-        //print(view)
-        
+
         ColorHintView = configureSpecialCards(name: "colorHint", card: 1)
         ColorHintView.isHidden = false
         ColorHintView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(colorHint(_:))))
@@ -205,32 +142,7 @@ class GameViewController: UIViewController {
         NumberHintView.isHidden = false
         NumberHintView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(numberHint(_:))))
         
-        //setup Hints
-            //for count in 0...6{
-           //     let newImage = HintSymbol()
-           //     newImage.center = layout.StarLocation(Details: screenDetails, Index: count)
-          //      newImage.frame.size = layout.starSize(Details: screenDetails)
-          //      newImage.fontSize = (layout.starSize(Details: screenDetails)).height
-                //newImage.fontSize = 80
-               //  if gamePlay.hintsLeft >= count{
-               //     newImage.isFaceUp = true
-               // }else{
-               //     newImage.isFaceUp = false
-               // }
-           //     hintImages[count] = newImage
-           //     view.addSubview(hintImages[count])
-          //  }
-        
-        //setup Turn image
-           // let newHintImage = TurnIndicator()
-        //newHintImage.frame.size = layout.starSize(Details: screenDetails)
-        //newHintImage.fontSize = (layout.starSize(Details: screenDetails)).height
-        //turnImage = newHintImage
-        //print(view)
-        //view.addSubview(turnImage)
-            
-        //setup Stacks
-           let stackColor = [UIColor.red, UIColor.blue, UIColor.magenta, UIColor.orange,UIColor.purple]
+        let stackColor = [UIColor.red, UIColor.blue, UIColor.magenta, UIColor.orange,UIColor.purple]
                 for card in 0...4{
                     let newStack = CardView()
                    newStack.frame.size = layout.Size(Details: screenDetails)
@@ -243,7 +155,6 @@ class GameViewController: UIViewController {
                     view.addSubview(stackPiles[card])
                 }
     }
-    
     
     func layoutCardCentersAndSize(){
         
@@ -258,31 +169,6 @@ class GameViewController: UIViewController {
        
        NumberHintView.center = layout.Location(Details: screenDetails, item: viewLocationIndex["NumberHint"]!)
        NumberHintView.frame.size = layout.Size(Details: screenDetails)
-       
-
-       /* if dealingComplete{
-           for hand in 0...1{
-               for card in 0...4{
-                
-                   PlayerCardView[hand][card].frame.size = layout.Size(Details: screenDetails)
-                   PlayerCardView[hand][card].center = layout.Location(Details: screenDetails, item: CardIdentity(hand: hand, card: card))
-                   }
-               }
-        for stack in 0...4{
-            StackCardsView[stack].frame.size = layout.Size(Details: screenDetails)
-            StackCardsView[stack].center = layout.Location(Details: screenDetails, item: CardIdentity(hand: 5, card: stack))
-           }
-        for discards in 0...4{
-            for rows in 0...DiscardedCardsView[discards].count - 1{
-                DiscardedCardsView[discards][rows].frame.size = layout.Size(Details: screenDetails)
-                DiscardedCardsView[discards][rows].center = layout.Location(Details: screenDetails, item: CardIdentity(hand: rows + 5, card: discards))
-            }
-        }
-        //for count in 0...6{
-        //    hintImages[count].center = layout.StarLocation(Details: screenDetails, Index: count)
-        //       }
-        //   turnImage.center = layout.centerOfScreen
-        }else{deck.center = layout.centerOfScreen}*/
     }
 
     
@@ -301,22 +187,6 @@ class GameViewController: UIViewController {
         return specialCard
     }
     
-    
-  
-/*
-
-     var cardSelected = [false,false,false,false,false]
-     
-     var hintImages = [HintSymbol(),HintSymbol(),HintSymbol(),HintSymbol(),HintSymbol(),HintSymbol(),HintSymbol()]
-     var turnImage = TurnIndicator()
-     var timeInterval = TimeInterval(6)
-
-     //MARK: Animation flags
-     var discardCard = Bool()
-
-
-     */
-
      //Recursive function that animates the dealing of the cards
      private func dealCards(hand: Int, card: Int){
          UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut, animations:{
@@ -335,10 +205,10 @@ class GameViewController: UIViewController {
                         }
                     }else{
                         self.dealCards(hand: hand, card: card + 1)
-                    }
+                }
             }
         )
-     }
+    }
 
      private func turnOverCards(){
          for card in 0...4{
@@ -365,27 +235,18 @@ class GameViewController: UIViewController {
                 lastLocation = chosenCardView.center
             case .ended:
                 print("in pan gesture recognizer Card",chosenCardView.card, "hand", chosenCardView.hand, " is ",table.hands[chosenCardView.hand][chosenCardView.card])
-                //print(" pile Num", table.discardCard(hand:chosenCardView.hand, card: chosenCardView.card))
                 lastLocation = chosenCardView.center
                 if chosenCardView.frame.intersects(DiscardLocation.frame){
                     let pileNum = table.discardCard(hand:chosenCardView.hand, card: chosenCardView.card)
                     discardCardAnimation(hand: chosenCardView.hand, card: chosenCardView.card, column: pileNum)
-                    
-                   
-                    //TODO: activate animation to appropriate location.
-                    //print("intersecet A")
-                    //gamePlay.discardCard(sourceHand: chosenCardView.handTag, sourceCard: chosenCardView.cardTag, playedToHand: 4, playedToCard: 2)
                 }
                 for card in 0...4{
                     if chosenCardView.frame.intersects(stackPiles[card].frame){
-                        //print("intersect B")
-                        //gamePlay.playCard(hand: chosenCardView.handTag, card: chosenCardView.cardTag, playedToHand: 5, playedToCard: card)
                     }
                 }
             case .changed:
                 let translation = recognizer.translation(in: self.view)
                 chosenCardView.center = CGPoint(x: lastLocation.x + translation.x, y: lastLocation.y + translation.y)
-                //print("Chosen card view center after changed", chosenCardView.center)
                 if (chosenCardView.frame.intersects(DiscardLocation.frame)){
                     DiscardLocation.backgroundColor = UIColor.gray
                 }else{
@@ -403,51 +264,13 @@ class GameViewController: UIViewController {
         }
     }
 
- //MARK: ScreenLayout
-     /*
-     
-     func createStackCard(card: Int, color: UIColor)->HanabiCards{
-         let newStack = HanabiCards()
-         newStack.frame.size = layout.Size(Details: screenDetails)
-         newStack.center = layout.Location(Details: screenDetails, item: CardIdentity(hand: 5, card: card, cardIndex: card))
-         //newStack.backgroundColor = UIColor.clear
-         newStack.num = 0
-         newStack.cardBackgroundColor = color
-         return newStack
-     }
-
- }
- //MARK: DelegateUpdateCards
- extension GameBoardViewController: delegateUpdateCards{
-     func updateTurn(turn: Bool) {
-         if turn{
-             turnImage.isPointingUp = true
-         }else{
-             turnImage.isPointingUp = false
-         }
-         
-     }
-     
-     func updateHints(hints: Int) {
-                for count in 0...6{
-                  //let newImage = HintSymbol()
-                 if count <= hints{
-                     hintImages[count].isFaceUp  = true
-
-                  }else{
-                     hintImages[count].isFaceUp = false
-                  }
-              }
-     }
-     */
-     func drawCardAnimation(hand: Int, card: Int) {
+      func drawCardAnimation(hand: Int, card: Int) {
             //let delay = GameViewController.cardMoveTime * 2 + GameViewController.cardFlipTime
-            let delay = GameViewController.cardMoveTime 
+            let delay = GameViewController.cardMoveTime
             playerHands[hand][card] = addCard(hand: hand, card: card)
         
             print("made it here")
              UIView.animate(withDuration: GameViewController.cardMoveTime, delay: delay, options: UIView.AnimationOptions.curveEaseIn, animations: {
-                //self.playerHands[hand][card].frame = self.layout.Frame(Details: self.screenDetails, item: CardIdentity(hand: hand, card: card))
                  self.playerHands[hand][card].center = self.layout.Location(Details: self.screenDetails, item: CardIdentity(hand: hand, card: card))
                     })
          }
@@ -510,7 +333,6 @@ class GameViewController: UIViewController {
                                         animations:  {
                                             
                                             chosenCardView.center = self.layout.Location(Details: self.screenDetails, item: CardIdentity(hand: nextEmptyRow + 6, card: column))
-                                           // chosenCardView.center = self.layout.Location(Details: self.screenDetails, item: CardIdentity(hand: self.findNextCardSlot(stack: stack), card: stack))
                                     },
                                         completion: {_ in
                                             self.discardPiles[column][nextEmptyRow] = self.playerHands[hand][card]
@@ -524,12 +346,9 @@ class GameViewController: UIViewController {
     }
 
     func findNextCardSlot(column: Int)->Int{
-        //print("finding next card in column ", column)
-        //print(discardPiles)
         for row in 0...discardPiles[column].count - 1{
             if(discardPiles[column][row].num == 0){
-                //print("found a slot in row ", row)
-                return row
+                 return row
             }
         }
         return -1
@@ -573,7 +392,6 @@ extension GameViewController: delegateUpdateView{
     }
     
     func updateHints(hints: Int) {
-        //TODO:
         print("updateHints")
     }
     
@@ -619,3 +437,4 @@ extension GameViewController: delegateUpdateView{
         return newCard
     }
 }
+
