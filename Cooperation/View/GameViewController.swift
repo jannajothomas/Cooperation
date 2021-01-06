@@ -6,6 +6,8 @@
 //  Copyright © 2020 Personal. All rights reserved.
 //
 
+//TODO: Make color hint and number hint work
+
 import UIKit
 import GameplayKit
 import Foundation
@@ -79,11 +81,37 @@ class GameViewController: UIViewController {
     }
     
     @objc func selectCardAction(_ recognizer: UITapGestureRecognizer){
+        var selectedCardArray = [CardView]()
+        
         switch recognizer.state{
             case .ended:
             if let chosenCardView = recognizer.view as? CardView{
-                chosenCardView.isSelected = !chosenCardView.isSelected
                 
+                chosenCardView.isSelected = !chosenCardView.isSelected
+                //put all the selected cards in an array
+                for card in 0...4{
+                    if playerHands[0][card].isSelected{
+                        selectedCardArray.append(playerHands[0][card])
+                    }
+                }
+                //if all of the selected cards are the same number, make number  hint visible
+                NumberHintView.isHidden = true
+                ColorHintView.isHidden =  true
+                if(selectedCardArray.count >= 1){
+                    let cardNum = selectedCardArray[0].num
+                    NumberHintView.isHidden = false
+                    let cardCol = selectedCardArray[0].col
+                    ColorHintView.isHidden = false
+
+                    for card in 0...selectedCardArray.count - 1{
+                        if selectedCardArray[card].num != cardNum{
+                            NumberHintView.isHidden = true
+                        }
+                        if selectedCardArray[card].col != cardCol{
+                            ColorHintView.isHidden = true
+                        }
+                    }
+                }
             }
             default:
             print("reached default condition in selectCardAction")
@@ -133,13 +161,13 @@ class GameViewController: UIViewController {
         view.addSubview(DiscardLocation)
 
         ColorHintView = configureSpecialCards(name: "colorHint", card: 1)
-        ColorHintView.isHidden = false
+        ColorHintView.isHidden = true
         ColorHintView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(colorHint(_:))))
         view.addSubview(ColorHintView)
         
         NumberHintView = configureSpecialCards(name: "numberHint", card: 3)
         view.addSubview(NumberHintView)
-        NumberHintView.isHidden = false
+        NumberHintView.isHidden = true
         NumberHintView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(numberHint(_:))))
         
         let stackColor = [UIColor.red, UIColor.blue, UIColor.magenta, UIColor.orange,UIColor.purple]
