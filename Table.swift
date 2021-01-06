@@ -150,13 +150,21 @@ class Table: NSObject{
     }
     
     func discardCard(hand:Int, card:Int)->Int{
-        //print("Got message to discard card hand: ",hand," card: ",card)
-        //print("returning stack number : ",hands[hand][card].col.rawValue)
-        //print("disarding Card: ",hands[hand][card].num , hands[hand][card].col)
-        //-1 is to leave a spot for none
-        return hands[hand][card].col.rawValue - 1
+        let discardColumn = hands[hand][card].col.rawValue - 1
+        let firstEmptySlot = getFirstEmptySlot(column: discardColumn)
+        discardPiles[discardColumn][firstEmptySlot] = hands[hand][card]
+        hands[hand][card] = deck.drawCard()!
+        return discardColumn
     }
     
+    func getFirstEmptySlot(column: Int)->Int{
+        for count in 0...9{
+            if (discardPiles[column][count].num.rawValue == 0){
+                return count
+            }
+        }
+        return -1
+    }
 }
 
 extension Table: GKGameModel{

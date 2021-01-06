@@ -359,15 +359,13 @@ class GameViewController: UIViewController {
     
     @objc func detectPanAction(_ recognizer:UIPanGestureRecognizer) {
         if let chosenCardView = recognizer.view as? CardView{
-            //print(chosenCardView.center)
-            //var lastLocation = chosenCardView.center
             chosenCardView.superview?.bringSubviewToFront(chosenCardView)
             switch  recognizer.state{
             case .began:
                 lastLocation = chosenCardView.center
             case .ended:
                 print("in pan gesture recognizer Card",chosenCardView.card, "hand", chosenCardView.hand, " is ",table.hands[chosenCardView.hand][chosenCardView.card])
-                print(" pile Num", table.discardCard(hand:chosenCardView.hand, card: chosenCardView.card))
+                //print(" pile Num", table.discardCard(hand:chosenCardView.hand, card: chosenCardView.card))
                 lastLocation = chosenCardView.center
                 if chosenCardView.frame.intersects(DiscardLocation.frame){
                     let pileNum = table.discardCard(hand:chosenCardView.hand, card: chosenCardView.card)
@@ -445,9 +443,10 @@ class GameViewController: UIViewController {
      func drawCardAnimation(hand: Int, card: Int) {
              let delay = GameViewController.cardMoveTime * 2 + GameViewController.cardFlipTime
             playerHands[hand][card] = addCard(hand: hand, card: card)
-            //playerHands[hand][card] = createHanabiCardAtLocation(hand: hand, card: card, location: layout.Location(Details: screenDetails, item: CardIdentity(hand: 4, card: 1)))
+        
+            print("made it here")
              UIView.animate(withDuration: GameViewController.cardMoveTime, delay: delay, options: UIView.AnimationOptions.curveEaseIn, animations: {
-
+                //self.playerHands[hand][card].frame = self.layout.Frame(Details: self.screenDetails, item: CardIdentity(hand: hand, card: card))
                  self.playerHands[hand][card].center = self.layout.Location(Details: self.screenDetails, item: CardIdentity(hand: hand, card: card))
                     })
          }
@@ -514,6 +513,7 @@ class GameViewController: UIViewController {
                                     },
                                         completion: {_ in
                                             self.discardPiles[column][nextEmptyRow] = self.playerHands[hand][card]
+                                            self.drawCardAnimation(hand: hand, card: card)
                                     }
                                  )
                             }
@@ -523,14 +523,13 @@ class GameViewController: UIViewController {
     }
 
     func findNextCardSlot(column: Int)->Int{
-        print("finding next card in column ", column)
-        print(discardPiles)
+        //print("finding next card in column ", column)
+        //print(discardPiles)
         for row in 0...discardPiles[column].count - 1{
             if(discardPiles[column][row].num == 0){
-                print("found a slot in row ", row)
+                //print("found a slot in row ", row)
                 return row
             }
-            
         }
         return -1
     }
@@ -608,9 +607,14 @@ extension GameViewController: delegateUpdateView{
         newCard.hand = hand
         newCard.card = card
         newCard.isFaceUp = false
-        newCard.frame = layout.Frame(Details: screenDetails, name: "center")
+        if dealingComplete{
+            newCard.frame =  layout.Frame(Details: screenDetails, name: "deck")
+        }else{
+           newCard.frame = layout.Frame(Details: screenDetails, name: "center")
+        }
         newCard.num = table.hands[hand][card].num.rawValue
         newCard.col = color[table.hands[hand][card].col.rawValue]!
+        view.addSubview(newCard)
         return newCard
     }
 }
