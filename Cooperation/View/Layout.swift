@@ -46,7 +46,7 @@ struct CardIdentity:  CustomStringConvertible{
     //let cardIndex: Int
 }
 
-//TODO: Deck and center are the same
+//TODO: Add more rows for discard....row ten is not enough
 let  viewLocationIndex =  ["colorHint" : CardIdentity(hand: 4, card: 0/*, cardIndex: 0*/),
                            "numberHint"  : CardIdentity(hand: 4, card: 3/*, cardIndex: 3*/),
                            "deck" : CardIdentity(hand: 4, card: 1/*, cardIndex: 1*/),

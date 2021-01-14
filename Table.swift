@@ -46,7 +46,7 @@ class Table: NSObject{
     
     var numPlayers = 2 /* A */
     var hands = [[Card]]() /* 1 */
-    var stacks = [[Card]]() /* 2 */
+    var stacks = [Card(), Card(), Card(), Card(), Card()] /* 2 */
     var discardPiles = [[Card]]() /* 3 */
     var hints = Array(repeating: true, count: 8) /* 4 */
     var cardLeftInDeck = 50 /*Need to make this automatically update or something.  This is a really clunky way to do this*/
@@ -58,21 +58,21 @@ class Table: NSObject{
         currentPlayer = Player.allPlayers[0]
         super.init()
         hands = buildCardPiles(numberOfPiles: numPlayers, cardInEachPile: 5)
-        stacks = buildCardPiles(numberOfPiles: 5, cardInEachPile: 5)
         discardPiles = buildCardPiles(numberOfPiles: 5, cardInEachPile: 10)
 
         for hand in 0...1{
             for card in 0...4{
               
                 hands[hand][card] = deck.drawCard()!
-                print(hands[hand][card])
+                //print(hands[hand][card])
             }
         }
+        //getArrayOfPlayableCards()
+        printGameBoard()
     }
     
     func buildCardPiles(numberOfPiles:Int, cardInEachPile:Int)->[[Card]]{
         let newArray = Array(repeating: Array(repeating: Card(), count: cardInEachPile), count: numberOfPiles)
-        //print("new array capactiy" = newArray.count)
         return newArray
     }
     
@@ -80,21 +80,50 @@ class Table: NSObject{
         return false
     }
     
-    func isWin(for player: GKGameModelPlayer) -> Bool {
+    func isWin(for player: GKGameModelPlayer)->Bool {
         //the top card in each stack is a 5
         return false
     }
-    /*
-     var slots = [ChipColor]()
-
-     override init() {
-         for _ in 0 ..< Board.width * Board.height {
-             slots.append(.none)
-         }
-
-         super.init()
-     }
-     */
+    
+    func isCardPlayable(hand: Int, card: Int, stack: Int)->Bool{
+        nextCardNum = getArrayOfPlayableCards()
+        let cardNum = hands[hand][card].num.rawValue
+        let cardColIndex = hands[hand][card].col.rawValue - 1
+        
+        //Played on an empty stack?
+        if nextCardNum[stack] == 1{
+            print("card is a one")
+            //Card is a one
+            if ((cardNum == 1) && (nextCardNum[cardColIndex] == 1)){
+                //Card was played on an empty stack and that color hasn't already been played
+                return true
+            }
+        }else{
+            print("card is a ", cardNum)
+            //Card is any number other than one
+            
+            //print("stack is ", stack, " cardColInex is ",cardColIndex)
+            //print("cardNum is ", cardNum, "comp values is", nextCardNum[cardColIndex])
+            if((stack == cardColIndex) && (cardNum == nextCardNum[cardColIndex])){
+                print("card was played on the correct color stack and is the correct number")
+                //Card was played on the correct color stack and is the correct number
+                return true
+            }else{
+                print("card is wrong color or wrong number")
+                //Card is wrong color or wrong number to be played
+                return false
+            }
+        }
+        return false
+    }
+    
+    var nextCardNum = [0,0,0,0,0]
+    func getArrayOfPlayableCards()->[Int]{
+        for column in 0...4{
+            nextCardNum[column] = stacks[column].num.rawValue + 1
+        }
+        return nextCardNum
+    }
     
     func score(for player: GKGameModelPlayer)->Int{
         if let playerObject = player as? Player {
@@ -141,12 +170,42 @@ class Table: NSObject{
             //currentPlayer = currentPlayer.opponent
        // }
     }
-
-    
-
     
     func nextEmptySpotInStack(){
         
+    }
+    
+    func playCard(hand:Int, card:Int){
+        let stack = hands[hand][card].col.rawValue - 1
+        stacks[stack] = hands[hand][card]
+        hands[hand][card] = deck.drawCard()!
+        printGameBoard()
+    }
+    
+    func printGameBoard(){
+        nextCardNum = getArrayOfPlayableCards()
+        for hand in 0...1{
+            print("\nHand ",hand)
+            for card in 0...4{
+                print(hands[hand][card], terminator: "")
+            }
+        }
+        print("\nStacks")
+        for stack in 0...4{
+            print(stacks[stack], terminator: "")
+        }
+        print("\nDiscard")
+        for stack in 0...4{
+            print("\nstack num:",stack, " ", terminator: "")
+            for row in 0...9{
+                print(discardPiles[stack][row], terminator: "")
+            }
+        }
+        print("\nNext Cards To Play")
+        for count in 0...4{
+            print(nextCardNum[count],", ", terminator: "")
+        }
+        print("\n...................................................................")
     }
     
     func discardCard(hand:Int, card:Int)->Int{
@@ -154,6 +213,7 @@ class Table: NSObject{
         let firstEmptySlot = getFirstEmptySlot(column: discardColumn)
         discardPiles[discardColumn][firstEmptySlot] = hands[hand][card]
         hands[hand][card] = deck.drawCard()!
+        printGameBoard()
         return discardColumn
     }
     

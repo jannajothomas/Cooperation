@@ -179,6 +179,7 @@ class GameViewController: UIViewController {
                     newStack.num = 0
                     newStack.cardBackgroundColor = stackColor[card]
                     stackPiles[card] = newStack
+                    stackPiles[card].tag = card
                     stackPiles[card].isHidden = false
                     view.addSubview(stackPiles[card])
                 }
@@ -262,16 +263,46 @@ class GameViewController: UIViewController {
             case .began:
                 lastLocation = chosenCardView.center
             case .ended:
-                print("in pan gesture recognizer Card",chosenCardView.card, "hand", chosenCardView.hand, " is ",table.hands[chosenCardView.hand][chosenCardView.card])
+                //print("in pan gesture recognizer Card",chosenCardView.card, "hand", chosenCardView.hand, " is ",table.hands[chosenCardView.hand][chosenCardView.card])
                 lastLocation = chosenCardView.center
+                /****************************Card Discarded****************************/
                 if chosenCardView.frame.intersects(DiscardLocation.frame){
                     let pileNum = table.discardCard(hand:chosenCardView.hand, card: chosenCardView.card)
                     discardCardAnimation(hand: chosenCardView.hand, card: chosenCardView.card, column: pileNum)
+                }else{
+                    /****************************Card Played********************************/
+                        var largestArea = CGFloat(0)
+                        var indexOfLargestArea = 0
+                        for card in 0...4{
+                            if chosenCardView.frame.intersects(stackPiles[card].frame){
+                                let intersection = chosenCardView.frame.intersection(stackPiles[card].frame)
+                                let thisArea = (intersection.maxX - intersection.minX)  * (intersection.maxY - intersection.minY)
+                               // print("this area", thisArea)
+                                //print("largest area", largestArea)
+                                if thisArea > largestArea{
+                                    largestArea = thisArea
+                                    indexOfLargestArea = card
+                                }
+                            }
+                        }
+                        print("Index of Largest Area", indexOfLargestArea)
+                        
+                        print("stackPiles[indexOfLargestArea", stackPiles[indexOfLargestArea].tag)
+                        let cardIsPlayable = table.isCardPlayable(hand: chosenCardView.hand, card: chosenCardView.card, stack: indexOfLargestArea)
+                        if cardIsPlayable{
+                            print("card is playable")
+                            //print("column num ",table.hands[chosenCardView.hand][chosenCardView.card].col.rawValue)
+                            playCardAnimation(hand: chosenCardView.hand, card: chosenCardView.card, column: table.hands[chosenCardView.hand][chosenCardView.card].col.rawValue - 1)
+                            table.playCard(hand: chosenCardView.hand,card: chosenCardView.card)
+                        }else{
+                            print("Card is not playable")
+                            let pileNum = table.discardCard(hand:chosenCardView.hand, card: chosenCardView.card)
+                            discardCardAnimation(hand: chosenCardView.hand, card: chosenCardView.card, column: pileNum)
+                        }
+                    
                 }
-                for card in 0...4{
-                    if chosenCardView.frame.intersects(stackPiles[card].frame){
-                    }
-                }
+                
+                
             case .changed:
                 let translation = recognizer.translation(in: self.view)
                 chosenCardView.center = CGPoint(x: lastLocation.x + translation.x, y: lastLocation.y + translation.y)
@@ -297,7 +328,7 @@ class GameViewController: UIViewController {
             let delay = GameViewController.cardMoveTime
             playerHands[hand][card] = addCard(hand: hand, card: card)
         
-            print("made it here")
+            //print("made it here")
              UIView.animate(withDuration: GameViewController.cardMoveTime, delay: delay, options: UIView.AnimationOptions.curveEaseIn, animations: {
                  self.playerHands[hand][card].center = self.layout.Location(Details: self.screenDetails, item: CardIdentity(hand: hand, card: card))
                     })
@@ -339,8 +370,8 @@ class GameViewController: UIViewController {
      }
 
     func discardCardAnimation(hand: Int, card: Int, column: Int) {
-        let nextEmptyRow = self.findNextCardSlot(column: column)
-        print("next  empty row: ",nextEmptyRow)
+        let nextEmptyRow = self.findNextDiscardSlot(column: column)
+        //print("next  empty row: ",nextEmptyRow)
         let chosenCardView = playerHands[hand][card]
         view.bringSubviewToFront(chosenCardView)
                 self.view.layoutIfNeeded()
@@ -373,7 +404,7 @@ class GameViewController: UIViewController {
                 )
     }
 
-    func findNextCardSlot(column: Int)->Int{
+    func findNextDiscardSlot(column: Int)->Int{
         for row in 0...discardPiles[column].count - 1{
             if(discardPiles[column][row].num == 0){
                  return row
@@ -382,10 +413,23 @@ class GameViewController: UIViewController {
         return -1
     }
     
-     func playCardAnimation(hand:Int, card: Int, stackIndex: Int, cardInStack: Int){
-         
-     }
- }
+     func playCardAnimation(hand:Int, card: Int, column: Int){
+        print("Play card animation.... hand: ",hand," card: ",card," column: ",column)
+        print("playing card")
+        let chosenCardView = playerHands[hand][card]
+        view.bringSubviewToFront(chosenCardView)
+        self.view.layoutIfNeeded()
+        UIView.animate(
+            withDuration: GameViewController.cardMoveTime,
+            animations: {
+                chosenCardView.center = self.layout.Location(Details: self.screenDetails, item: CardIdentity(hand: 5, card: column))},
+                //chosenCardView.frame = self.layout.Frame(Details: self.screenDetails, item: CardIdentity(hand: 5, card: column))},
+            completion: {_ in
+                self.stackPiles[column] = self.playerHands[hand][card]
+                self.drawCardAnimation(hand: hand, card: card)}
+        )
+    }
+}
   
  extension GameViewController{
      static var cardMoveTime = 0.8

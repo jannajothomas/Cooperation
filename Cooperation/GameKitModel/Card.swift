@@ -10,8 +10,19 @@ import Foundation
 
 struct Card: CustomStringConvertible,Equatable{
     var description: String {
-        var output = "color is \(col.rawValue),"
-        output += " number is \(num.rawValue)"
+        var output = "\(num.rawValue)"
+        //output += "color is "
+        switch col.rawValue{
+            case 0: output += "     - "
+            case 1: output += " red - "
+            case 2: output += " blu - "
+            case 3: output += " mag - "
+            case 4: output += " org - "
+            case 5: output += " pur - "
+            default: output += " err "
+        }
+        //var output = "color is \(col.rawValue),"
+        //output += " number is \(num.rawValue)"
         return output
     }
     var num: Num
