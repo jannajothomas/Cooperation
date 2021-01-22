@@ -32,28 +32,18 @@ class TableTest: XCTestCase {
     }
     
     func scenerioOne(){
-        //sut.stacks[0][0] = Card(num: Card.Num.one, col: Card.Col.none)
-        sut.stacks[0] = Card(num: Card.Num.two, col: Card.Col.none)
-        sut.stacks[1] = Card(num: Card.Num.one, col: Card.Col.none)
-        //sut.stacks[2][0] = Card(num: Card.Num.one, col: Card.Col.none)
-        //sut.stacks[2][1] = Card(num: Card.Num.two, col: Card.Col.none)
-        sut.stacks[2] = Card(num: Card.Num.three, col: Card.Col.none)
+        sut.stacks[0][0] = Card(num: Card.Num.one, col: Card.Col.none)
+        sut.stacks[0][1] = Card(num: Card.Num.two, col: Card.Col.none)
+        sut.stacks[1][0] = Card(num: Card.Num.one, col: Card.Col.none)
+        sut.stacks[2][0] = Card(num: Card.Num.one, col: Card.Col.none)
+        sut.stacks[2][1] = Card(num: Card.Num.two, col: Card.Col.none)
+        sut.stacks[2][2] = Card(num: Card.Num.three, col: Card.Col.none)
         //Playable  cards: Red 3, blue 2, magneta 4, orange 1, purple 1
         
     }
     
     func scenerioTwo(){
-        sut.stacks[2] = Card(num: Card.Num.one, col: Card.Col.magenta)
-    }
-    
-    func testGetArrayOfPlayableCards(){
-        scenerioOne()
-        let ints = sut.getArrayOfPlayableCards()
-        XCTAssertEqual(ints[0],3,"First element is not correct")
-        XCTAssertEqual(ints[1],2,"Second element is not correct")
-        XCTAssertEqual(ints[2],4,"Third element is not correct")
-        XCTAssertEqual(ints[3],1,"Fourth element is not correct")
-        XCTAssertEqual(ints[4],1,"Fifth element is not correct")
+        sut.stacks[2][0] = Card(num: Card.Num.one, col: Card.Col.magenta)
     }
     
     func testIsPlayableCardRecognized(){
@@ -113,4 +103,35 @@ class TableTest: XCTestCase {
         test =  sut.isCardPlayable(hand: 0, card: 1, stack: 0)
         XCTAssertEqual(test,false,"Non-playable card accepted")
     }
+    
+    func testNextEmptyStackPosition(){
+        var nextPlayableCard = sut.getNextEmptyStackPosition(column: 0)
+        XCTAssertEqual(nextPlayableCard,0,"Wrong next empty spot")
+        scenerioOne()
+        let expectedValues = [2,1,3,0,0]
+        for count in 0...4{
+            nextPlayableCard = sut.getNextEmptyStackPosition(column: count)
+            XCTAssertEqual(nextPlayableCard,expectedValues[count],"Wrong next empty spot in column /(count)")
+        }
+    }
+    
+    func testGetNextCardNumber(){
+        var nextCardNumber = sut.getNextCardNumber(column: 0)
+         XCTAssertEqual(nextCardNumber,1,"Wrong next card number")
+        scenerioOne()
+        let expectedValues = [3,2,4,1,1]
+        for count in 0...4{
+            nextCardNumber = sut.getNextCardNumber(column: count)
+            XCTAssertEqual(nextCardNumber,expectedValues[count],"Wrong next empty spot in column /(count)")
+        }
+    }
+    
+    func testGetArrayOfPlayableCards(){
+        scenerioOne()
+        let expectedValues = [3,2,4,1,1]
+        let actualValues = sut.getArrayOfPlayableCards()
+        XCTAssertEqual(actualValues,expectedValues,"Array of playable cards")
+        
+    }
+    
 }

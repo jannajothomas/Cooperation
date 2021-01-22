@@ -9,7 +9,40 @@
 import Foundation
 
 struct ComputerTurn{
-    func getNextTurn(hints: Int, playerCard: [Card], possibleComputerCards: [[Card]]){
-        
+    init(oponentCards: [Card], stacks: [Card], discardPiles: [[Card]], numHints:[Int], colHints:[Int]){
     }
+    
+    func  getNextMove()->String{
+        
+        
+        
+        //run through possible moves
+        //play
+        if(true){
+            return "play"
+        }else if(true){
+            return "discard"
+        }else if(true){
+            return "hint"
+        }
+        
+        //discard
+        //hint
+    }
+    
+    
+    
+    var deck = Deck()
+    
+    func createArrayOfPossibleCards(){
+        var possibleCardsRemaining = Array(repeating: deck.getFullDeck(), count: 5)
+    }
+    
 }
+
+/*
+var hands = [[Card]]() /* 1 */
+var stacks = [Card(), Card(), Card(), Card(), Card()] /* 2 */
+var discardPiles = [[Card]]() /* 3 */
+var hints
+*/

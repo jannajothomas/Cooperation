@@ -65,7 +65,7 @@ class GameViewController: UIViewController {
 
     func resetTable(){
         table = Table()
-        strategist.gameModel = table
+        strategist.gameModel = table as? GKGameModel
         updateUI()
     }
     

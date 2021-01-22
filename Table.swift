@@ -35,18 +35,18 @@ import GameplayKit
 
 class Table: NSObject{
     
-    var players: [GKGameModelPlayer]?{
-        return Player.allPlayers
+    var computerPlayer = ComputerPlayer()
+    var currentPlayer = 0{
+        didSet{
+            if(currentPlayer == 0){
+                computerPlayer.playBestMove()
+            }
+        }
     }
-    var activePlayer: GKGameModelPlayer?{
-        return currentPlayer
-    }
-    var currentPlayer: Player
-
     
     var numPlayers = 2 /* A */
     var hands = [[Card]]() /* 1 */
-    var stacks = [Card(), Card(), Card(), Card(), Card()] /* 2 */
+    var stacks = [[Card()]] /* 2 */
     var discardPiles = [[Card]]() /* 3 */
     var hints = Array(repeating: true, count: 8) /* 4 */
     var cardLeftInDeck = 50 /*Need to make this automatically update or something.  This is a really clunky way to do this*/
@@ -54,11 +54,10 @@ class Table: NSObject{
     var deck = Deck()
     
     override init() {
-        //print("initialized")
-        currentPlayer = Player.allPlayers[0]
         super.init()
         hands = buildCardPiles(numberOfPiles: numPlayers, cardInEachPile: 5)
         discardPiles = buildCardPiles(numberOfPiles: 5, cardInEachPile: 10)
+        stacks = buildCardPiles(numberOfPiles: 5, cardInEachPile: 5)
 
         for hand in 0...1{
             for card in 0...4{
@@ -70,6 +69,11 @@ class Table: NSObject{
         //getArrayOfPlayableCards()
         printGameBoard()
     }
+    
+    func changePlayers() {
+          currentPlayer = 1 - currentPlayer
+          //updateUI()
+      }
     
     func buildCardPiles(numberOfPiles:Int, cardInEachPile:Int)->[[Card]]{
         let newArray = Array(repeating: Array(repeating: Card(), count: cardInEachPile), count: numberOfPiles)
@@ -120,9 +124,23 @@ class Table: NSObject{
     var nextCardNum = [0,0,0,0,0]
     func getArrayOfPlayableCards()->[Int]{
         for column in 0...4{
-            nextCardNum[column] = stacks[column].num.rawValue + 1
+            nextCardNum[column] = getNextCardNumber(column: column)
         }
+        print("next card num", nextCardNum)
         return nextCardNum
+    }
+    
+    func getNextEmptyStackPosition(column: Int)->Int{
+        for row in 0...4{
+            if stacks[column][row].num.rawValue == 0{
+                return row
+            }
+        }
+        return 4
+    }
+    
+    func  getNextCardNumber(column: Int)->Int{
+        return getNextEmptyStackPosition(column: column) + 1
     }
     
     func score(for player: GKGameModelPlayer)->Int{
@@ -171,15 +189,12 @@ class Table: NSObject{
        // }
     }
     
-    func nextEmptySpotInStack(){
-        
-    }
-    
     func playCard(hand:Int, card:Int){
         let stack = hands[hand][card].col.rawValue - 1
-        stacks[stack] = hands[hand][card]
+        stacks[stack][getNextEmptyStackPosition(column: stack)] = hands[hand][card]
         hands[hand][card] = deck.drawCard()!
         printGameBoard()
+        changePlayers()
     }
     
     func printGameBoard(){
@@ -214,6 +229,7 @@ class Table: NSObject{
         discardPiles[discardColumn][firstEmptySlot] = hands[hand][card]
         hands[hand][card] = deck.drawCard()!
         printGameBoard()
+        changePlayers()
         return discardColumn
     }
     
@@ -225,25 +241,6 @@ class Table: NSObject{
         }
         return -1
     }
-}
-
-extension Table: GKGameModel{
-    
-    //make an empty board object then call setGameMdodel to acdtaul copy the data set to the active player
-    func copy(with zone: NSZone? = nil) -> Any {
-        let copy = Table()
-        copy.setGameModel(self)
-        return copy
-    }
-    
-    //actually copy  across the stack data? and set the active player
-    func setGameModel(_ gameModel: GKGameModel) {
-        if let table = gameModel as? Table{
-            //???
-        currentPlayer = table.currentPlayer
-        }
-    }
-    
 }
 
 struct Deck {
@@ -265,6 +262,10 @@ struct Deck {
                 }
             }
         }
+    }
+    
+    func getFullDeck()->[Card]{
+        return cards
     }
     
     mutating func drawCard() -> Card? {
