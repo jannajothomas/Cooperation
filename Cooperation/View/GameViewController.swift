@@ -33,7 +33,7 @@ class GameViewController: UIViewController {
     lazy var stackPiles = Array(repeating: CardView(), count: 5)      //Hand 5
     var discardPiles = Array(repeating: Array(repeating: CardView(), count: 10), count: 5)
     
-    var strategist: GKMinmaxStrategist!
+    //var strategist: GKMinmaxStrategist!
     var numPlayers = 2    //Dont know what this is
     var screenDetails = ScreenDetails(windowWidth: 0, windowHeight: 0, topPadding: 0, rightPadding: 0, leftPadding: 0, bottomPadding: 0)
 
@@ -48,9 +48,9 @@ class GameViewController: UIViewController {
         screenDetails.windowWidth = self.view.frame.size.width
         screenDetails.windowHeight =  self.view.frame.size.height
     
-        strategist = GKMinmaxStrategist()
-        strategist.maxLookAheadDepth = 4
-        strategist.randomSource = GKARC4RandomSource()
+        //strategist = GKMinmaxStrategist()
+        //strategist.maxLookAheadDepth = 4
+        //strategist.randomSource = GKARC4RandomSource()
         resetTable()
         //game.delegate = self
         
@@ -65,7 +65,7 @@ class GameViewController: UIViewController {
 
     func resetTable(){
         table = Table()
-        strategist.gameModel = table as? GKGameModel
+        //strategist.gameModel = table as? GKGameModel
         updateUI()
     }
     

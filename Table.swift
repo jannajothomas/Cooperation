@@ -84,10 +84,10 @@ class Table: NSObject{
         return false
     }
     
-    func isWin(for player: GKGameModelPlayer)->Bool {
+    /*func isWin(for player: GKGameModelPlayer)->Bool {
         //the top card in each stack is a 5
         return false
-    }
+    }*/
     
     func isCardPlayable(hand: Int, card: Int, stack: Int)->Bool{
         nextCardNum = getArrayOfPlayableCards()
@@ -121,6 +121,7 @@ class Table: NSObject{
         return false
     }
     
+    //***************Get info about what cards can be played next
     var nextCardNum = [0,0,0,0,0]
     func getArrayOfPlayableCards()->[Int]{
         for column in 0...4{
@@ -129,7 +130,12 @@ class Table: NSObject{
         print("next card num", nextCardNum)
         return nextCardNum
     }
+    //Helper Function
+    func  getNextCardNumber(column: Int)->Int{
+        return getNextEmptyStackPosition(column: column) + 1
+    }
     
+    //**************Get info about where next card will be played
     func getNextEmptyStackPosition(column: Int)->Int{
         for row in 0...4{
             if stacks[column][row].num.rawValue == 0{
@@ -139,11 +145,7 @@ class Table: NSObject{
         return 4
     }
     
-    func  getNextCardNumber(column: Int)->Int{
-        return getNextEmptyStackPosition(column: column) + 1
-    }
-    
-    func score(for player: GKGameModelPlayer)->Int{
+    /*func score(for player: GKGameModelPlayer)->Int{
         if let playerObject = player as? Player {
                if isWin(for: playerObject) {
                    return 1000
@@ -152,10 +154,10 @@ class Table: NSObject{
                }
            }
            return 0
-    }
+    }*/
     
 
-     func gameModelUpdates(for player: GKGameModelPlayer) -> [GKGameModelUpdate]? {
+     /*func gameModelUpdates(for player: GKGameModelPlayer) -> [GKGameModelUpdate]? {
          //We optionally downcast our GKGameModelPlayer parameter into a Player object.
          //if let playerObject = player as? Player {
              // If the player or their opponent has won, return nil to signal no moves are available.
@@ -179,15 +181,16 @@ class Table: NSObject{
        //  }
 
          return nil
-     }
+     }*/
      
     //execute once for every move
-    func apply(_ gameModelUpdate: GKGameModelUpdate) {
+    
+    /*func apply(_ gameModelUpdate: GKGameModelUpdate) {
        // if let move = gameModelUpdate as? Move {
             //add(chip: currentPlayer.chip, in: move.column)
             //currentPlayer = currentPlayer.opponent
        // }
-    }
+    }*/
     
     func playCard(hand:Int, card:Int){
         let stack = hands[hand][card].col.rawValue - 1
