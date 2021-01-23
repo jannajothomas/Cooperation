@@ -13,9 +13,6 @@ struct ComputerTurn{
     }
     
     func  getNextMove()->String{
-        
-        
-        
         //run through possible moves
         //play
         if(true){

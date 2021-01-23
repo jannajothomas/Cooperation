@@ -12,6 +12,8 @@ import XCTest
 class TableTest: XCTestCase {
     
     var sut: Table!
+    var compKnow: CompKnowledge!
+    var deck: Deck!
 
     let red3 = Card(num: Card.Num.three, col: Card.Col.red)
     let blue3 = Card(num: Card.Num.three, col: Card.Col.blue)
@@ -24,6 +26,8 @@ class TableTest: XCTestCase {
     override func setUp() {
         super.setUp()
         sut = Table()
+        deck = Deck()
+        compKnow = CompKnowledge(deck: deck)
     }
 
     override func tearDown() {
@@ -131,7 +135,19 @@ class TableTest: XCTestCase {
         let expectedValues = [3,2,4,1,1]
         let actualValues = sut.getArrayOfPlayableCards()
         XCTAssertEqual(actualValues,expectedValues,"Array of playable cards")
+    }
+    
+    func testCardShown(){
+        compKnow.cardShown(knownCard: Card(num: Card.Num.two, col: Card.Col.blue))
+    XCTAssertEqual(compKnow.cardPossibilities[0].count,49,"Array is not the correct size")
         
+        
+        let localDeck = Deck()
+        var expectedArray = localDeck.cards
+        expectedArray.remove(at: 14)
+        
+        let actualArray = compKnow.newCardPossibilities
+    XCTAssertEqual(expectedArray,actualArray,"Array does not contain the correct values")
     }
     
 }

@@ -126,8 +126,8 @@
             filePath = "Table.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "58"
-            endingLineNumber = "58"
+            startingLineNumber = "59"
+            endingLineNumber = "59"
             landmarkName = "init()"
             landmarkType = "7">
          </BreakpointContent>
@@ -973,8 +973,8 @@
             filePath = "Table.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "92"
-            endingLineNumber = "92"
+            startingLineNumber = "90"
+            endingLineNumber = "90"
             landmarkName = "isCardPlayable(hand:card:stack:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1053,9 +1053,9 @@
             filePath = "CooperationTests/TableTest.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "107"
-            endingLineNumber = "107"
-            landmarkName = "testNextEmptyStackPosition()"
+            startingLineNumber = "109"
+            endingLineNumber = "109"
+            landmarkName = "testIsBadCardRejected()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1069,9 +1069,9 @@
             filePath = "CooperationTests/TableTest.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "129"
-            endingLineNumber = "129"
-            landmarkName = "testGetArrayOfPlayableCards()"
+            startingLineNumber = "131"
+            endingLineNumber = "131"
+            landmarkName = "testGetNextCardNumber()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

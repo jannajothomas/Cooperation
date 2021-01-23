@@ -53,6 +53,7 @@ class Table: NSObject{
     
     var deck = Deck()
     
+    //***************************Init***************************
     override init() {
         super.init()
         hands = buildCardPiles(numberOfPiles: numPlayers, cardInEachPile: 5)
@@ -70,24 +71,21 @@ class Table: NSObject{
         printGameBoard()
     }
     
-    func changePlayers() {
-          currentPlayer = 1 - currentPlayer
-          //updateUI()
-      }
-    
-    func buildCardPiles(numberOfPiles:Int, cardInEachPile:Int)->[[Card]]{
+    private func buildCardPiles(numberOfPiles:Int, cardInEachPile:Int)->[[Card]]{
         let newArray = Array(repeating: Array(repeating: Card(), count: cardInEachPile), count: numberOfPiles)
         return newArray
     }
+
+    //******************Manage Turns*************
+    func changePlayers() {
+          currentPlayer = 1 - currentPlayer
+      }
+    
+
     
     func isOutOfCards() -> Bool {
         return false
     }
-    
-    /*func isWin(for player: GKGameModelPlayer)->Bool {
-        //the top card in each stack is a 5
-        return false
-    }*/
     
     func isCardPlayable(hand: Int, card: Int, stack: Int)->Bool{
         nextCardNum = getArrayOfPlayableCards()
@@ -144,53 +142,6 @@ class Table: NSObject{
         }
         return 4
     }
-    
-    /*func score(for player: GKGameModelPlayer)->Int{
-        if let playerObject = player as? Player {
-               if isWin(for: playerObject) {
-                   return 1000
-               } else if isWin(for: playerObject.opponent) {
-                   return -1000
-               }
-           }
-           return 0
-    }*/
-    
-
-     /*func gameModelUpdates(for player: GKGameModelPlayer) -> [GKGameModelUpdate]? {
-         //We optionally downcast our GKGameModelPlayer parameter into a Player object.
-         //if let playerObject = player as? Player {
-             // If the player or their opponent has won, return nil to signal no moves are available.
-             //if isWin(for: playerObject) || isWin(for: playerObject.opponent) {
-              //   return nil
-             //}
-
-             // Otherwise, create a new array that will hold Move objects.
-          //   var moves = [Move]()
-
-             // Loop through every column in the board, asking whether the player can move in that column.
-             //for column in 0 ..< Board.width {
-                 //if canMove(in: column) {
-                     // Loop through every column in the board, asking whether the player can move in that column.
-                     //moves.append(Move(column: column))
-               //  }
-            // }
-
-             // Finally, return the array to tell the AI all the possible moves it can make.
-          //   return moves
-       //  }
-
-         return nil
-     }*/
-     
-    //execute once for every move
-    
-    /*func apply(_ gameModelUpdate: GKGameModelUpdate) {
-       // if let move = gameModelUpdate as? Move {
-            //add(chip: currentPlayer.chip, in: move.column)
-            //currentPlayer = currentPlayer.opponent
-       // }
-    }*/
     
     func playCard(hand:Int, card:Int){
         let stack = hands[hand][card].col.rawValue - 1
@@ -278,5 +229,39 @@ struct Deck {
             return nil
         }
         //TODO: add other error catching stuff here
+    }
+}
+
+
+struct CompKnowledge{
+    var cardPossibilities = Array(repeating: Array(repeating: Card(), count: 50), count: 5)
+    var newCardPossibilities = [Card]()
+    //var gamedeck : Deck
+    
+    init(deck:Deck){
+        newCardPossibilities = deck.getFullDeck()
+        print("new Card possibilities", newCardPossibilities.count)
+        for count in  0...4{
+            cardPossibilities[count] = newCardPossibilities
+        }
+        
+    }
+    
+    mutating func cardShown (knownCard: Card){
+        newCardPossibilities = removeCardFromArray(card: knownCard, array: newCardPossibilities)
+        for count in 0...4{
+            cardPossibilities[count] = removeCardFromArray(card: knownCard, array: cardPossibilities[count])
+        }
+    }
+    
+    func removeCardFromArray(card: Card, array: [Card])->[Card]{
+        var newArray = array
+        for count in 0...array.count - 1{
+            if(array[count] == card){
+                newArray.remove(at: count)
+                return newArray
+            }
+        }
+        return newArray
     }
 }
