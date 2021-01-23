@@ -27,7 +27,7 @@ class TableTest: XCTestCase {
         super.setUp()
         sut = Table()
         deck = Deck()
-        compKnow = CompKnowledge(deck: deck)
+        compKnow = CompKnowledge()
     }
 
     override func tearDown() {
@@ -149,5 +149,19 @@ class TableTest: XCTestCase {
         let actualArray = compKnow.newCardPossibilities
     XCTAssertEqual(expectedArray,actualArray,"Array does not contain the correct values")
     }
+ 
+    func testRemoveCardFromArray(){
+        let testArray = [blue2, orange1, purple1, magenta4]
+        let expectedArray = [blue2,purple1, magenta4]
+        let newArray = compKnow.removeCardFromArray(card: orange1, array: testArray)
+        XCTAssertEqual(newArray,expectedArray,"Array does not contain the correct values")
+    }
     
+    func testRemoveNonExistantCardFromArray(){
+        let testArray = [blue2, orange1, purple1, magenta4]
+         let newArray = compKnow.removeCardFromArray(card: blue3, array: testArray)
+         XCTAssertEqual(newArray,testArray,"Array does not contain the correct values")
+    }
 }
+
+

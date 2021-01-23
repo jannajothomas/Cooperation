@@ -197,6 +197,8 @@ class Table: NSObject{
     }
 }
 
+
+//MARK: DECK
 struct Deck {
     var cards = [Card]()
     
@@ -232,28 +234,44 @@ struct Deck {
     }
 }
 
+//MARK: COMPKNOW
 
+/* This struct holds information that the computer knows about the
+ cards that they hold.
+ cardPossibilites [Card] is initialized with every possible card it can be when it is created.
+ 
+ newCardPossibilities : baseline for creating new card arrays.  Only relies on cards that have actually been played.
+ 
+ Cards are removed as they are "revealed" from the computer perspective.
+    -Human player draws a card
+    -Computer plays a card(it is revealed) or the computer "knows" the actual identity of a card in its hand or the computer discards a card that it does not "know" the identity of.
+    -Computer recieves a hint about a card (possitive or negative information)
+ */
 struct CompKnowledge{
     var cardPossibilities = Array(repeating: Array(repeating: Card(), count: 50), count: 5)
     var newCardPossibilities = [Card]()
-    //var gamedeck : Deck
+    var deck: Deck!
     
-    init(deck:Deck){
+    /* When initialized, comp knowledge consists of a two dimensional array where each element contains and entire deck of cards. */
+    init(){
+        deck = Deck()
         newCardPossibilities = deck.getFullDeck()
-        print("new Card possibilities", newCardPossibilities.count)
         for count in  0...4{
             cardPossibilities[count] = newCardPossibilities
         }
-        
     }
     
+    /*Cards can be shown when the opposing player draws a card or when the comptuer discards or plays a card. */
     mutating func cardShown (knownCard: Card){
+        //Remove the card from generic card possibility array
         newCardPossibilities = removeCardFromArray(card: knownCard, array: newCardPossibilities)
+        //remove it from each specific array if it exists
         for count in 0...4{
             cardPossibilities[count] = removeCardFromArray(card: knownCard, array: cardPossibilities[count])
         }
     }
     
+    /*If card exists in array, remove it.  If not, return the original array */
     func removeCardFromArray(card: Card, array: [Card])->[Card]{
         var newArray = array
         for count in 0...array.count - 1{
