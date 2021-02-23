@@ -445,9 +445,7 @@ class GameViewController: UIViewController {
      static var cardFlipTime = 0.5
  }
 
- 
-
-extension GameViewController: delegateUpdateView{
+extension GameViewController{
     func moveCard(card: Card, stack: String, location: Int) {
         print("move  card")
     }
@@ -518,4 +516,5 @@ extension GameViewController: delegateUpdateView{
         return newCard
     }
 }
+
 

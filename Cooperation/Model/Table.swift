@@ -90,7 +90,7 @@ class Table: NSObject{
         for hand in 0...1{
             for card in 0...4{
                 hands[hand][card] = deck.drawCard()!
-                computerPlayer.compMemory.cardDrawn(player: hand, cardLocation: card, cardToRemove: hands[hand][card])
+                computerPlayer.computerMemory.cardDrawn(player: hand, cardLocation: card, cardToRemove: hands[hand][card])
             }
         }
         //getArrayOfPlayableCards()
@@ -174,7 +174,7 @@ class Table: NSObject{
         let stack = hands[hand][card].col.rawValue - 1
     stacks[stack][getNextEmptyStackPosition(column: stack)] = hands[hand][card]
         hands[hand][card] = deck.drawCard()!
-        computerPlayer.compMemory.cardPlayedOrDiscarded(player: hand, cardLocation: card, cardPlayed: hands[hand][card])
+        computerPlayer.computerMemory.cardPlayedOrDiscarded(player: hand, cardLocation: card, cardPlayed: hands[hand][card])
         printGameBoard()
         changePlayers()
     }
@@ -210,7 +210,7 @@ class Table: NSObject{
         let firstEmptySlot = getFirstEmptySlot(column: discardColumn)
         discardPiles[discardColumn][firstEmptySlot] = hands[hand][card]
         hands[hand][card] = deck.drawCard()!
-        computerPlayer.compMemory.cardPlayedOrDiscarded(player: hand, cardLocation: card, cardPlayed: hands[hand][card])
+        computerPlayer.computerMemory.cardPlayedOrDiscarded(player: hand, cardLocation: card, cardPlayed: hands[hand][card])
         printGameBoard()
         changePlayers()
         return discardColumn
