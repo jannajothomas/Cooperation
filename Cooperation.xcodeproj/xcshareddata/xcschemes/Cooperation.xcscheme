@@ -39,6 +39,9 @@
             </BuildableReference>
             <SkippedTests>
                <Test
+                  Identifier = "GameTest">
+               </Test>
+               <Test
                   Identifier = "GameTest/testPerformanceExample()">
                </Test>
             </SkippedTests>

@@ -36,21 +36,35 @@ import GameplayKit
 class Table: NSObject{
     
     var computerPlayer = ComputerPlayer()
-    var currentPlayer = 0{
+    
+    var humanHand = 1
+    
+    //TODO: Make the first value of current player randomly selected
+    var currentPlayer = 1{
         didSet{
+            print("didset  current player = ", currentPlayer)
             if(currentPlayer == 0){
                 computerPlayer.playBestMove()
+                currentPlayer = 1
             }
         }
     }
     
     var numPlayers = 2 /* A */
     var hands = [[Card]]() /* 1 */
+    var handNumberHint = [[Bool]]()
+    var handColorHint = [[Bool]]()
+    
     var stacks = [[Card()]] /* 2 */
     var discardPiles = [[Card]]() /* 3 */
-    var hints = Array(repeating: true, count: 8) /* 4 */
-    var cardLeftInDeck = 50 /*Need to make this automatically update or something.  This is a really clunky way to do this*/
     
+    let colorHintPlayer0 = 0
+    let numberHintPlayer0 = 1
+    let colorHintPlayer1 = 2
+    let numberHintPlayer1 = 3
+    
+    //var hints = Array(repeating: Array(repeating: false, count: 5), count:4) /* 4 */
+    var cardLeftInDeck = 50 /*Need to make this automatically update or something.  This is a really clunky way to do this*/
     var deck = Deck()
     
     //***************************Init***************************
@@ -62,13 +76,12 @@ class Table: NSObject{
 
         for hand in 0...1{
             for card in 0...4{
-              
                 hands[hand][card] = deck.drawCard()!
-                //print(hands[hand][card])
+                computerPlayer.compMemory.cardDrawn(player: hand, cardLocation: card, cardToRemove: hands[hand][card])
             }
         }
         //getArrayOfPlayableCards()
-        printGameBoard()
+        //wprintGameBoard()
     }
     
     private func buildCardPiles(numberOfPiles:Int, cardInEachPile:Int)->[[Card]]{
@@ -76,17 +89,21 @@ class Table: NSObject{
         return newArray
     }
 
-    //******************Manage Turns*************
+    //****************************Manage Turns*************
     func changePlayers() {
-          currentPlayer = 1 - currentPlayer
+        if currentPlayer == 1{
+            currentPlayer = 0
+        }else{
+            currentPlayer = 1
+        }
+        print("current player is ", currentPlayer)
       }
-    
 
-    
     func isOutOfCards() -> Bool {
         return false
     }
     
+    //**************************Check if moves are valid**********
     func isCardPlayable(hand: Int, card: Int, stack: Int)->Bool{
         nextCardNum = getArrayOfPlayableCards()
         let cardNum = hands[hand][card].num.rawValue
@@ -103,9 +120,7 @@ class Table: NSObject{
         }else{
             print("card is a ", cardNum)
             //Card is any number other than one
-            
-            //print("stack is ", stack, " cardColInex is ",cardColIndex)
-            //print("cardNum is ", cardNum, "comp values is", nextCardNum[cardColIndex])
+
             if((stack == cardColIndex) && (cardNum == nextCardNum[cardColIndex])){
                 print("card was played on the correct color stack and is the correct number")
                 //Card was played on the correct color stack and is the correct number
@@ -118,8 +133,7 @@ class Table: NSObject{
         }
         return false
     }
-    
-    //***************Get info about what cards can be played next
+
     var nextCardNum = [0,0,0,0,0]
     func getArrayOfPlayableCards()->[Int]{
         for column in 0...4{
@@ -145,8 +159,9 @@ class Table: NSObject{
     
     func playCard(hand:Int, card:Int){
         let stack = hands[hand][card].col.rawValue - 1
-        stacks[stack][getNextEmptyStackPosition(column: stack)] = hands[hand][card]
+    stacks[stack][getNextEmptyStackPosition(column: stack)] = hands[hand][card]
         hands[hand][card] = deck.drawCard()!
+        computerPlayer.compMemory.cardPlayedOrDiscarded(player: hand, cardLocation: card, cardPlayed: hands[hand][card])
         printGameBoard()
         changePlayers()
     }
@@ -182,6 +197,7 @@ class Table: NSObject{
         let firstEmptySlot = getFirstEmptySlot(column: discardColumn)
         discardPiles[discardColumn][firstEmptySlot] = hands[hand][card]
         hands[hand][card] = deck.drawCard()!
+        computerPlayer.compMemory.cardPlayedOrDiscarded(player: hand, cardLocation: card, cardPlayed: hands[hand][card])
         printGameBoard()
         changePlayers()
         return discardColumn
@@ -247,39 +263,3 @@ struct Deck {
     -Computer plays a card(it is revealed) or the computer "knows" the actual identity of a card in its hand or the computer discards a card that it does not "know" the identity of.
     -Computer recieves a hint about a card (possitive or negative information)
  */
-struct CompKnowledge{
-    var cardPossibilities = Array(repeating: Array(repeating: Card(), count: 50), count: 5)
-    var newCardPossibilities = [Card]()
-    var deck: Deck!
-    
-    /* When initialized, comp knowledge consists of a two dimensional array where each element contains and entire deck of cards. */
-    init(){
-        deck = Deck()
-        newCardPossibilities = deck.getFullDeck()
-        for count in  0...4{
-            cardPossibilities[count] = newCardPossibilities
-        }
-    }
-    
-    /*Cards can be shown when the opposing player draws a card or when the comptuer discards or plays a card. */
-    mutating func cardShown (knownCard: Card){
-        //Remove the card from generic card possibility array
-        newCardPossibilities = removeCardFromArray(card: knownCard, array: newCardPossibilities)
-        //remove it from each specific array if it exists
-        for count in 0...4{
-            cardPossibilities[count] = removeCardFromArray(card: knownCard, array: cardPossibilities[count])
-        }
-    }
-    
-    /*If card exists in array, remove it.  If not, return the original array */
-    func removeCardFromArray(card: Card, array: [Card])->[Card]{
-        var newArray = array
-        for count in 0...array.count - 1{
-            if(array[count] == card){
-                newArray.remove(at: count)
-                return newArray
-            }
-        }
-        return newArray
-    }
-}

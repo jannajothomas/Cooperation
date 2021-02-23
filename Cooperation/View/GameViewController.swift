@@ -44,16 +44,11 @@ class GameViewController: UIViewController {
                    5: UIColor.purple]
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         screenDetails.windowWidth = self.view.frame.size.width
         screenDetails.windowHeight =  self.view.frame.size.height
-    
-        //strategist = GKMinmaxStrategist()
-        //strategist.maxLookAheadDepth = 4
-        //strategist.randomSource = GKARC4RandomSource()
         resetTable()
-        //game.delegate = self
-        
         for hand in 0...1{
             for card in 0...4{
                 playerHands[hand][card] = addCard(hand: hand, card: card)
@@ -65,7 +60,6 @@ class GameViewController: UIViewController {
 
     func resetTable(){
         table = Table()
-        //strategist.gameModel = table as? GKGameModel
         updateUI()
     }
     
@@ -136,11 +130,26 @@ class GameViewController: UIViewController {
     }
     
     @objc func colorHint(_ recognizer:UITapGestureRecognizer){
-        print("colorHint")
+        for count in 0...4{
+            if playerHands[0][count].isSelected{
+                table.handColorHint[0][count] = true
+                playerHands[0][1].hasColorHint = true
+                print(table.handColorHint)
+            }
+        }
     }
     
+    
+    /* Choice to make a number hint has been made, update model */
     @objc func numberHint(_ recognizer: UITapGestureRecognizer){
-        print("numberHint")
+        for count in 0...4{
+            if playerHands[0][count].isSelected{
+                table.handNumberHint[0][count] = true
+                playerHands[0][1].hasNumberHint = true
+                print(table.handNumberHint)
+            }
+        }
+       // print("numberHint")
     }
     
     @objc func hintCardAction(_ recognizer:UITapGestureRecognizer){

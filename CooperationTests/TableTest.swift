@@ -12,9 +12,12 @@ import XCTest
 class TableTest: XCTestCase {
     
     var sut: Table!
-    var compKnow: CompKnowledge!
     var deck: Deck!
-
+    
+    //Struct in Computer Player Class
+    var computerPlayer: ComputerPlayer!
+    var compMemory: CompMemory!
+    
     let red3 = Card(num: Card.Num.three, col: Card.Col.red)
     let blue3 = Card(num: Card.Num.three, col: Card.Col.blue)
     let blue2 = Card(num: Card.Num.two, col: Card.Col.blue)
@@ -22,12 +25,13 @@ class TableTest: XCTestCase {
     let magenta4 = Card(num: Card.Num.four, col: Card.Col.magenta)
     let orange1 = Card(num: Card.Num.one, col: Card.Col.orange)
     let purple1 = Card(num: Card.Num.one, col: Card.Col.purple)
+    let red5 = Card(num: Card.Num.five, col: Card.Col.red)
     
     override func setUp() {
         super.setUp()
         sut = Table()
         deck = Deck()
-        compKnow = CompKnowledge()
+        compMemory = CompMemory()
     }
 
     override func tearDown() {
@@ -78,12 +82,6 @@ class TableTest: XCTestCase {
         sut.hands[0][1] = purple1
         test = sut.isCardPlayable(hand: 0, card: 1, stack: 4)
         XCTAssertEqual(test,true,"Playable Card Rejected")
-        
-        scenerioTwo()
-        sut.hands[0][1] = magenta2
-        test = sut.isCardPlayable(hand: 0, card: 1, stack: 2)
-        XCTAssertEqual(test,true,"Playable Card Rejected")
-        
     }
     
     func  testIsBadCardRejected(){
@@ -138,30 +136,74 @@ class TableTest: XCTestCase {
     }
     
     func testCardShown(){
-        compKnow.cardShown(knownCard: Card(num: Card.Num.two, col: Card.Col.blue))
-    XCTAssertEqual(compKnow.cardPossibilities[0].count,49,"Array is not the correct size")
+        compMemory.cardShown(knownCard: Card(num: Card.Num.two, col: Card.Col.blue))
+    XCTAssertEqual(compMemory.cardPossibilities[0].count,49,"Array is not the correct size")
         
         
         let localDeck = Deck()
         var expectedArray = localDeck.cards
         expectedArray.remove(at: 14)
         
-        let actualArray = compKnow.newCardPossibilities
+        let actualArray = compMemory.newCardPossibilities
     XCTAssertEqual(expectedArray,actualArray,"Array does not contain the correct values")
     }
  
     func testRemoveCardFromArray(){
         let testArray = [blue2, orange1, purple1, magenta4]
         let expectedArray = [blue2,purple1, magenta4]
-        let newArray = compKnow.removeCardFromArray(card: orange1, array: testArray)
+        let newArray = compMemory.removeCardFromArray(card: orange1, array: testArray)
         XCTAssertEqual(newArray,expectedArray,"Array does not contain the correct values")
     }
     
     func testRemoveNonExistantCardFromArray(){
-        let testArray = [blue2, orange1, purple1, magenta4]
-         let newArray = compKnow.removeCardFromArray(card: blue3, array: testArray)
+         let testArray = [blue2, orange1, purple1, magenta4]
+         let newArray = compMemory.removeCardFromArray(card: blue3, array: testArray)
          XCTAssertEqual(newArray,testArray,"Array does not contain the correct values")
     }
+    
+    func testCardDrawnHuman(){
+        
+        //Should  be no change
+        let expectedArray = compMemory.newCardPossibilities
+        compMemory.cardDrawn(player: 0, cardLocation: 0, cardToRemove: blue2)
+        let actualArray = compMemory.newCardPossibilities
+        XCTAssertEqual(expectedArray,actualArray,"Array does not contain the correct values")
+    }
+    
+    func testCardDrawnComputer(){
+        var expectedArray = compMemory.newCardPossibilities
+        expectedArray.remove(at: 9)
+        compMemory.cardDrawn(player: 1, cardLocation: 0, cardToRemove: red5)
+        let actualArray =  compMemory.newCardPossibilities
+        
+        XCTAssertEqual(expectedArray,actualArray,"Array does not contain the correct values")
+    }
+    
+    func testCardPlayedOrDiscardedHuman(){
+        let expectedArray = compMemory.newCardPossibilities
+        compMemory.cardPlayedOrDiscarded(player: 1, cardLocation: 3, cardPlayed: red3)
+        let actualArray = compMemory.newCardPossibilities
+        XCTAssertEqual(expectedArray,actualArray,"Array does not contain the correct values")
+    }
+    
+    func testCardPlayedOrDiscardedComputer(){
+        var expectedArray = compMemory.newCardPossibilities
+        expectedArray.remove(at: 9)
+        compMemory.cardPlayedOrDiscarded(player: 0, cardLocation: 0, cardPlayed: red5)
+        let actualArray =  compMemory.cardPossibilities[0]
+        
+        XCTAssertEqual(expectedArray,actualArray,"Array does not contain the correct values")
+    }
+    
+    func testPlayerTurnRotation(){
+        //Make sure initial player is one
+        XCTAssertEqual(1,sut.currentPlayer, "Initial player is not correct")
+        XCTAssertEqual(0,ComputerPlayer.totalTurns, "The computer has made unidentified moves")
+        sut.playCard(hand: 1, card: 0)
+        XCTAssertEqual(1,sut.currentPlayer, "After playing card the player did not change")
+        XCTAssertEqual(1,ComputerPlayer.totalTurns, "The computer has made unidentified moves")
+    }
+    
 }
 
 

@@ -11,10 +11,11 @@ import Foundation
 struct ComputerTurn{
     init(oponentCards: [Card], stacks: [Card], discardPiles: [[Card]], numHints:[Int], colHints:[Int]){
     }
+    static var totalMoves = 0
     
     func  getNextMove()->String{
         //run through possible moves
-        //play
+        ComputerTurn.totalMoves+=1
         if(true){
             return "play"
         }else if(true){
