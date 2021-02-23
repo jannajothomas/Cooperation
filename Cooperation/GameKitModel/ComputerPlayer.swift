@@ -15,12 +15,25 @@ struct ComputerPlayer{
     var stacks = Array(repeating: Array(repeating: Card(), count: 5), count: 5)
     var discards = Array(repeating:  Array(repeating: Card(), count: 10), count: 5)
 
+
+    //TODO: Make this an enum?
+    var action = ""
+    var cardToAct = -1
+    
     static var totalTurns = 0
+    
     func updateAI(){
+        
+        
         
     }
     
-    func playBestMove(){
+    mutating func playBestMove(){
+        //TODO: Replace hard wired play action with a informed move
+        action = "play"
+        cardToAct = 1
+        
+        
         //TODO:  Determine the best move and execute it
         print("Computer playBestMove")
         ComputerPlayer.totalTurns+=1

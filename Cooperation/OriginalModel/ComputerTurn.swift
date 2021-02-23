@@ -12,6 +12,8 @@ struct ComputerTurn{
     init(oponentCards: [Card], stacks: [Card], discardPiles: [[Card]], numHints:[Int], colHints:[Int]){
     }
     static var totalMoves = 0
+
+
     
     func  getNextMove()->String{
         //run through possible moves

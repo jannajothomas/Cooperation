@@ -126,8 +126,8 @@
             filePath = "Table.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "69"
-            endingLineNumber = "69"
+            startingLineNumber = "82"
+            endingLineNumber = "82"
             landmarkName = "Table"
             landmarkType = "3">
          </BreakpointContent>
@@ -973,8 +973,8 @@
             filePath = "Table.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "103"
-            endingLineNumber = "103"
+            startingLineNumber = "116"
+            endingLineNumber = "116"
             landmarkName = "isOutOfCards()"
             landmarkType = "7">
          </BreakpointContent>

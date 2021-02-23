@@ -34,7 +34,7 @@ import UIKit
 import GameplayKit
 
 class Table: NSObject{
-    
+
     var computerPlayer = ComputerPlayer()
     
     var humanHand = 1
@@ -42,9 +42,22 @@ class Table: NSObject{
     //TODO: Make the first value of current player randomly selected
     var currentPlayer = 1{
         didSet{
+            //TODO:  WAAAYYY too much going on here
             print("didset  current player = ", currentPlayer)
             if(currentPlayer == 0){
                 computerPlayer.playBestMove()
+                print("switch")
+                switch computerPlayer.action{
+                    
+                case"play":
+                    print("play selected")
+                    playCard(hand: 0, card: computerPlayer.cardToAct)
+                    
+                    //TODO: Add other possible actions here
+                default:
+                    print("unexpeted choice")
+                    
+                }
                 currentPlayer = 1
             }
         }
