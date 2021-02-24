@@ -107,10 +107,10 @@
 		D53B62C625E5C781002B6F7F /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D5EF70D725952F0400BC6A47 /* Table.swift */,
 				D5E5CB172581208F000D0B72 /* Card.swift */,
 				D52433D425B27ADC0034B503 /* ComputerPlayer.swift */,
 				D53B62C725E5C7E4002B6F7F /* ComputerMemory.swift */,
-				D5EF70D725952F0400BC6A47 /* Table.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";

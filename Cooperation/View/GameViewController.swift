@@ -20,6 +20,9 @@ class GameViewController: UIViewController {
         }
     }
  
+    let computerHand = 0
+    let playerHand = 1
+    
     var table: Table!
     var layout = Layout()   //this should be a struct not a class
     
@@ -131,25 +134,21 @@ class GameViewController: UIViewController {
     
     @objc func colorHint(_ recognizer:UITapGestureRecognizer){
         for count in 0...4{
-            if playerHands[0][count].isSelected{
-                table.handColorHint[0][count] = true
-                playerHands[0][1].hasColorHint = true
-                print(table.handColorHint)
+            if playerHands[computerHand][count].isSelected{
+                table.computerHandColorHints[count] = true
+                playerHands[computerHand][1].hasColorHint = true
             }
         }
     }
     
-    
     /* Choice to make a number hint has been made, update model */
     @objc func numberHint(_ recognizer: UITapGestureRecognizer){
         for count in 0...4{
-            if playerHands[0][count].isSelected{
-                table.handNumberHint[0][count] = true
-                playerHands[0][1].hasNumberHint = true
-                print(table.handNumberHint)
+            if playerHands[computerHand][count].isSelected{
+                table.computerHandNumberHints[count] = true
+                playerHands[computerHand][1].hasNumberHint = true
             }
         }
-       // print("numberHint")
     }
     
     @objc func hintCardAction(_ recognizer:UITapGestureRecognizer){

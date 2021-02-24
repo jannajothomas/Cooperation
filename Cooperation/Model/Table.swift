@@ -35,50 +35,46 @@ import GameplayKit
 
 class Table: NSObject{
 
-    var computerPlayer = ComputerPlayer()
+    //Constants
+    let humanHand = 1
+    let computerHand = 1
+    let numPlayers = 2
     
-    var humanHand = 1
+    var computerPlayer = ComputerPlayer()
+
+    var hands = [[Card]]()
+    
+    var humanHandColorHints = [Bool]()
+    var humanHandNumberHints = [Bool]()
+    var computerHandColorHints = [Bool]()
+    var computerHandNumberHints = [Bool]()
+    
+    var stacks = [[Card()]]
+    var discardPiles = [[Card]]()
+
+    var deck = Deck()
     
     //TODO: Make the first value of current player randomly selected
     var currentPlayer = 1{
         didSet{
-            //TODO:  WAAAYYY too much going on here
-            print("didset  current player = ", currentPlayer)
-            if(currentPlayer == 0){
-                computerPlayer.playBestMove()
-                print("switch")
-                switch computerPlayer.action{
-                    
-                case"play":
-                    print("play selected")
-                    playCard(hand: 0, card: computerPlayer.cardToAct)
-                    
-                    //TODO: Add other possible actions here
-                default:
-                    print("unexpeted choice")
-                    
-                }
-                currentPlayer = 1
-            }
+           changePlayers()
         }
     }
     
-    var numPlayers = 2 /* A */
-    var hands = [[Card]]() /* 1 */
-    var handNumberHint = [[Bool]]()
-    var handColorHint = [[Bool]]()
-    
-    var stacks = [[Card()]] /* 2 */
-    var discardPiles = [[Card]]() /* 3 */
-    
-    let colorHintPlayer0 = 0
-    let numberHintPlayer0 = 1
-    let colorHintPlayer1 = 2
-    let numberHintPlayer1 = 3
-    
-    //var hints = Array(repeating: Array(repeating: false, count: 5), count:4) /* 4 */
-    var cardLeftInDeck = 50 /*Need to make this automatically update or something.  This is a really clunky way to do this*/
-    var deck = Deck()
+    private func changePlayers(){
+           if(currentPlayer == 0){
+               computerPlayer.playBestMove()
+               switch computerPlayer.action{
+                    case"play":
+                       playCard(hand: 0, card: computerPlayer.cardToAct)
+                    
+                    //TODO: Add other possible actions here
+                    default:
+                       print("unexpeted choice")
+               }
+               currentPlayer = 1
+           }
+    }
     
     //***************************Init***************************
     override init() {
@@ -93,24 +89,12 @@ class Table: NSObject{
                 computerPlayer.computerMemory.cardDrawn(player: hand, cardLocation: card, cardToRemove: hands[hand][card])
             }
         }
-        //getArrayOfPlayableCards()
-        //wprintGameBoard()
     }
     
     private func buildCardPiles(numberOfPiles:Int, cardInEachPile:Int)->[[Card]]{
         let newArray = Array(repeating: Array(repeating: Card(), count: cardInEachPile), count: numberOfPiles)
         return newArray
     }
-
-    //****************************Manage Turns*************
-    func changePlayers() {
-        if currentPlayer == 1{
-            currentPlayer = 0
-        }else{
-            currentPlayer = 1
-        }
-        print("current player is ", currentPlayer)
-      }
 
     func isOutOfCards() -> Bool {
         return false
@@ -263,16 +247,3 @@ struct Deck {
     }
 }
 
-//MARK: COMPKNOW
-
-/* This struct holds information that the computer knows about the
- cards that they hold.
- cardPossibilites [Card] is initialized with every possible card it can be when it is created.
- 
- newCardPossibilities : baseline for creating new card arrays.  Only relies on cards that have actually been played.
- 
- Cards are removed as they are "revealed" from the computer perspective.
-    -Human player draws a card
-    -Computer plays a card(it is revealed) or the computer "knows" the actual identity of a card in its hand or the computer discards a card that it does not "know" the identity of.
-    -Computer recieves a hint about a card (possitive or negative information)
- */
