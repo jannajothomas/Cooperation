@@ -47,26 +47,21 @@ class Table: NSObject{
     let numPlayers = 2
     
     var computerPlayer = ComputerPlayer()
+    
     var hands = [[Card]]()
+    var stacks = [[Card()]]
+    var discardPiles = [[Card]]()
+    var deck = Deck()
     
     var humanHandColorHints = [Bool]()
     var humanHandNumberHints = [Bool]()
     var computerHandColorHints = [Bool]()
     var computerHandNumberHints = [Bool]()
     
-    var stacks = [[Card()]]
-    var discardPiles = [[Card]]()
-
-    var deck = Deck()
-    
     var delegate: sendGamePlayActionDelegate?
     
     //TODO: Make the first value of current player randomly selected
-    var currentPlayer = 1{
-        didSet{
-           //changePlayers()
-        }
-    }
+    var currentPlayer = 1
     
     //***************************Init***************************
     override init() {
@@ -81,44 +76,34 @@ class Table: NSObject{
                 computerPlayer.computerMemory.cardDrawn(player: hand, cardLocation: card, cardToRemove: hands[hand][card])
             }
         }
-        currentPlayer = 1
     }
     
     func executeComputerTurn(){
         computerPlayer.playBestMove()
         switch computerPlayer.action{
              case"play":
-                 //print("Play")
                 playCard(hand: 0, card: computerPlayer.cardToAct, stack: computerPlayer.stackToActOn)
                  //TODO:  This si a placeholder
-                 
-                 //delegate?.playCard(hand:0, card:computerPlayer.cardToAct, column: Int(1))
              
              //TODO: Add other possible actions here
              default:
-                print("unexpeted choice")
+                print("Invalid computer player action")
         }
     }
 
-    
+    //TODO: Replace this with just initiating a computer turn after player turn is done
     func changePlayers(){
-        //print("changing players.  The current player is ", currentPlayer)
            if(currentPlayer == 0){
                currentPlayer = 1
            }else{
             currentPlayer = 0
             executeComputerTurn()
         }
-        //print("end of changing players function, current player is ", currentPlayer)
     }
     
     private func buildCardPiles(numberOfPiles:Int, cardInEachPile:Int)->[[Card]]{
         let newArray = Array(repeating: Array(repeating: Card(), count: cardInEachPile), count: numberOfPiles)
         return newArray
-    }
-
-    func isOutOfCards() -> Bool {
-        return false
     }
     
     //**************************Check if moves are valid**********
@@ -129,22 +114,17 @@ class Table: NSObject{
         
         //Played on an empty stack?
         if nextCardNum[stack] == 1{
-            //print("card is a one")
             //Card is a one
             if ((cardNum == 1) && (nextCardNum[cardColIndex] == 1)){
                 //Card was played on an empty stack and that color hasn't already been played
                 return true
             }
         }else{
-            //print("card is a ", cardNum)
             //Card is any number other than one
-
             if((stack == cardColIndex) && (cardNum == nextCardNum[cardColIndex])){
-                //print("card was played on the correct color stack and is the correct number")
                 //Card was played on the correct color stack and is the correct number
                 return true
             }else{
-                //print("card is wrong color or wrong number")
                 //Card is wrong color or wrong number to be played
                 return false
             }
@@ -157,7 +137,6 @@ class Table: NSObject{
         for column in 0...4{
             nextCardNum[column] = getNextCardNumber(column: column)
         }
-        //print("next card num", nextCardNum)
         return nextCardNum
     }
     //Helper Function
@@ -174,8 +153,6 @@ class Table: NSObject{
         }
         return 4
     }
-    
-
     
     func playCard(hand:Int, card:Int, stack:Int){
         func isCardPlayableAtThisLocation(hand:Int, card:Int, stack:Int, correctStack:Int)->Bool{
@@ -215,13 +192,9 @@ class Table: NSObject{
         
         //update computer memory as necessary
         computerPlayer.computerMemory.cardPlayedOrDiscarded(player: hand, cardLocation: card, cardPlayed: hands[hand][card])
-        
-
-        
     }
     
     func discardCard(hand:Int, card:Int){
-        
         func getNextEmptySlot(column: Int)->Int{
             for count in 0...9{
                 if (discardPiles[column][count].num.rawValue == 0){
@@ -236,7 +209,6 @@ class Table: NSObject{
         hands[hand][card] = deck.drawCard()!
         computerPlayer.computerMemory.cardPlayedOrDiscarded(player: hand, cardLocation: card, cardPlayed: hands[hand][card])
          delegate?.discardCardAnimation(hand: hand, card: card, column: discardColumn, row:discardRow)
-        //changePlayers()
     }
     
     func printGameBoard(){
