@@ -34,9 +34,9 @@ import UIKit
 import GameplayKit
 
 protocol sendGamePlayActionDelegate{
-    func playCard(hand:Int, card:Int, column:Int)
-    func discardCard(hand:Int, card:Int, column:Int)
-    func giveHint()
+    func playCardAnimation(hand:Int, card:Int, column:Int)
+    func discardCardAnimation(hand:Int, card:Int, column:Int, row:Int)
+    func updateHintInView()
 }
 
 class Table: NSObject{
@@ -47,7 +47,6 @@ class Table: NSObject{
     let numPlayers = 2
     
     var computerPlayer = ComputerPlayer()
-
     var hands = [[Card]]()
     
     var humanHandColorHints = [Bool]()
@@ -176,26 +175,28 @@ class Table: NSObject{
         return 4
     }
     
-    func isCardPlayableAtThisLocation(hand:Int, card:Int, stack:Int, correctStack:Int)->Bool{
-        if hands[hand][card].num.rawValue == 1{
-            
-            //Special cases is card is a one (doesn't have to be played on the correct spot.
-            //It needs to be not  already played
-            let nextCardNumberOnCardStack = getNextCardNumber(column: correctStack)
-            //It needs to be played on a blank stack
-            let nextCardNumOnStackCardWasPlayedOn = getNextCardNumber(column: stack)
-            
-            if(nextCardNumberOnCardStack == 1 && nextCardNumOnStackCardWasPlayedOn == 1){
-                return true
 
-        }else if((stack == correctStack) && (getNextCardNumber(column: stack) == hands[hand][card].num.rawValue)){
-                return true
-            }
-        }
-        return false
-    }
     
     func playCard(hand:Int, card:Int, stack:Int){
+        func isCardPlayableAtThisLocation(hand:Int, card:Int, stack:Int, correctStack:Int)->Bool{
+            if hands[hand][card].num.rawValue == 1{
+                
+                //Special cases is card is a one (doesn't have to be played on the correct spot.
+                //It needs to be not  already played
+                let nextCardNumberOnCardStack = getNextCardNumber(column: correctStack)
+                //It needs to be played on a blank stack
+                let nextCardNumOnStackCardWasPlayedOn = getNextCardNumber(column: stack)
+                
+                if(nextCardNumberOnCardStack == 1 && nextCardNumOnStackCardWasPlayedOn == 1){
+                    return true
+
+            }else if((stack == correctStack) && (getNextCardNumber(column: stack) == hands[hand][card].num.rawValue)){
+                    return true
+                }
+            }
+            return false
+        }
+        
         let correctStack = hands[hand][card].col.rawValue - 1
         let playIsValid = isCardPlayableAtThisLocation(hand:hand, card:card, stack:stack, correctStack: correctStack)
         if(playIsValid){
@@ -203,7 +204,7 @@ class Table: NSObject{
             //put card in next empty stack
             stacks[correctStack][getNextEmptyStackPosition(column: correctStack)] = hands[hand][card]
             //Update view to reflect play
-            delegate?.playCard(hand:hand, card:card, column: correctStack)
+            delegate?.playCardAnimation(hand:hand, card:card, column: correctStack)
             
         }else{
             discardCard(hand: hand, card: card)
@@ -215,20 +216,26 @@ class Table: NSObject{
         //update computer memory as necessary
         computerPlayer.computerMemory.cardPlayedOrDiscarded(player: hand, cardLocation: card, cardPlayed: hands[hand][card])
         
-        //printGameBoard()
-       // changePlayers()
-        
+
         
     }
     
     func discardCard(hand:Int, card:Int){
-        print("discard acknowledged")
+        
+        func getNextEmptySlot(column: Int)->Int{
+            for count in 0...9{
+                if (discardPiles[column][count].num.rawValue == 0){
+                    return count
+                }
+            }
+            return -1
+        }
         let discardColumn = hands[hand][card].col.rawValue - 1
-        let firstEmptySlot = getFirstEmptySlot(column: discardColumn)
-        discardPiles[discardColumn][firstEmptySlot] = hands[hand][card]
+        let discardRow = getNextEmptySlot(column: discardColumn)
+        discardPiles[discardColumn][discardRow] = hands[hand][card]
         hands[hand][card] = deck.drawCard()!
         computerPlayer.computerMemory.cardPlayedOrDiscarded(player: hand, cardLocation: card, cardPlayed: hands[hand][card])
-        delegate?.discardCard(hand: hand, card: card, column: Int(1))
+         delegate?.discardCardAnimation(hand: hand, card: card, column: discardColumn, row:discardRow)
         //changePlayers()
     }
     
@@ -256,17 +263,6 @@ class Table: NSObject{
             print(nextCardNum[count],", ", terminator: "")
         }
         print("\n...................................................................")
-    }
-    
-
-    
-    func getFirstEmptySlot(column: Int)->Int{
-        for count in 0...9{
-            if (discardPiles[column][count].num.rawValue == 0){
-                return count
-            }
-        }
-        return -1
     }
 }
 

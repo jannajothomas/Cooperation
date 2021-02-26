@@ -20,7 +20,7 @@ class GameViewController: UIViewController {
         }
     }
  
-    //TODO: Move this to an extension for constants
+    //Constants
     let computerHand = 0
     let playerHand = 1
     let numPlayers = 2
@@ -49,7 +49,11 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
         screenDetails.windowWidth = self.view.frame.size.width
         screenDetails.windowHeight =  self.view.frame.size.height
-        resetTable()
+        //reset table
+        table = Table()
+        //update UI
+        title = "/(board.currentPlayer.name)'s Turn"
+        
         for hand in 0...1{
             for card in 0...4{
                 playerHands[hand][card] = addCard(hand: hand, card: card)
@@ -58,15 +62,6 @@ class GameViewController: UIViewController {
         }
         table.delegate = self
         deck = addCard(name: "deck")
-    }
-
-    func resetTable(){
-        table = Table()
-        updateUI()
-    }
-    
-    func updateUI(){
-        title = "/(board.currentPlayer.name)'s Turn"
     }
 
     //MARK: View Actions
@@ -111,6 +106,7 @@ class GameViewController: UIViewController {
                 }
             }
             default:
+                //TODO:?
             print("reached default condition in selectCardAction")
             }
         }
@@ -129,6 +125,7 @@ class GameViewController: UIViewController {
     }
     
     @objc func cardTappedAction(){
+        //TODO:?
         //print("Card tapped Action")
     }
     
@@ -151,8 +148,8 @@ class GameViewController: UIViewController {
         }
     }
     
+    //TODO:
     @objc func hintCardAction(_ recognizer:UITapGestureRecognizer){
-        //print("hintCard Action")
          if let chosenCardView = recognizer.view as? LabeledCardArea{
              if(chosenCardView.cardText == "Number Hint"){
                  //gamePlay.getHint(number: numberHint)
@@ -171,22 +168,18 @@ class GameViewController: UIViewController {
             case .began:
                 lastLocation = chosenCardView.center
             case .ended:
-                //print("in pan gesture recognizer Card",chosenCardView.card, "hand", chosenCardView.hand, " is ",table.hands[chosenCardView.hand][chosenCardView.card])
                 lastLocation = chosenCardView.center
                 /****************************Card Discarded****************************/
                 if chosenCardView.frame.intersects(DiscardLocation.frame){
                     table.discardCard(hand:chosenCardView.hand, card: chosenCardView.card)
-                    //discardCardAnimation(hand: chosenCardView.hand, card: chosenCardView.card, column: pileNum)
                 }else{
-                    /****************************Card Played********************************/
+                    /****************************Card Played***********************/
                         var largestArea = CGFloat(0)
                         var indexOfLargestArea = 0
                         for card in 0...4{
                             if chosenCardView.frame.intersects(stackPiles[card].frame){
                                 let intersection = chosenCardView.frame.intersection(stackPiles[card].frame)
                                 let thisArea = (intersection.maxX - intersection.minX)  * (intersection.maxY - intersection.minY)
-                               // print("this area", thisArea)
-                                //print("largest area", largestArea)
                                 if thisArea > largestArea{
                                     largestArea = thisArea
                                     indexOfLargestArea = card
@@ -197,12 +190,9 @@ class GameViewController: UIViewController {
                         if cardIsPlayable{
                             table.playCard(hand: chosenCardView.hand,card: chosenCardView.card, stack: indexOfLargestArea)
                         }else{
-                            //print("Card is not playable")
                              table.discardCard(hand:chosenCardView.hand, card: chosenCardView.card)
                         }
-                    
                 }
-                
                 
             case .changed:
                 let translation = recognizer.translation(in: self.view)
@@ -305,7 +295,10 @@ class GameViewController: UIViewController {
                             UIView.animate(withDuration: 0.3, delay: 0, options: .curveLinear, animations: {
                                 self.deck.frame = self.layout.Frame(Details: self.screenDetails, name: "deck")
                             },
-                            completion: { _ in self.dealingComplete  = true})
+                            completion: { _ in
+                                self.turnOverCards()
+                                self.layoutTable()
+                            })
                             return;
                         }else{
                              self.dealCards(hand: hand + 1, card: 0)
@@ -326,7 +319,7 @@ class GameViewController: UIViewController {
                  animations: {self.playerHands[0][card].isFaceUp = true},
                  completion: {_ in
                      if(card == 4){
-                         //self.gamePlay.selectFirstPlayer()
+                         //TODO: Remove completion block
                      }
              })
          }
@@ -343,11 +336,8 @@ class GameViewController: UIViewController {
         }, completion: {_ in
             self.table.changePlayers()
         })
-    
     }
     
-    
-     
      func moveCardAnimation(sourceHand: Int, sourceCard: Int, destinationCard: Int, destintionHand: Int, playedToCard: Int, playedToHand: Int) {
                 let chosenCardView = playerHands[sourceHand][sourceCard]
          view.bringSubviewToFront(chosenCardView)
@@ -382,59 +372,6 @@ class GameViewController: UIViewController {
                      }
                  )
      }
-
-    func discardCardAnimation(hand: Int, card: Int, column: Int) {
-        let nextEmptyRow = self.findNextDiscardSlot(column: column)
-        let chosenCardView = playerHands[hand][card]
-        view.bringSubviewToFront(chosenCardView)
-                self.view.layoutIfNeeded()
-                UIView.animate(
-                 withDuration: GameViewController.cardMoveTime,
-                    animations: {
-                        chosenCardView.frame = self.layout.Frame(Details: self.screenDetails, item: CardIdentity(hand: 4, card: 2))},
-                    completion: {_ in
-                        UIView.transition(
-                            with: chosenCardView,
-                            duration: GameViewController.cardFlipTime,
-                            options: .transitionFlipFromLeft,
-                            animations: {
-                                chosenCardView.isFaceUp = true},
-                            completion: {_ in
-                                    UIView.animate(
-                                     withDuration: GameViewController.cardMoveTime,
-                                        animations:  {
-                                            
-                                            chosenCardView.center = self.layout.Location(Details: self.screenDetails, item: CardIdentity(hand: nextEmptyRow + 6, card: column))
-                                    },
-                                        completion: {_ in
-                                            self.discardPiles[column][nextEmptyRow] = self.playerHands[hand][card]
-                                            self.drawCardAnimation(hand: hand, card: card)
-                                    }
-                                 )
-                            }
-                        )
-                    }
-                )
-    }
-
-
-    
-     func playCardAnimation(hand:Int, card: Int, column: Int){
-        //print("Play card animation.... hand: ",hand," card: ",card," column: ",column)
-        //print("playing card")
-        let chosenCardView = playerHands[hand][card]
-        view.bringSubviewToFront(chosenCardView)
-        self.view.layoutIfNeeded()
-        UIView.animate(
-            withDuration: GameViewController.cardMoveTime,
-            animations: {
-                chosenCardView.center = self.layout.Location(Details: self.screenDetails, item: CardIdentity(hand: 5, card: column))},
-                //chosenCardView.frame = self.layout.Frame(Details: self.screenDetails, item: CardIdentity(hand: 5, card: column))},
-            completion: {_ in
-                self.stackPiles[column] = self.playerHands[hand][card]
-                self.drawCardAnimation(hand: hand, card: card)}
-        )
-    }
 }
   
 //MARK: EXTENSIONS
@@ -444,19 +381,58 @@ class GameViewController: UIViewController {
  }
 
 extension GameViewController: sendGamePlayActionDelegate{
-    func playCard(hand:Int, card:Int, column:Int) {
-        //print("Play card in delegate")
-        playCardAnimation(hand: hand, card: card, column: column)
+    func updateHintInView() {
+        print("give hint")
+        //TODO: Placeholder
     }
     
-    func discardCard(hand:Int, card:Int, column: Int) {
-        print("delegate action happening")
-        discardCardAnimation(hand: hand, card: card, column: column)
+    func playCardAnimation(hand:Int, card:Int, column:Int) {
+        let chosenCardView = playerHands[hand][card]
+        view.bringSubviewToFront(chosenCardView)
+        self.view.layoutIfNeeded()
+        UIView.animate(
+            withDuration: GameViewController.cardMoveTime,
+            animations: {
+                chosenCardView.center = self.layout.Location(Details: self.screenDetails, item: CardIdentity(hand: 5, card: column))},
+            completion: {_ in
+                self.stackPiles[column] = self.playerHands[hand][card]
+                self.drawCardAnimation(hand: hand, card: card)}
+        )
     }
     
-    func giveHint() {
-         //print("updateHints")
-    }
+    func discardCardAnimation(hand:Int, card:Int, column: Int, row:Int) {
+            let chosenCardView = playerHands[hand][card]
+            view.bringSubviewToFront(chosenCardView)
+                    self.view.layoutIfNeeded()
+                    UIView.animate(
+                     withDuration: GameViewController.cardMoveTime,
+                        animations: {
+                            chosenCardView.frame = self.layout.Frame(Details: self.screenDetails, item: CardIdentity(hand: 4, card: 2))},
+                        completion: {_ in
+                            UIView.transition(
+                                with: chosenCardView,
+                                duration: GameViewController.cardFlipTime,
+                                options: .transitionFlipFromLeft,
+                                animations: {
+                                    chosenCardView.isFaceUp = true},
+                                completion: {_ in
+                                        UIView.animate(
+                                         withDuration: GameViewController.cardMoveTime,
+                                            animations:  {
+                                                
+                                                chosenCardView.center = self.layout.Location(Details: self.screenDetails, item: CardIdentity(hand: row + 6, card: column))
+                                        },
+                                            completion: {_ in
+                                                self.discardPiles[column][row] = self.playerHands[hand][card]
+                                                self.drawCardAnimation(hand: hand, card: card)
+                                        }
+                                     )
+                                }
+                            )
+                        }
+                    )
+        }
+
     
     //TODO: Combine these two functions in any way reasonable
     func addCard(name: String)->CardView {
@@ -465,8 +441,6 @@ extension GameViewController: sendGamePlayActionDelegate{
         newCard.isFaceUp = false
         switch(name){
             case "deck":
-                
-                //newCard.addGestureRecognizer(deal)
                 newCard.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(deckTappedAction)))
                 newCard.frame = layout.Frame(Details: screenDetails, name: "center")
                 view.addSubview(newCard)
