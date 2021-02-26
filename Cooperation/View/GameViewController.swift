@@ -199,7 +199,7 @@ class GameViewController: UIViewController {
                         let cardIsPlayable = table.isCardPlayable(hand: chosenCardView.hand, card: chosenCardView.card, stack: indexOfLargestArea)
                         if cardIsPlayable{
                             //playCardAnimation(hand: chosenCardView.hand, card: chosenCardView.card, column: table.hands[chosenCardView.hand][chosenCardView.card].col.rawValue - 1)
-                            table.playCard(hand: chosenCardView.hand,card: chosenCardView.card)
+                            table.playCard(hand: chosenCardView.hand,card: chosenCardView.card, stack: indexOfLargestArea)
                         }else{
                             //print("Card is not playable")
                             //let pileNum = table.discardCard(hand:chosenCardView.hand, card: chosenCardView.card)

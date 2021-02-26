@@ -989,9 +989,9 @@
             filePath = "Cooperation/Model/Table.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "180"
-            endingLineNumber = "180"
-            landmarkName = "isCardPlayableAtThisLocation(hand:card:stack:correctStack:)"
+            startingLineNumber = "210"
+            endingLineNumber = "210"
+            landmarkName = "playCard(hand:card:stack:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
