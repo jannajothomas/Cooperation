@@ -56,7 +56,7 @@ class GameViewController: UIViewController {
         
         for hand in 0...1{
             for card in 0...4{
-                playerHands[hand][card] = addCard(hand: hand, card: card)
+                playerHands[hand][card] = addCard(hand: hand, card: card, dealingComplete: false)
                 view.addSubview(playerHands[hand][card])
             }
         }
@@ -329,7 +329,7 @@ class GameViewController: UIViewController {
 
       func drawCardAnimation(hand: Int, card: Int) {
             let delay = GameViewController.cardMoveTime
-            playerHands[hand][card] = addCard(hand: hand, card: card)
+            playerHands[hand][card] = addCard(hand: hand, card: card, dealingComplete: true)
 
         UIView.animate(withDuration: GameViewController.cardMoveTime, delay: delay, options: UIView.AnimationOptions.curveEaseIn, animations: {
             self.playerHands[hand][card].center = self.layout.Location(Details: self.screenDetails, item: CardIdentity(hand: hand, card: card))
@@ -450,7 +450,7 @@ extension GameViewController: sendGamePlayActionDelegate{
         return newCard
     }
     
-    func addCard(hand:Int, card: Int)->CardView{
+    func addCard(hand:Int, card: Int, dealingComplete:Bool)->CardView{
         let newCard = CardView()
         newCard.backgroundColor = UIColor.clear
         if hand == 0{
