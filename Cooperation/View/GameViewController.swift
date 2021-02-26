@@ -175,7 +175,7 @@ class GameViewController: UIViewController {
                 lastLocation = chosenCardView.center
                 /****************************Card Discarded****************************/
                 if chosenCardView.frame.intersects(DiscardLocation.frame){
-                    //let pileNum = table.discardCard(hand:chosenCardView.hand, card: chosenCardView.card)
+                    table.discardCard(hand:chosenCardView.hand, card: chosenCardView.card)
                     //discardCardAnimation(hand: chosenCardView.hand, card: chosenCardView.card, column: pileNum)
                 }else{
                     /****************************Card Played********************************/
@@ -193,17 +193,12 @@ class GameViewController: UIViewController {
                                 }
                             }
                         }
-                        //print("Index of Largest Area", indexOfLargestArea)
-                        
-                        //print("stackPiles[indexOfLargestArea", stackPiles[indexOfLargestArea].tag)
                         let cardIsPlayable = table.isCardPlayable(hand: chosenCardView.hand, card: chosenCardView.card, stack: indexOfLargestArea)
                         if cardIsPlayable{
-                            //playCardAnimation(hand: chosenCardView.hand, card: chosenCardView.card, column: table.hands[chosenCardView.hand][chosenCardView.card].col.rawValue - 1)
                             table.playCard(hand: chosenCardView.hand,card: chosenCardView.card, stack: indexOfLargestArea)
                         }else{
                             //print("Card is not playable")
-                            //let pileNum = table.discardCard(hand:chosenCardView.hand, card: chosenCardView.card)
-                            //discardCardAnimation(hand: chosenCardView.hand, card: chosenCardView.card, column: pileNum)
+                             table.discardCard(hand:chosenCardView.hand, card: chosenCardView.card)
                         }
                     
                 }
@@ -340,15 +335,18 @@ class GameViewController: UIViewController {
 
 
       func drawCardAnimation(hand: Int, card: Int) {
-            //let delay = GameViewController.cardMoveTime * 2 + GameViewController.cardFlipTime
             let delay = GameViewController.cardMoveTime
             playerHands[hand][card] = addCard(hand: hand, card: card)
-        
-            //print("made it here")
-             UIView.animate(withDuration: GameViewController.cardMoveTime, delay: delay, options: UIView.AnimationOptions.curveEaseIn, animations: {
-                 self.playerHands[hand][card].center = self.layout.Location(Details: self.screenDetails, item: CardIdentity(hand: hand, card: card))
-                    })
-         }
+
+        UIView.animate(withDuration: GameViewController.cardMoveTime, delay: delay, options: UIView.AnimationOptions.curveEaseIn, animations: {
+            self.playerHands[hand][card].center = self.layout.Location(Details: self.screenDetails, item: CardIdentity(hand: hand, card: card))
+        }, completion: {_ in
+            self.table.changePlayers()
+        })
+    
+    }
+    
+    
      
      func moveCardAnimation(sourceHand: Int, sourceCard: Int, destinationCard: Int, destintionHand: Int, playedToCard: Int, playedToHand: Int) {
                 let chosenCardView = playerHands[sourceHand][sourceCard]
@@ -387,7 +385,6 @@ class GameViewController: UIViewController {
 
     func discardCardAnimation(hand: Int, card: Int, column: Int) {
         let nextEmptyRow = self.findNextDiscardSlot(column: column)
-        //print("next  empty row: ",nextEmptyRow)
         let chosenCardView = playerHands[hand][card]
         view.bringSubviewToFront(chosenCardView)
                 self.view.layoutIfNeeded()
@@ -448,11 +445,12 @@ class GameViewController: UIViewController {
 
 extension GameViewController: sendGamePlayActionDelegate{
     func playCard(hand:Int, card:Int, column:Int) {
-        print("Play card in delegate")
+        //print("Play card in delegate")
         playCardAnimation(hand: hand, card: card, column: column)
     }
     
     func discardCard(hand:Int, card:Int, column: Int) {
+        print("delegate action happening")
         discardCardAnimation(hand: hand, card: card, column: column)
     }
     

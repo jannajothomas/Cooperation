@@ -103,14 +103,14 @@ class Table: NSObject{
 
     
     func changePlayers(){
-        print("changing players.  The current player is ", currentPlayer)
+        //print("changing players.  The current player is ", currentPlayer)
            if(currentPlayer == 0){
                currentPlayer = 1
            }else{
             currentPlayer = 0
             executeComputerTurn()
         }
-        print("end of changing players function, current player is ", currentPlayer)
+        //print("end of changing players function, current player is ", currentPlayer)
     }
     
     private func buildCardPiles(numberOfPiles:Int, cardInEachPile:Int)->[[Card]]{
@@ -216,22 +216,20 @@ class Table: NSObject{
         computerPlayer.computerMemory.cardPlayedOrDiscarded(player: hand, cardLocation: card, cardPlayed: hands[hand][card])
         
         //printGameBoard()
-        changePlayers()
+       // changePlayers()
         
         
     }
     
-    func discardCard(hand:Int, card:Int)->Int{
+    func discardCard(hand:Int, card:Int){
+        print("discard acknowledged")
         let discardColumn = hands[hand][card].col.rawValue - 1
         let firstEmptySlot = getFirstEmptySlot(column: discardColumn)
         discardPiles[discardColumn][firstEmptySlot] = hands[hand][card]
         hands[hand][card] = deck.drawCard()!
         computerPlayer.computerMemory.cardPlayedOrDiscarded(player: hand, cardLocation: card, cardPlayed: hands[hand][card])
-        //printGameBoard()
-        changePlayers()
-        
         delegate?.discardCard(hand: hand, card: card, column: Int(1))
-        return discardColumn
+        //changePlayers()
     }
     
     func printGameBoard(){
