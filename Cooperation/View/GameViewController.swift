@@ -13,13 +13,6 @@ import GameplayKit
 import Foundation
 
 class GameViewController: UIViewController {
-    var dealingComplete: Bool = false{
-        didSet{
-            turnOverCards()
-            layoutTable()
-        }
-    }
- 
     //Constants
     let computerHand = 0
     let playerHand = 1
@@ -296,7 +289,10 @@ class GameViewController: UIViewController {
                                 self.deck.frame = self.layout.Frame(Details: self.screenDetails, name: "deck")
                             },
                             completion: { _ in
-                                self.turnOverCards()
+                                for card in 0...4{
+                                    self.turnOverCard(card:card)
+                                }
+                                //self.turnOverCards()
                                 self.layoutTable()
                             })
                             return;
@@ -310,21 +306,14 @@ class GameViewController: UIViewController {
         )
     }
 
-     private func turnOverCards(){
-         for card in 0...4{
-             UIView.transition(
-                with: playerHands[0][card],
-                 duration: 1.5,
-                 options: .transitionFlipFromLeft,
-                 animations: {self.playerHands[0][card].isFaceUp = true},
-                 completion: {_ in
-                     if(card == 4){
-                         //TODO: Remove completion block
-                     }
-             })
-         }
-     }
-
+    private func turnOverCard(card:Int){
+        UIView.transition(
+                       with: playerHands[0][card],
+                        duration: 1.5,
+                        options: .transitionFlipFromLeft,
+                        animations: {self.playerHands[0][card].isFaceUp = true}
+        )
+    }
 
 
       func drawCardAnimation(hand: Int, card: Int) {
@@ -334,6 +323,9 @@ class GameViewController: UIViewController {
         UIView.animate(withDuration: GameViewController.cardMoveTime, delay: delay, options: UIView.AnimationOptions.curveEaseIn, animations: {
             self.playerHands[hand][card].center = self.layout.Location(Details: self.screenDetails, item: CardIdentity(hand: hand, card: card))
         }, completion: {_ in
+            if(hand == 0){
+                self.turnOverCard(card:card)
+            }
             self.table.changePlayers()
         })
     }
