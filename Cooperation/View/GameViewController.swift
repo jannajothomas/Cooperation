@@ -45,6 +45,7 @@ class GameViewController: UIViewController {
     var screenDetails = ScreenDetails(windowWidth: 0, windowHeight: 0, topPadding: 0, rightPadding: 0, leftPadding: 0, bottomPadding: 0)
 
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         screenDetails.windowWidth = self.view.frame.size.width
         screenDetails.windowHeight =  self.view.frame.size.height
@@ -55,6 +56,7 @@ class GameViewController: UIViewController {
                 view.addSubview(playerHands[hand][card])
             }
         }
+        table.delegate = self
         deck = addCard(name: "deck")
     }
 
@@ -173,8 +175,8 @@ class GameViewController: UIViewController {
                 lastLocation = chosenCardView.center
                 /****************************Card Discarded****************************/
                 if chosenCardView.frame.intersects(DiscardLocation.frame){
-                    let pileNum = table.discardCard(hand:chosenCardView.hand, card: chosenCardView.card)
-                    discardCardAnimation(hand: chosenCardView.hand, card: chosenCardView.card, column: pileNum)
+                    //let pileNum = table.discardCard(hand:chosenCardView.hand, card: chosenCardView.card)
+                    //discardCardAnimation(hand: chosenCardView.hand, card: chosenCardView.card, column: pileNum)
                 }else{
                     /****************************Card Played********************************/
                         var largestArea = CGFloat(0)
@@ -196,14 +198,12 @@ class GameViewController: UIViewController {
                         //print("stackPiles[indexOfLargestArea", stackPiles[indexOfLargestArea].tag)
                         let cardIsPlayable = table.isCardPlayable(hand: chosenCardView.hand, card: chosenCardView.card, stack: indexOfLargestArea)
                         if cardIsPlayable{
-                            //print("card is playable")
-                            //print("column num ",table.hands[chosenCardView.hand][chosenCardView.card].col.rawValue)
-                            playCardAnimation(hand: chosenCardView.hand, card: chosenCardView.card, column: table.hands[chosenCardView.hand][chosenCardView.card].col.rawValue - 1)
+                            //playCardAnimation(hand: chosenCardView.hand, card: chosenCardView.card, column: table.hands[chosenCardView.hand][chosenCardView.card].col.rawValue - 1)
                             table.playCard(hand: chosenCardView.hand,card: chosenCardView.card)
                         }else{
                             //print("Card is not playable")
-                            let pileNum = table.discardCard(hand:chosenCardView.hand, card: chosenCardView.card)
-                            discardCardAnimation(hand: chosenCardView.hand, card: chosenCardView.card, column: pileNum)
+                            //let pileNum = table.discardCard(hand:chosenCardView.hand, card: chosenCardView.card)
+                            //discardCardAnimation(hand: chosenCardView.hand, card: chosenCardView.card, column: pileNum)
                         }
                     
                 }

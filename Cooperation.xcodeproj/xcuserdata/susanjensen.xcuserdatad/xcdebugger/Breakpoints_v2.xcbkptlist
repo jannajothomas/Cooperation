@@ -717,8 +717,8 @@
             filePath = "Cooperation/View/GameViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "77"
-            endingLineNumber = "77"
+            startingLineNumber = "79"
+            endingLineNumber = "79"
             landmarkName = "GameViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -733,8 +733,8 @@
             filePath = "Cooperation/View/GameViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "84"
-            endingLineNumber = "84"
+            startingLineNumber = "86"
+            endingLineNumber = "86"
             landmarkName = "selectCardAction(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -749,8 +749,8 @@
             filePath = "Cooperation/View/GameViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "122"
-            endingLineNumber = "122"
+            startingLineNumber = "124"
+            endingLineNumber = "124"
             landmarkName = "flipCardAction(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -765,8 +765,8 @@
             filePath = "Cooperation/View/GameViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "163"
-            endingLineNumber = "163"
+            startingLineNumber = "165"
+            endingLineNumber = "165"
             landmarkName = "GameViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -781,8 +781,8 @@
             filePath = "Cooperation/View/GameViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "101"
-            endingLineNumber = "101"
+            startingLineNumber = "103"
+            endingLineNumber = "103"
             landmarkName = "selectCardAction(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -797,8 +797,8 @@
             filePath = "Cooperation/View/GameViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "107"
-            endingLineNumber = "107"
+            startingLineNumber = "109"
+            endingLineNumber = "109"
             landmarkName = "selectCardAction(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -813,8 +813,8 @@
             filePath = "Cooperation/View/GameViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "109"
-            endingLineNumber = "109"
+            startingLineNumber = "111"
+            endingLineNumber = "111"
             landmarkName = "selectCardAction(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -973,10 +973,10 @@
             filePath = "Cooperation/Model/Table.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "175"
-            endingLineNumber = "175"
-            landmarkName = "playCard(hand:card:)"
-            landmarkType = "7">
+            startingLineNumber = "178"
+            endingLineNumber = "178"
+            landmarkName = "Table"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -989,41 +989,73 @@
             filePath = "Cooperation/Model/Table.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "177"
-            endingLineNumber = "177"
-            landmarkName = "playCard(hand:card:)"
+            startingLineNumber = "180"
+            endingLineNumber = "180"
+            landmarkName = "isCardPlayableAtThisLocation(hand:card:stack:correctStack:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "1DBC98D6-F2AB-43EE-89DE-432D1D1E2098"
+            uuid = "4878C93A-DCA1-4949-99CF-ED3F72506896"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CooperationTests/TableTest.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "211"
+            endingLineNumber = "211"
+            landmarkName = "unknown"
+            landmarkType = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1127C314-300C-4C52-B7FD-5B4E6D0C558C"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Cooperation/Model/Table.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "178"
-            endingLineNumber = "178"
-            landmarkName = "playCard(hand:card:)"
+            startingLineNumber = "96"
+            endingLineNumber = "96"
+            landmarkName = "executeComputerTurn()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "BED754D3-38D5-4252-A8E4-E826D243A13A"
+            uuid = "FE0030DC-9E88-450D-9164-9AF3ED6BA682"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Cooperation/View/GameViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "452"
+            endingLineNumber = "452"
+            landmarkName = "playCard(hand:card:column:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2E2EBFFD-4C48-4753-BAB9-4F3E5CE17922"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Cooperation/Model/Table.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "179"
-            endingLineNumber = "179"
-            landmarkName = "playCard(hand:card:)"
+            startingLineNumber = "101"
+            endingLineNumber = "101"
+            landmarkName = "executeComputerTurn()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

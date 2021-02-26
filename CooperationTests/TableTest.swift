@@ -16,7 +16,7 @@ class TableTest: XCTestCase {
     
     //Struct in Computer Player Class
     var computerPlayer: ComputerPlayer!
-    var compMemory: CompMemory!
+    var compMemory: ComputerMemory!
     
     let red3 = Card(num: Card.Num.three, col: Card.Col.red)
     let blue3 = Card(num: Card.Num.three, col: Card.Col.blue)
@@ -31,7 +31,7 @@ class TableTest: XCTestCase {
         super.setUp()
         sut = Table()
         deck = Deck()
-        compMemory = CompMemory()
+        compMemory = ComputerMemory()
     }
 
     override func tearDown() {
@@ -193,6 +193,15 @@ class TableTest: XCTestCase {
         let actualArray =  compMemory.cardPossibilities[0]
         
         XCTAssertEqual(expectedArray,actualArray,"Array does not contain the correct values")
+    }
+    
+    func testChangePlayersFunction(){
+        XCTAssertEqual(1,sut.currentPlayer, "Initial player is not correct")
+        sut.changePlayers()
+        XCTAssertEqual(0,sut.currentPlayer, "Player is not correct")
+        sut.changePlayers()
+        XCTAssertEqual(1,sut.currentPlayer, "Player is not correct")
+        
     }
     
     func testPlayerTurnRotation(){

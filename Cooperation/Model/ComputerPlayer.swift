@@ -19,6 +19,7 @@ struct ComputerPlayer{
     //TODO: Make this an enum?
     var action = ""
     var cardToAct = -1
+    var stackToActOn = -1
     
     static var totalTurns = 0
     
@@ -32,6 +33,7 @@ struct ComputerPlayer{
         //TODO: Replace hard wired play action with a informed move
         action = "play"
         cardToAct = 1
+        stackToActOn = 1
         
         
         //TODO:  Determine the best move and execute it
