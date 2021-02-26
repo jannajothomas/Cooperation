@@ -35,10 +35,8 @@ struct ComputerPlayer{
         
         
         //TODO:  Determine the best move and execute it
-        print("Computer playBestMove")
+       // print("Computer playBestMove")
         ComputerPlayer.totalTurns+=1
-        
-        
     }
 }
 

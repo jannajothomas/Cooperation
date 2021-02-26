@@ -45,7 +45,7 @@ struct ComputerMemory{
         var newArray = array
         for count in 0...array.count - 1{
             if(array[count] == card){
-                print("count", count)
+                //print("count", count)
                 
                 newArray.remove(at: count)
                 
@@ -60,14 +60,14 @@ struct ComputerMemory{
             var firstColor = cardPossibilities[count][0].col
             for card in 0...cardPossibilities[count].count - 1{
                 if cardPossibilities[count][card].col != firstColor{
-                    print()
+                    //print()
                     firstColor = cardPossibilities[count][card].col
                 }
-                print(cardPossibilities[count][card],terminator:"")
+                //print(cardPossibilities[count][card],terminator:"")
                 
                 
             }
-            print()
+            //print()
         }
     }
 }

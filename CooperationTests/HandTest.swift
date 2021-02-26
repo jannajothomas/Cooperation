@@ -59,7 +59,7 @@ class HandTest: XCTestCase {
     }
         
     func testRemoveCardFromHandWhenThereAreNoCardsInHand(){
-        print("test")
+        //print("test")
         XCTAssertEqual(sut.removeCardFromHand(cardToRemove: Card(num: Card.Num.two, col: Card.Col.red)), false, "Function did not return false")
     }
 }

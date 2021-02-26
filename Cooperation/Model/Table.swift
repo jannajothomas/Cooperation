@@ -33,6 +33,12 @@
 import UIKit
 import GameplayKit
 
+protocol sendGamePlayActionDelegate{
+    func playCard(hand:Int, card:Int, column:Int)
+    func discardCard(hand:Int, card:Int, column:Int)
+    func giveHint()
+}
+
 class Table: NSObject{
 
     //Constants
@@ -54,28 +60,15 @@ class Table: NSObject{
 
     var deck = Deck()
     
+    var delegate: sendGamePlayActionDelegate?
+    
     //TODO: Make the first value of current player randomly selected
     var currentPlayer = 1{
         didSet{
            changePlayers()
         }
     }
-    
-    private func changePlayers(){
-           if(currentPlayer == 0){
-               computerPlayer.playBestMove()
-               switch computerPlayer.action{
-                    case"play":
-                       playCard(hand: 0, card: computerPlayer.cardToAct)
-                    
-                    //TODO: Add other possible actions here
-                    default:
-                       print("unexpeted choice")
-               }
-               currentPlayer = 1
-           }
-    }
-    
+
     //***************************Init***************************
     override init() {
         super.init()
@@ -88,6 +81,29 @@ class Table: NSObject{
                 hands[hand][card] = deck.drawCard()!
                 computerPlayer.computerMemory.cardDrawn(player: hand, cardLocation: card, cardToRemove: hands[hand][card])
             }
+        }
+        currentPlayer = 1
+    }
+    
+    private func changePlayers(){
+        print("changing players")
+           if(currentPlayer == 0){
+               computerPlayer.playBestMove()
+               switch computerPlayer.action{
+                    case"play":
+                        print("Play")
+                        playCard(hand: 0, card: computerPlayer.cardToAct)
+                        //TODO:  This si a placeholder
+                        
+                        delegate?.playCard(hand:0, card:computerPlayer.cardToAct, column: Int(1))
+                    
+                    //TODO: Add other possible actions here
+                    default:
+                       print("unexpeted choice")
+               }
+               currentPlayer = 1
+           }else{
+            currentPlayer = 0
         }
     }
     
@@ -108,22 +124,22 @@ class Table: NSObject{
         
         //Played on an empty stack?
         if nextCardNum[stack] == 1{
-            print("card is a one")
+            //print("card is a one")
             //Card is a one
             if ((cardNum == 1) && (nextCardNum[cardColIndex] == 1)){
                 //Card was played on an empty stack and that color hasn't already been played
                 return true
             }
         }else{
-            print("card is a ", cardNum)
+            //print("card is a ", cardNum)
             //Card is any number other than one
 
             if((stack == cardColIndex) && (cardNum == nextCardNum[cardColIndex])){
-                print("card was played on the correct color stack and is the correct number")
+                //print("card was played on the correct color stack and is the correct number")
                 //Card was played on the correct color stack and is the correct number
                 return true
             }else{
-                print("card is wrong color or wrong number")
+                //print("card is wrong color or wrong number")
                 //Card is wrong color or wrong number to be played
                 return false
             }
@@ -136,7 +152,7 @@ class Table: NSObject{
         for column in 0...4{
             nextCardNum[column] = getNextCardNumber(column: column)
         }
-        print("next card num", nextCardNum)
+        //print("next card num", nextCardNum)
         return nextCardNum
     }
     //Helper Function
@@ -155,12 +171,16 @@ class Table: NSObject{
     }
     
     func playCard(hand:Int, card:Int){
+        print("func playCard")
         let stack = hands[hand][card].col.rawValue - 1
-    stacks[stack][getNextEmptyStackPosition(column: stack)] = hands[hand][card]
+        stacks[stack][getNextEmptyStackPosition(column: stack)] = hands[hand][card]
         hands[hand][card] = deck.drawCard()!
         computerPlayer.computerMemory.cardPlayedOrDiscarded(player: hand, cardLocation: card, cardPlayed: hands[hand][card])
-        printGameBoard()
+        //printGameBoard()
         changePlayers()
+        //TODO:  Column is a placeholder
+        
+        delegate?.playCard(hand:hand, card:card, column: Int(1))
     }
     
     func printGameBoard(){
@@ -195,7 +215,7 @@ class Table: NSObject{
         discardPiles[discardColumn][firstEmptySlot] = hands[hand][card]
         hands[hand][card] = deck.drawCard()!
         computerPlayer.computerMemory.cardPlayedOrDiscarded(player: hand, cardLocation: card, cardPlayed: hands[hand][card])
-        printGameBoard()
+        //printGameBoard()
         changePlayers()
         return discardColumn
     }
@@ -210,40 +230,4 @@ class Table: NSObject{
     }
 }
 
-
-//MARK: DECK
-struct Deck {
-    var cards = [Card]()
-    
-    init() {
-        for col in Card.Col.all{
-            for num in Card.Num.all{
-                switch num{
-                case Card.Num.one:
-                    cards.append(Card(num: num, col: col))
-                    cards.append(Card(num: num, col: col))
-                    cards.append(Card(num: num, col: col))
-                case Card.Num.five:
-                    cards.append(Card(num: num, col: col))
-                default:
-                    cards.append(Card(num: num, col: col))
-                    cards.append(Card(num: num, col: col))
-                }
-            }
-        }
-    }
-    
-    func getFullDeck()->[Card]{
-        return cards
-    }
-    
-    mutating func drawCard() -> Card? {
-        if cards.count > 0 {
-            return cards.remove(at: Int(arc4random_uniform(UInt32(cards.count))))
-        } else {
-            return nil
-        }
-        //TODO: add other error catching stuff here
-    }
-}
 
