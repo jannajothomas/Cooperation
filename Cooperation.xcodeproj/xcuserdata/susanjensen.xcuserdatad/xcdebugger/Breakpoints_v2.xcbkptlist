@@ -702,8 +702,8 @@
             filePath = "Cooperation/View/GameViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "381"
-            endingLineNumber = "381"
+            startingLineNumber = "386"
+            endingLineNumber = "386"
             landmarkName = "playCardAnimation(hand:card:column:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -718,8 +718,8 @@
             filePath = "Cooperation/View/GameViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "395"
-            endingLineNumber = "395"
+            startingLineNumber = "400"
+            endingLineNumber = "400"
             landmarkName = "discardCardAnimation(hand:card:column:row:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -734,8 +734,8 @@
             filePath = "Cooperation/View/GameViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "430"
-            endingLineNumber = "430"
+            startingLineNumber = "440"
+            endingLineNumber = "440"
             landmarkName = "addCard(name:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -750,8 +750,8 @@
             filePath = "Cooperation/View/GameViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "445"
-            endingLineNumber = "445"
+            startingLineNumber = "455"
+            endingLineNumber = "455"
             landmarkName = "addCard(hand:card:dealingComplete:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -882,6 +882,166 @@
             endingLineNumber = "214"
             landmarkName = "printGameBoard()"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2A49418A-E700-4B2D-8E6D-6B2D1F98069F"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Cooperation/View/GameViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "309"
+            endingLineNumber = "309"
+            landmarkName = "turnOverCard(card:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "258E43BB-44EC-45BF-870A-85FBAA3DED23"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Cooperation/View/GameViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "347"
+            endingLineNumber = "347"
+            landmarkName = "moveCardAnimation(sourceHand:sourceCard:destinationCard:destintionHand:playedToCard:playedToHand:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2D218E60-8CE9-4E60-BAC1-503172266DE5"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Cooperation/View/GameViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "413"
+            endingLineNumber = "413"
+            landmarkName = "discardCardAnimation(hand:card:column:row:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C7C95A7B-4451-473B-B1C0-C4DDB1E19CB0"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Cooperation/View/GameViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "420"
+            endingLineNumber = "420"
+            landmarkName = "discardCardAnimation(hand:card:column:row:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "C7C95A7B-4451-473B-B1C0-C4DDB1E19CB0 - 2ae9184f9c2cb8fa"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Swift.Bool) -&gt; () in Cooperation.GameViewController.discardCardAnimation(hand: Swift.Int, card: Swift.Int, column: Swift.Int, row: Swift.Int) -&gt; ()"
+                  moduleName = "Cooperation"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/susanjensen/Documents/CooperationRepository/Cooperation/View/GameViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "416"
+                  endingLineNumber = "416"
+                  offsetFromSymbolStart = "566">
+               </Location>
+               <Location
+                  uuid = "C7C95A7B-4451-473B-B1C0-C4DDB1E19CB0 - 9d8d0b5fefc23331"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Swift.Bool) -&gt; () in closure #2 (Swift.Bool) -&gt; () in Cooperation.GameViewController.discardCardAnimation(hand: Swift.Int, card: Swift.Int, column: Swift.Int, row: Swift.Int) -&gt; ()"
+                  moduleName = "Cooperation"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/susanjensen/Documents/CooperationRepository/Cooperation/View/GameViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "417"
+                  endingLineNumber = "417"
+                  offsetFromSymbolStart = "87">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A3B21558-7855-41CA-8BCC-0ACE4F80F76F"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Cooperation/View/GameViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "416"
+            endingLineNumber = "416"
+            landmarkName = "discardCardAnimation(hand:card:column:row:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2CEDE0C8-382A-4AE5-A8DF-64180411F7C6"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Cooperation/View/GameViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "417"
+            endingLineNumber = "417"
+            landmarkName = "discardCardAnimation(hand:card:column:row:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "2CEDE0C8-382A-4AE5-A8DF-64180411F7C6 - 2ae9184f9c2cb8fa"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Swift.Bool) -&gt; () in Cooperation.GameViewController.discardCardAnimation(hand: Swift.Int, card: Swift.Int, column: Swift.Int, row: Swift.Int) -&gt; ()"
+                  moduleName = "Cooperation"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/susanjensen/Documents/CooperationRepository/Cooperation/View/GameViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "413"
+                  endingLineNumber = "413"
+                  offsetFromSymbolStart = "336">
+               </Location>
+               <Location
+                  uuid = "2CEDE0C8-382A-4AE5-A8DF-64180411F7C6 - 6a194eef9246bb6e"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in closure #2 (Swift.Bool) -&gt; () in Cooperation.GameViewController.discardCardAnimation(hand: Swift.Int, card: Swift.Int, column: Swift.Int, row: Swift.Int) -&gt; ()"
+                  moduleName = "Cooperation"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/susanjensen/Documents/CooperationRepository/Cooperation/View/GameViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "414"
+                  endingLineNumber = "414"
+                  offsetFromSymbolStart = "22">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

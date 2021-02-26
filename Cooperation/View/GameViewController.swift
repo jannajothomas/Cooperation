@@ -331,7 +331,12 @@ class GameViewController: UIViewController {
     }
     
      func moveCardAnimation(sourceHand: Int, sourceCard: Int, destinationCard: Int, destintionHand: Int, playedToCard: Int, playedToHand: Int) {
-                let chosenCardView = playerHands[sourceHand][sourceCard]
+        let chosenCardView = playerHands[sourceHand][sourceCard]
+        
+        var flipDuration = GameViewController.cardFlipTime
+        if sourceHand == 0{
+            flipDuration = TimeInterval(0)
+        }
          view.bringSubviewToFront(chosenCardView)
                  self.view.layoutIfNeeded()
                  UIView.animate(
@@ -342,7 +347,7 @@ class GameViewController: UIViewController {
                          UIView.transition(
                              with: chosenCardView,
                              duration: GameViewController.cardFlipTime,
-                             options: .transitionFlipFromLeft,
+                             options:.transitionFlipFromLeft,
                              animations: {
                                  chosenCardView.isFaceUp = true},
                              completion: {_ in
@@ -393,38 +398,37 @@ extension GameViewController: sendGamePlayActionDelegate{
     }
     
     func discardCardAnimation(hand:Int, card:Int, column: Int, row:Int) {
-            let chosenCardView = playerHands[hand][card]
-            view.bringSubviewToFront(chosenCardView)
-                    self.view.layoutIfNeeded()
-                    UIView.animate(
-                     withDuration: GameViewController.cardMoveTime,
-                        animations: {
-                            chosenCardView.frame = self.layout.Frame(Details: self.screenDetails, item: CardIdentity(hand: 4, card: 2))},
-                        completion: {_ in
-                            UIView.transition(
-                                with: chosenCardView,
-                                duration: GameViewController.cardFlipTime,
-                                options: .transitionFlipFromLeft,
-                                animations: {
-                                    chosenCardView.isFaceUp = true},
-                                completion: {_ in
-                                        UIView.animate(
-                                         withDuration: GameViewController.cardMoveTime,
-                                            animations:  {
-                                                
-                                                chosenCardView.center = self.layout.Location(Details: self.screenDetails, item: CardIdentity(hand: row + 6, card: column))
-                                        },
-                                            completion: {_ in
-                                                self.discardPiles[column][row] = self.playerHands[hand][card]
-                                                self.drawCardAnimation(hand: hand, card: card)
-                                        }
-                                     )
-                                }
-                            )
-                        }
-                    )
+        var animationOptions = UIView.AnimationOptions.transitionFlipFromLeft
+        if hand == 0{
+            animationOptions =  UIView.AnimationOptions.overrideInheritedOptions
         }
-
+        let chosenCardView = playerHands[hand][card]
+        view.bringSubviewToFront(chosenCardView)
+        self.view.layoutIfNeeded()
+        UIView.animate(
+            withDuration: GameViewController.cardMoveTime,
+            animations: {
+                chosenCardView.frame = self.layout.Frame(Details: self.screenDetails, item: CardIdentity(hand: 4, card: 2))},
+            completion: {_ in
+                UIView.transition(
+                    with: chosenCardView,
+                    duration: GameViewController.cardFlipTime,
+                    options: animationOptions,
+                    animations: {chosenCardView.isFaceUp = true},
+                    completion: {_ in
+                        UIView.animate(
+                            withDuration: GameViewController.cardMoveTime,
+                            animations:  { chosenCardView.center = self.layout.Location(Details: self.screenDetails, item: CardIdentity(hand: row + 6, card: column))},
+                            completion: {_ in
+                                self.discardPiles[column][row] = self.playerHands[hand][card]
+                                self.drawCardAnimation(hand: hand, card: card)
+                            }
+                        )
+                    }
+                )
+            }
+        )
+    }
     
     //TODO: Combine these two functions in any way reasonable
     func addCard(name: String)->CardView {
