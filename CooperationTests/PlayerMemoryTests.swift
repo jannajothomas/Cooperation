@@ -7,27 +7,80 @@
 //
 
 import XCTest
+@testable import Cooperation
 
 class PlayerMemoryTests: XCTestCase {
-
+    var computerMemory: ComputerMemory!
+    var deck: Deck!
+    
     override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        super.setUp()
+        computerMemory = ComputerMemory()
+        deck = Deck()
     }
 
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testInitialValueOfArrays(){
+        for count in 0...4{
+            let cardPossibilities  = computerMemory.getCardPossibilities(column: count)
+            XCTAssertEqual(deck.getFullDeck(),cardPossibilities,"Array does not contain the correct values")
+        }
+        let cardPossibilities = computerMemory.newCardPossibilities
+         XCTAssertEqual(deck.getFullDeck(),cardPossibilities,"Array does not contain the correct values")
     }
+    
+    func testRemoveNumberValueFromColumn(){
+        let column = 0
+        let number = 1
+        let expectedArray = getDeckWithoutANumber(number:number)
+        computerMemory.removeFromColumn(number: number, column: column)
+    XCTAssertEqual(expectedArray,computerMemory.cardPossibilities[column],"Array does not contain the correct values")
+    }
+    
+    func testRemoveColorValueFromColumn(){
+        let column = 0
+        let color = Card.Col.blue
+        let expectedArray = getDeckWithoutAColor(colorToRemove:color)
+        computerMemory.removeFromColumn(color: color, column: column)
+    XCTAssertEqual(expectedArray,computerMemory.cardPossibilities[column],"Array does not contain the correct values")
+    }
+}
 
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+func getDeckWithoutANumber(number: Int)->[Card]{
+    let numbers = Card.Num.all.filter{(num) -> Bool in num.rawValue != number}
+
+    return createDeckWithModifiedParameters(numbers: numbers, colors: Card.Col.all)
+}
+
+func getDeckWithoutAColor(colorToRemove: Card.Col)->[Card]{
+    let colors = Card.Col.all.filter{(col) -> Bool in col != colorToRemove}
+    
+    return createDeckWithModifiedParameters(numbers: Card.Num.all, colors: colors)
+}
+
+func createDeckWithModifiedParameters(numbers:[Card.Num], colors:[Card.Col])->[Card]{
+    
+    var modifiedDeck  = [Card]()
+    
+    for col in colors{
+        for num in numbers{
+            switch num{
+            case Card.Num.one:
+                modifiedDeck.append(Card(num: num, col: col))
+                modifiedDeck.append(Card(num: num, col: col))
+                modifiedDeck.append(Card(num: num, col: col))
+            case Card.Num.five:
+                modifiedDeck.append(Card(num: num, col: col))
+            default:
+                modifiedDeck.append(Card(num: num, col: col))
+                modifiedDeck.append(Card(num: num, col: col))
+            }
         }
     }
-
+    return modifiedDeck
 }
+
+
