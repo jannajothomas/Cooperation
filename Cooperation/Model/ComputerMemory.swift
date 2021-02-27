@@ -31,25 +31,21 @@ struct ComputerMemory{
         }
     }
     
-    func removeCardFromPossibilities(){
-        
-    }
-    
     func getCardPossibilities(column:Int)->[Card]{
         return cardPossibilities[column]
     }
     
-    func addInfoFromHint(hintColor: Card.Col, values: [Bool]){
+    mutating func addInfoFromHint(hintColor: Card.Col, values: [Bool]){
         for count in 0...4{
             if values[count] {      //card is this number
                 onlyValueInColumn(color: hintColor, column: count)
             }else{                  //card is not this number
-                removeValueFromColumn(color: hintColor, column: count)
+                removeFromColumn(color: hintColor, column: count)
             }
         }
     }
     
-    func addInfoFromHint(hintNumber: Int, values: [Bool]){
+    mutating func addInfoFromHint(hintNumber: Int, values: [Bool]){
         for count in 0...4{
             if values[count] {      //card is this number
                 onlyValueInColumn(number: hintNumber, column: count)
@@ -59,21 +55,33 @@ struct ComputerMemory{
         }
     }
     
-    
-    mutating func removeValueFromColumn(number:Int, column: Int){
+    mutating func removeFromColumn(number:Int, column: Int){
         cardPossibilities[column] = cardPossibilities[column].filter{
             (card) -> Bool in card.num.rawValue != number}
     }
     
-    func removeValueFromColumn(color:Card.Col, column: Int){
-        //TODO: Implement
+    mutating func removeFromColumn(color:Card.Col, column: Int){
+        cardPossibilities[column] = cardPossibilities[column].filter{
+        (card) -> Bool in card.col != color}
     }
     
-    func onlyValueInColumn(number:Int, column: Int){
-        //TODO: Implement
+    mutating func removeFromColumn(card:Card, column: Int){
+        let indexToRemove = cardPossibilities[column].firstIndex(of: card)!
+        cardPossibilities[column].remove(at: indexToRemove)
     }
     
-    func onlyValueInColumn(color:Card.Col, column: Int){
-          //TODO: Implement
+    mutating func onlyValueInColumn(number:Int, column: Int){
+        cardPossibilities[column] = cardPossibilities[column].filter{
+        (card) -> Bool in card.num.rawValue == number}
+    }
+    
+    mutating func onlyValueInColumn(color:Card.Col, column: Int){
+          cardPossibilities[column] = cardPossibilities[column].filter{
+          (card) -> Bool in card.col == color}
       }
+    
+    mutating func onlyValueInColumn(card:Card, column:Int){
+        cardPossibilities[column].removeAll()
+        cardPossibilities[column].append(card)
+    }
 }

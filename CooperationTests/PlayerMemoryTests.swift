@@ -37,7 +37,7 @@ class PlayerMemoryTests: XCTestCase {
         let number = 1
         let  expectedArray = getDeckWithoutANumber(number:number)
         print("this is ok")
-        computerMemory.removeValueFromColumn(number: number, column: column)
+        computerMemory.removeFromColumn(number: number, column: column)
        print("what about this")
         XCTAssertEqual(expectedArray,computerMemory.cardPossibilities[column],"Array does not contain the correct values")
     }
