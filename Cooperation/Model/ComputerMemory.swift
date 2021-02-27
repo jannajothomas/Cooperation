@@ -65,15 +65,10 @@ struct ComputerMemory{
             if cardPossibilities[column][count].num.rawValue == number{
                 
                 
-                let list = cardPossibilities[column].filter{(card) -> Bool in card.num.rawValue != number }
+                cardPossibilities[column] =  cardPossibilities[column].filter{(card) -> Bool in card.num.rawValue != number }
                                    
-                print("list without number", list)
+                //print("list without number", list)
                 
-                
-
-                
-                //cardPossibilities.removeAll(where: { $0 == 1 })
-               // cardPossibilities.removeAll(where: (Card.num.raw == number))
             }
         }
         

@@ -32,9 +32,12 @@ class PlayerMemoryTests: XCTestCase {
          XCTAssertEqual(deck.getFullDeck(),cardPossibilities,"Array does not contain the correct values")
     }
     
-    func testPrintCardPossibilites() {
-        computerMemory.printCardPossibilities()
-        computerMemory.removeValueFromColumn(number: 1, column: 1)
+    func testRemoveValueFromColumn(){
+        let column = 0
+        let number = 1
+        let  expectedArray = deck.getDeckWithoutANumber(number:number)
+        computerMemory.removeValueFromColumn(number: number, column: column)
+        //let expectedArray = deck.getDeckWithoutANumber(value: ) XCTAssertEqual(expectedArray,computerMemory.cardPossibilities[column],"Array does not contain the correct values")
     }
 
 }
