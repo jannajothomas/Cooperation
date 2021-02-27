@@ -43,7 +43,7 @@ class PlayerMemoryTests: XCTestCase {
         
         //test remove color
         let color = Card.Col.blue
-        expectedArray = getDeckWithoutAColor(color:Card.Col)
+        expectedArray = getDeckWithoutAColor(colorToRemove:Card.Col)
         computerMemory.removeFromColumn(color: color, column: column)
         XCTAssertEqual(expectedArray,computerMemory.cardPossibilities[column],"Array does not contain the correct values")
     }
@@ -75,7 +75,7 @@ func getDeckWithoutANumber(number: Int)->[Card]{
 }
 
 //TODO:  Redo this by filter and remove
-func getDeckWithoutANumber(colorToRemove: Card.Col)->[Card]{
+func getDeckWithoutAColor(colorToRemove: Card.Col)->[Card]{
     let numbers = Card.Num.all
     var colors = [Card.Col]()
    
