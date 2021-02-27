@@ -14,6 +14,7 @@
 		D53B62C825E5C7E4002B6F7F /* ComputerMemory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53B62C725E5C7E4002B6F7F /* ComputerMemory.swift */; };
 		D53B62CA25E5E571002B6F7F /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53B62C925E5E571002B6F7F /* Deck.swift */; };
 		D541742325897343004E22AD /* DeckTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D541742225897343004E22AD /* DeckTest.swift */; };
+		D5505D9B25E9CDC50018A7CC /* PlayerMemoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5505D9A25E9CDC50018A7CC /* PlayerMemoryTests.swift */; };
 		D5E5CADB257F15BE000D0B72 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E5CADA257F15BE000D0B72 /* AppDelegate.swift */; };
 		D5E5CADD257F15BE000D0B72 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E5CADC257F15BE000D0B72 /* SceneDelegate.swift */; };
 		D5E5CADF257F15BE000D0B72 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E5CADE257F15BE000D0B72 /* GameViewController.swift */; };
@@ -54,6 +55,7 @@
 		D53B62C725E5C7E4002B6F7F /* ComputerMemory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComputerMemory.swift; sourceTree = "<group>"; };
 		D53B62C925E5E571002B6F7F /* Deck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
 		D541742225897343004E22AD /* DeckTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckTest.swift; sourceTree = "<group>"; };
+		D5505D9A25E9CDC50018A7CC /* PlayerMemoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerMemoryTests.swift; sourceTree = "<group>"; };
 		D5E5CAD7257F15BE000D0B72 /* Cooperation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cooperation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5E5CADA257F15BE000D0B72 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D5E5CADC257F15BE000D0B72 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 				D5E5CAF6257F15C0000D0B72 /* Info.plist */,
 				D541742225897343004E22AD /* DeckTest.swift */,
 				D51E395D259D6E05001F0FBA /* CardViewTest.swift */,
+				D5505D9A25E9CDC50018A7CC /* PlayerMemoryTests.swift */,
 			);
 			path = CooperationTests;
 			sourceTree = "<group>";
@@ -332,6 +335,7 @@
 			files = (
 				D541742325897343004E22AD /* DeckTest.swift in Sources */,
 				D5E5CAF5257F15C0000D0B72 /* CooperationTests.swift in Sources */,
+				D5505D9B25E9CDC50018A7CC /* PlayerMemoryTests.swift in Sources */,
 				D52433D325AE75A70034B503 /* TableTest.swift in Sources */,
 				D51E395E259D6E05001F0FBA /* CardViewTest.swift in Sources */,
 			);

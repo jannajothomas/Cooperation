@@ -5,6 +5,25 @@
 \margl1440\margr1440\vieww9000\viewh8400\viewkind0
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 
-\f0\fs24 \cf0 Table line  175 Somehow all of  the  cards are being drawn:\
-Issues 1: Program throws an error when all cards are drawn.  This needs to be fixed\
-Issue 2: All the cards are getitng drawn.  Player exchange is NOT working}
+\f0\fs24 \cf0 Big topics to tackle\
+1) Computer always does the same play.  Even if this isn\'92t perfece, it isn\'92t anywhere near a playable game\
+\
+2) There is no hint functionality, which is a key part of the game\
+\
+X - All of the cards are being drawn\
+	D - I play\
+	D -Play never returns to me\
+X -		Writing test to check function changePlayers(Table)\
+X -		Test exists, not passing\
+\
+X - Computer player moves are not being animated - \'93Add delegation action to animate ...\'94		D - Animation is not happening correctly\
+		X -Two cards dealt to computer player\
+			X - Column for play and discard card in Table are hard wired.\
+			X - write isCardPlayableAtThisLocation function \
+		X -Discard no longer working\
+\
+X -Cards are not being discarded into proper color stacks\
+	X - too much  decisions about where to put cards is being done in view controller.\
+\
+	X -Turn over computer card after it is dealt\
+X - I can\'92t find a way to make the discarding look different for the computer and player (in one the card needs to flip and in the other it doesn\'92t beacuse it is alread visible}
