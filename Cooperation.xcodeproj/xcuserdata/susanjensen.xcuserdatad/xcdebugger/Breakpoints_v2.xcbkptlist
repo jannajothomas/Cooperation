@@ -1054,9 +1054,25 @@
             filePath = "Cooperation/Model/ComputerMemory.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "63"
-            endingLineNumber = "63"
-            landmarkName = "removeFromColumn(color:column:)"
+            startingLineNumber = "58"
+            endingLineNumber = "58"
+            landmarkName = "removeFromColumn(number:column:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "7747658D-B7A8-4FFF-81C1-D54A79C35643"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CooperationTests/PlayerMemoryTests.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "35"
+            endingLineNumber = "35"
+            landmarkName = "testRemoveNumberValueFromColumn()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

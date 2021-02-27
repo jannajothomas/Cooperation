@@ -32,33 +32,29 @@ class PlayerMemoryTests: XCTestCase {
          XCTAssertEqual(deck.getFullDeck(),cardPossibilities,"Array does not contain the correct values")
     }
     
-    //TODO: FInish populating this test
-    func testRemoveValueFromColumn(){
-        //test remove number
+    func testRemoveNumberValueFromColumn(){
         let column = 0
         let number = 1
-        var expectedArray = getDeckWithoutANumber(number:number)
+        let expectedArray = getDeckWithoutANumber(number:number)
         computerMemory.removeFromColumn(number: number, column: column)
     XCTAssertEqual(expectedArray,computerMemory.cardPossibilities[column],"Array does not contain the correct values")
-        
-        //test remove color
-        let color = Card.Col.blue
-        expectedArray = getDeckWithoutAColor(colorToRemove:color)
-        computerMemory.removeFromColumn(color: color, column: column)
-        XCTAssertEqual(expectedArray,computerMemory.cardPossibilities[column],"Array does not contain the correct values")
     }
-
+    
+    func testRemoveColorValueFromColumn(){
+        let column = 0
+        let color = Card.Col.blue
+        let expectedArray = getDeckWithoutAColor(colorToRemove:color)
+        computerMemory.removeFromColumn(color: color, column: column)
+    XCTAssertEqual(expectedArray,computerMemory.cardPossibilities[column],"Array does not contain the correct values")
+    }
 }
 
-//TODO: redo this by filter and remove
 func getDeckWithoutANumber(number: Int)->[Card]{
     let numbers = Card.Num.all.filter{(num) -> Bool in num.rawValue != number}
 
-    print(numbers)
     return createDeckWithModifiedParameters(numbers: numbers, colors: Card.Col.all)
 }
 
-//TODO:  Redo this by filter and remove
 func getDeckWithoutAColor(colorToRemove: Card.Col)->[Card]{
     let colors = Card.Col.all.filter{(col) -> Bool in col != colorToRemove}
     
