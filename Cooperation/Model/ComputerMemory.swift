@@ -61,19 +61,9 @@ struct ComputerMemory{
     
     
     mutating func removeValueFromColumn(number:Int, column: Int){
-        for count in 0...cardPossibilities[column].count - 1{
-            if cardPossibilities[column][count].num.rawValue == number{
-                
-                
-                cardPossibilities[column] =  cardPossibilities[column].filter{(card) -> Bool in card.num.rawValue != number }
-                                   
-                //print("list without number", list)
-                
-            }
-        }
-        
-           //TODO: Implement
-       }
+        cardPossibilities[column] = cardPossibilities[column].filter{
+            (card) -> Bool in card.num.rawValue != number}
+    }
     
     func removeValueFromColumn(color:Card.Col, column: Int){
         //TODO: Implement
