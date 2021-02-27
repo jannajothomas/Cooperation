@@ -52,7 +52,6 @@ class PlayerMemoryTests: XCTestCase {
 
 //TODO: redo this by filter and remove
 func getDeckWithoutANumber(number: Int)->[Card]{
-    
     let numbers = Card.Num.all.filter{(num) -> Bool in num.rawValue != number}
 
     print(numbers)
@@ -61,26 +60,9 @@ func getDeckWithoutANumber(number: Int)->[Card]{
 
 //TODO:  Redo this by filter and remove
 func getDeckWithoutAColor(colorToRemove: Card.Col)->[Card]{
-    let numbers = Card.Num.all
-    var colors = [Card.Col]()
-   
-    for color in colors{
-        if color != colorToRemove{
-            switch color {
-            case Card.Col.red:
-                colors.append(Card.Col.red)
-            case Card.Col.blue:
-                colors.append(Card.Col.blue)
-            case Card.Col.magenta:
-                colors.append(Card.Col.magenta)
-            case Card.Col.orange:
-                colors.append(Card.Col.orange)
-            default:
-                colors.append(Card.Col.purple)
-            }
-        }
-    }
-    return createDeckWithModifiedParameters(numbers: numbers, colors: colors)
+    let colors = Card.Col.all.filter{(col) -> Bool in col != colorToRemove}
+    
+    return createDeckWithModifiedParameters(numbers: Card.Num.all, colors: colors)
 }
 
 func createDeckWithModifiedParameters(numbers:[Card.Num], colors:[Card.Col])->[Card]{
