@@ -73,7 +73,7 @@ class Table: NSObject{
         for hand in 0...1{
             for card in 0...4{
                 hands[hand][card] = deck.drawCard()!
-                computerPlayer.computerMemory.cardDrawn(player: hand, cardLocation: card, cardToRemove: hands[hand][card])
+                //computerPlayer.computerMemory.cardDrawn(player: hand, cardLocation: card, cardToRemove: hands[hand][card])
             }
         }
     }
@@ -191,7 +191,7 @@ class Table: NSObject{
         hands[hand][card] = deck.drawCard()!
         
         //update computer memory as necessary
-        computerPlayer.computerMemory.cardPlayedOrDiscarded(player: hand, cardLocation: card, cardPlayed: hands[hand][card])
+        //computerPlayer.computerMemory.cardPlayedOrDiscarded(player: hand, cardLocation: card, cardPlayed: hands[hand][card])
     }
     
     func discardCard(hand:Int, card:Int){
@@ -207,7 +207,7 @@ class Table: NSObject{
         let discardRow = getNextEmptySlot(column: discardColumn)
         discardPiles[discardColumn][discardRow] = hands[hand][card]
         hands[hand][card] = deck.drawCard()!
-        computerPlayer.computerMemory.cardPlayedOrDiscarded(player: hand, cardLocation: card, cardPlayed: hands[hand][card])
+        //computerPlayer.computerMemory.cardPlayedOrDiscarded(player: hand, cardLocation: card, cardPlayed: hands[hand][card])
          delegate?.discardCardAnimation(hand: hand, card: card, column: discardColumn, row:discardRow)
     }
     

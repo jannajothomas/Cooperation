@@ -21,6 +21,10 @@ struct ComputerPlayer{
     
     static var totalTurns = 0
     
+    init(){
+        
+    }
+    
     func updateAI(){
         
     }
