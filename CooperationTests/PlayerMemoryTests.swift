@@ -32,42 +32,78 @@ class PlayerMemoryTests: XCTestCase {
          XCTAssertEqual(deck.getFullDeck(),cardPossibilities,"Array does not contain the correct values")
     }
     
+    //TODO: FInish populating this test
     func testRemoveValueFromColumn(){
+        //test remove number
         let column = 0
         let number = 1
-        let  expectedArray = getDeckWithoutANumber(number:number)
-        print("this is ok")
+        var expectedArray = getDeckWithoutANumber(number:number)
         computerMemory.removeFromColumn(number: number, column: column)
-       print("what about this")
+    XCTAssertEqual(expectedArray,computerMemory.cardPossibilities[column],"Array does not contain the correct values")
+        
+        //test remove color
+        let color = Card.Col.blue
+        expectedArray = getDeckWithoutAColor(color:Card.Col)
+        computerMemory.removeFromColumn(color: color, column: column)
         XCTAssertEqual(expectedArray,computerMemory.cardPossibilities[column],"Array does not contain the correct values")
     }
 
 }
 
-
+//TODO: redo this by filter and remove
 func getDeckWithoutANumber(number: Int)->[Card]{
-    var modifiedDeck  = [Card]()
-    var list = [Card.Num]()
-    
+    var numbers = [Card.Num]()
+    let colors = Card.Col.all
+   
     for count in 1...5{
         if count != number{
             switch count {
             case 1:
-                list.append(Card.Num.one)
+                numbers.append(Card.Num.one)
             case 2:
-                list.append(Card.Num.two)
+                numbers.append(Card.Num.two)
             case 3:
-                list.append(Card.Num.three)
+                numbers.append(Card.Num.three)
             case 4:
-                list.append(Card.Num.four)
+                numbers.append(Card.Num.four)
             default:
-                list.append(Card.Num.five)
+                numbers.append(Card.Num.five)
             }
         }
     }
+    return createDeckWithModifiedParameters(numbers: numbers, colors: colors)
+}
+
+//TODO:  Redo this by filter and remove
+func getDeckWithoutANumber(colorToRemove: Card.Col)->[Card]{
+    let numbers = Card.Num.all
+    var colors = [Card.Col]()
+   
+    for color in colors{
+        if color != colorToRemove{
+            switch color {
+            case Card.Col.red:
+                colors.append(Card.Col.red)
+            case Card.Col.blue:
+                colors.append(Card.Col.blue)
+            case Card.Col.magenta:
+                colors.append(Card.Col.magenta)
+            case Card.Col.orange:
+                colors.append(Card.Col.orange)
+            default:
+                colors.append(Card.Col.purple)
+            }
+        }
+    }
+    return createDeckWithModifiedParameters(numbers: numbers, colors: colors)
+}
+
+func createDeckWithModifiedParameters(numbers:[Card.Num], colors:[Card.Col])->[Card]{
     
-    for col in Card.Col.all{
-        for num in list{
+    var modifiedDeck  = [Card]()
+    
+    for col in colors{
+        for num in numbers{
             switch num{
             case Card.Num.one:
                 modifiedDeck.append(Card(num: num, col: col))
@@ -81,8 +117,7 @@ func getDeckWithoutANumber(number: Int)->[Card]{
             }
         }
     }
-
-    print(modifiedDeck)
-            
     return modifiedDeck
 }
+
+
